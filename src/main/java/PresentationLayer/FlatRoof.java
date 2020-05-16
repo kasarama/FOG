@@ -24,17 +24,7 @@ public class FlatRoof extends Command {
         ArrayList<Material> materialList = rmc.flatRoofMaterialsInsert(materialName);
         constructionRequest.getRoof().setRoofMaterialList(materialList);
 
-/*<<<<<<< HEAD
-=======
-        int[] tiltOptions = roofSizing.pitchDegreesOptionsForCostumerToChoose();
 
-        request.setAttribute("height", height);
-        request.setAttribute("tilt", tilt);
-
-        constructionRequest.getRoof().setHeight(height);
-        constructionRequest.getRoof().setDegree(tilt);
-
->>>>>>> lifeOfOrder*/
         session.setAttribute("carportBase", constructionRequest);
 
 

@@ -2,6 +2,7 @@ package FunctionLayer;
 
 // Materiale type
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 import static FunctionLayer.ConstructionSizeCalculator.*;
@@ -12,33 +13,31 @@ import static FunctionLayer.LogicFacade.sendOffer;
 public class ConstructionMaterialCalculator {
     public static ConstructionSizeCalculator constructionSizeCalculator = new ConstructionSizeCalculator();
     //public Construction construction = new Construction();
+    private static int INGROUND = 900;
 
     //.......................All the materials for construction.............................//
     public static ArrayList<Material> constructionMaterialList(Construction construction) throws LoginSampleException {
         ArrayList<Material> woodMaterials = woodMaterials(construction);
         ArrayList<Material> metalMaterials = metalMaterials(construction);
+        ArrayList <Material> posts = postsQuatity(construction);
         ArrayList<Material> constructionMaterials = new ArrayList<>();
         constructionMaterials.addAll(woodMaterials);
         constructionMaterials.addAll(metalMaterials);
+        constructionMaterials.addAll(posts);
 
         return constructionMaterials;
     }
 
-    //................................wood materials............................//
-    public static ArrayList<Material> woodMaterials(Construction construction) throws LoginSampleException {
-        ArrayList<Material> woodMaterials = new ArrayList<>();
-        /*
-        // Stolper
-        //TODO: sæt stolper i den rigtige størrelse ind i woodMaterials listen
-        //Beregning er uden stolper til skur
-        //TODO - 90cm skal tilføjes pr nedsat stolpe
-        System.out.println(construction.getRoof().getHeight());
+    public static ArrayList<Material> postsQuatity(Construction construction) throws LoginSampleException {
+        // Stolper (uden skur)
+        ArrayList<Material> posts = new ArrayList();
+
+        int roofHeight = construction.getRoof().getHeight();
         double constructionMinHeight = construction.getConstructionHeight() - construction.getRoof().getHeight();
         ArrayList<Integer> actualHeightsOfPostsForConstruction = new ArrayList();
-        System.out.println("Test 3");
+
         int carportMinHeight = carportMinHeight((int) constructionMinHeight, construction.getShed().getDepth(),
                 construction.getRoof().getTilt());
-        System.out.println("Test 4");
         int quantityOfCarportPostsRows = postRows(construction.getCarportWidth());
         Integer[] heightsOfPostsPerRow = postsHeights(carportMinHeight, construction.getRoof().getDegree(),
                 construction.getConstructionWidth());
@@ -47,47 +46,52 @@ public class ConstructionMaterialCalculator {
                 actualHeightsOfPostsForConstruction.add(postHeight);
             }
         }
-        System.out.println("Test 5");
+
         ArrayList<Integer> postsMaterialsAvalibleLenghts = getLengthForMaterials("TRYKIMPRENERET STOLPE");
-        System.out.println("Her 1?");
         ArrayList<Material> tempPostsMaterails = new ArrayList<>();
-        System.out.println("Her 2?");
         int restOfAvalibleMaterial = 0;
-        System.out.println("Her 3?");
         int countPosts = 1;
-        System.out.println("Her 4?");
-        Material post = null;
-        System.out.println("Test 6");
+        Material post;
+
         for (int avaliblePostMaterialLength : postsMaterialsAvalibleLenghts) {
-            post = LogicFacade.getMaterialBySizeName(avaliblePostMaterialLength, "");
-            post.setName("TRYKIMPRENERET STOLPE");
-            post.setUnit(LogicFacade.getUnitByName(post.getName()));
+            //avaliblePostMaterialLength + 900;
+            post = LogicFacade.getMaterialBySizeName(avaliblePostMaterialLength, "TRYKIMPRENERET STOLPE");
+            int avLength = post.getSize();
+            post.setAvailablesize(avLength*10);
+            avaliblePostMaterialLength = avLength*10;
             post.setWidth(LogicFacade.getWidthByID(post.getId(), post.getName()));
             post.setThickness(LogicFacade.getThicknessByID(post.getId()));
             post.setName("TRYKIMPRENERET STOLPE" + post.getThickness() + "x" + post.getWidth());
             for (int postHeightForConstruction : actualHeightsOfPostsForConstruction) {
                 if (postHeightForConstruction <= avaliblePostMaterialLength) {
-                    countPosts++;
                     restOfAvalibleMaterial = avaliblePostMaterialLength % postHeightForConstruction;
                 }
 
                 if (restOfAvalibleMaterial != 0)
-                    for (int i = postsMaterialsAvalibleLenghts.indexOf(post)-1; i >= 0; i--) {
-                        double temp = (double)restOfAvalibleMaterial / postsMaterialsAvalibleLenghts.get(i);
+                    for (int i = postsMaterialsAvalibleLenghts.indexOf(post); i > 0; i--) {
                         Material tempPost = tempPostsMaterails.get(i);
                         int tempQuatityPostsTypePlusOneEkstra = tempPost.getAmount() + 1;
                         tempPost.setAmount(tempQuatityPostsTypePlusOneEkstra);
                     }
 
-                    post.setAmount(countPosts);
-                post.setComment("(skriv noget herinde om materialet)");
-                post.setPrice(LogicFacade.getPrice(post.getId()));
-                tempPostsMaterails.add(post);
+                countPosts++;
+                post.setAmount(countPosts);
+                post.setComment("Træ til stolper - skal 90 cm i jorden");
+
             }
+            tempPostsMaterails.add(post);
         }
         System.out.println(tempPostsMaterails.toString());
-        woodMaterials.addAll(tempPostsMaterails);
-*/
+        posts.addAll(tempPostsMaterails);
+        System.out.println("Her er listen af stolper: " + posts.toString() );
+
+        return posts;
+    }
+    
+
+    //................................wood materials............................//
+    public static ArrayList<Material> woodMaterials(Construction construction) throws LoginSampleException {
+        ArrayList<Material> woodMaterials = new ArrayList<>();
         // Rem
         int[] remPieces = ConstructionSizeCalculator.remPieces(construction);
         int counter = 0;
@@ -131,8 +135,8 @@ public class ConstructionMaterialCalculator {
         int counter2 = 0;
         Material underStern = null;
         for (int underSternObject : understernPieces) {
-            underStern = LogicFacade.getMaterialBySizeName(underSternObject, "TRYKIMPRENERET BRÆDT 200");
-            underStern.setName("TRYKIMPRENERET BRÆDT 200");
+            underStern = LogicFacade.getMaterialBySizeName(underSternObject, "TRYKIMPRENERET BRÆDT");
+            underStern.setName("TRYKIMPRENERET BRÆDT");
             underStern.setUnit(LogicFacade.getUnitByName(underStern.getName()));
             underStern.setId(2);
             underStern.setWidth(LogicFacade.getWidthByID(underStern.getId(), underStern.getName()));
@@ -152,7 +156,7 @@ public class ConstructionMaterialCalculator {
         int counter3 = 0;
         Material overStern = null;
         for (int overSternObject : oversternPieces) {
-            overStern = LogicFacade.getMaterialBySizeName(overSternObject, "TRYKIMPRENERET BRÆDT 125");
+            overStern = LogicFacade.getMaterialBySizeName(overSternObject, "TRYKIMPRENERET BRÆDT");
             overStern.setName("TRYKIMPRENERET BRÆDT 125");
             overStern.setUnit(LogicFacade.getUnitByName(overStern.getName()));
             overStern.setId(3);

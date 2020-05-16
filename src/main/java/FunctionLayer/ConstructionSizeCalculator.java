@@ -51,7 +51,7 @@ public class ConstructionSizeCalculator {
         postHeights[0]=(int)height;
         for (int i = 1; i < postHeights.length ; i++) {
             height= height+ raising(angle, distance);
-            postHeights[i]=(int)height;
+            postHeights[i]=(int)height + 900; // TODO De 90 cm ned i jorden som stolperne - er det for alle ? Og er det i mm ?
         }
 
         return postHeights;

@@ -16,7 +16,7 @@ public class RoofFlat extends Roof {
     static final int TILTTODEGREE = (int) Math.round(Math.toDegrees(Math.atan(3.0 / 100.0)));
 
     @Override
-    public String optionForFlatRoof(){
+    public String optionForTypeRoof(){
         return "Fladt Tag";
     }
 

@@ -37,14 +37,14 @@ To change this template use File | Settings | File Templates.
             </tr>
             <tr>
                 <td>Tagtype:</td>
-                <td>${requestScope.attributeName}</td>
-                <td>${sessionScope.carportBase.roof.optionForFlatRoof()}</td>
+                <td>${sessionScope.carportBase.roof.optionForTypeRoof()}</td>
             </tr>
 
             <tr>
                 <td>Tagdækning:</td>
-                <td>${requestScope.attributeName}</td>
+                <td>${sessionScope.carportBase.roof.cover}</td>
             </tr>
+
 
             <td>Beklæd væg:</td>
             <td>

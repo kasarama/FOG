@@ -52,15 +52,15 @@ public class EditOrderPrices extends Command {
         System.out.println("is about to call for adding all  materials");
 
         LogicFacade.setMaterialsForOrder(order);
-
+        System.out.println("MaterialSat Cath");
 
         order.setCost(Math.round(Economy.ordersCostPrice(order) * 100.0) / 100.0);
         order.setSalePrice(Math.round(Economy.ordersSalePrice(order) * 100.0) / 100.0);
         order.setCoverage(Math.round(Economy.setCoverage(order) * 100.0) / 100.0);
-
+        System.out.println("Prices sat cath");
 
         request.getServletContext().setAttribute("orderForValidation", order);
-
+        System.out.println("HER ER JEG NÅET TIL");
         return "prepareOffer";
 
     }

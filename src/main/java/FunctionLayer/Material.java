@@ -16,6 +16,10 @@ public class Material {
     private String comment;
     private String keyword;
     private String category;
+    private int variationID;
+
+
+
     private String picture;
     private double spending; // bruges til beregninger af beklædning
     private String color;
@@ -194,6 +198,13 @@ public class Material {
         this.color = color;
     }
 
+    public int getVariationID() {
+        return variationID;
+    }
+
+    public void setVariationID(int variationID) {
+        this.variationID = variationID;
+    }
   /*  @Override
     public String toString() {
         return "Material{" +

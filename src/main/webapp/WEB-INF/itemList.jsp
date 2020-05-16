@@ -76,7 +76,7 @@
                 <tr class="tr2">
                     <td>${material.name}</td>
                     <td>${material.size}</td>
-                    <td>${material.antal}</td>
+                    <td>${material.amount}</td>
                     <td>${material.unit}</td>
                     <td>${material.comment}</td>
                 </tr>

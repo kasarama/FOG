@@ -64,8 +64,8 @@ public class Drawing extends Command{
         svg.addBand(0, 30, spacePosts, height-30);
         svg.addBand(0, height-28, spacePosts, 30);
         // Mål:
-        svg.addArrows(-25, 0, -25, height, -35, height/2, -90, text2);
-        svg.addArrows(0, height+25, width, height+25, width/2, height+40, 0, text1);
+        svg.addArrows(-25, 0, -25, height, -35, height/2, -90, text1);
+        svg.addArrows(0, height+25, width, height+25, width/2, height+40, 0, text2);
 
         // Hvis taget er pitched:
         /*

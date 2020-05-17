@@ -13,6 +13,7 @@ public class Economy {
         // Søg efter materiales pris via id
         // Hent prisen fra db og set pris i materialCalculator klasserne
         // Looper igennem arraylisten og får fat på hver materiales pris og antal
+
         ArrayList<Material> temp = new ArrayList<>();
         temp.addAll(order.getConstruction().getFundamentMaterials());
         temp.addAll(order.getConstruction().getRoof().getRoofMaterialList());

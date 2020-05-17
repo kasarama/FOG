@@ -17,19 +17,12 @@ public class ConstructionMaterialCalculator {
 
     //.......................All the materials for construction.............................//
     public static ArrayList<Material> constructionMaterialList(Construction construction) throws LoginSampleException {
-        System.out.println("Her 1?");
         ArrayList<Material> woodMaterials = woodMaterials(construction);
-        System.out.println("Her 2?");
         ArrayList<Material> metalMaterials = metalMaterials(construction);
-        System.out.println("Her 3?");
         ArrayList <Material> posts = postsQuatity(construction);
-        System.out.println("Her 4?");
         ArrayList<Material> constructionMaterials = new ArrayList<>();
-        System.out.println("Her 5?");
         constructionMaterials.addAll(woodMaterials);
-        System.out.println("Her 6?");
         constructionMaterials.addAll(metalMaterials);
-        System.out.println("Her 7?");
         constructionMaterials.addAll(posts);
         System.out.println("Finishe adding materials , there is "+constructionMaterials.size()+" materials on the list");
         return constructionMaterials;
@@ -109,7 +102,6 @@ public class ConstructionMaterialCalculator {
     //................................wood materials............................//
     public static ArrayList<Material> woodMaterials(Construction construction) throws LoginSampleException {
         ArrayList<Material> woodMaterials = new ArrayList<>();
-        System.out.println("1");
         // Rem
         int[] remPieces = ConstructionSizeCalculator.remPieces(construction);
         int counter = 0;

@@ -14,18 +14,17 @@ public class Economy {
         // Hent prisen fra db og set pris i materialCalculator klasserne
         // Looper igennem arraylisten og får fat på hver materiales pris og antal
 
-        ArrayList<Material> temp = new ArrayList<>();
-        temp.addAll(ConstructionMaterialCalculator.constructionMaterialList(order.getConstruction()));
+        ArrayList<Material> temp = order.getConstruction().getFundamentMaterials();
         // TODO sæt roofmateriallisten ind her:
         //temp.addAll()
         // TODO sæt overlaymateriallisten ind her:
         //temp.addAll()
 
         double[] totalPrices = new double[temp.size()];
-
-        for (int i = 0; i < temp.size(); i++){
+        for (int i = 1; i < temp.size(); i++){
             totalPrices[i] = temp.get(i).getPrice()*temp.get(i).getAmount();
         }
+
         double cost = 0;
         for (double i : totalPrices) {
             cost += i;
@@ -42,7 +41,6 @@ public class Economy {
         double tax = order.getTAX(); // 0,25
 
         double salesPriceNoTax = ordersCostPrice(order) + transport;
-
         double salesPrice = salesPriceNoTax + salesPriceNoTax*tax;
 
         return salesPrice;

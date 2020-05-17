@@ -15,8 +15,9 @@ public class Drawing extends Command{
 
         Order order = (Order) request.getServletContext().getAttribute("orderForValidation");
 
-        int width = (order.getConstruction().getConstructionLength()/10);
+        int width = (order.getConstruction().getConstructionWidth()/10);
         int height = (order.getConstruction().getConstructionLength()/10);
+        System.out.println(height);
 
         // Teksten mål:
         String text1 = height + " cm";

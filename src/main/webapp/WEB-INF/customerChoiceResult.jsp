@@ -91,10 +91,10 @@ To change this template use File | Settings | File Templates.
             <input class="mt-3 mb-4 btn btn-outline-dark" type="submit" name="newrequest" value="Start forfra">
         </form>
 
-        <form name="drawing" action="FrontController" method="POST">
-            <input type="hidden" name="target" value="drawing">
+        <form name="drawingCustomer" action="FrontController" method="POST">
+            <input type="hidden" name="target" value="drawingCustomer">
             <input type="hidden" name="origin" value="customerChoiceResult">
-            <input class="btn btn-primary mt-3" type="submit" name="svgSketch" value="Se din caport">
+            <input class="btn btn-primary mt-3" type="submit" name="svgSketch" value="Se din carport">
         </form>
 
 

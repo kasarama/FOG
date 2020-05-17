@@ -142,8 +142,8 @@ public class ConstructionMaterialCalculator {
         int counter2 = 0;
         Material underStern = null;
         for (int underSternObject : understernPieces) {
-            underStern = LogicFacade.getMaterialBySizeName(underSternObject, "TRYKIMPRENERET BRÆDT");
-            underStern.setName("TRYKIMPRENERET BRÆDT");
+            underStern = LogicFacade.getMaterialBySizeName(underSternObject, "TRYKIMPRENERET BRÆDT 200");
+            underStern.setName("TRYKIMPRENERET BRÆDT 200");
             underStern.setUnit(LogicFacade.getUnitByName(underStern.getName()));
             underStern.setId(2);
             underStern.setWidth(LogicFacade.getWidthByID(underStern.getId(), underStern.getName()));
@@ -163,7 +163,7 @@ public class ConstructionMaterialCalculator {
         int counter3 = 0;
         Material overStern = null;
         for (int overSternObject : oversternPieces) {
-            overStern = LogicFacade.getMaterialBySizeName(overSternObject, "TRYKIMPRENERET BRÆDT");
+            overStern = LogicFacade.getMaterialBySizeName(overSternObject, "TRYKIMPRENERET BRÆDT 125");
             overStern.setName("TRYKIMPRENERET BRÆDT 125");
             overStern.setUnit(LogicFacade.getUnitByName(overStern.getName()));
             overStern.setId(3);

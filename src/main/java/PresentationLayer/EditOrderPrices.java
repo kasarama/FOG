@@ -51,9 +51,10 @@ public class EditOrderPrices extends Command {
         order.getConstruction().setWalls(costructionWalls);
         order.setCoverage(order.getDEFAULTCOVERAGE());
 
-
+        System.out.println("is about to collect all the materials");
         LogicFacade.setMaterialsForOrder(order);
 
+        System.out.println("HAs colleted all teh materials");
 
         order.setCost(Math.round(Economy.ordersCostPrice(order) * 100.0) / 100.0);
         order.setSalePrice(Math.round(Economy.ordersSalePrice(order) * 100.0) / 100.0);

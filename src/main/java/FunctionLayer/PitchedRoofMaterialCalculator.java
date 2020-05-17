@@ -1,5 +1,7 @@
 package FunctionLayer;
 
+import DBAccess.MaterialMapper;
+
 import java.util.ArrayList;
 
 public class PitchedRoofMaterialCalculator {
@@ -44,24 +46,33 @@ public class PitchedRoofMaterialCalculator {
 
     //........Pitched Roof Material list.......
     public ArrayList<Material> pitchedRoof() throws LoginSampleException {
+
+        System.out.println("I am in PitchedRoofMAtCalc. pitchedRoof() - hello!");
         ArrayList<Material> pitchedRoofMaterialList  = new ArrayList<>();
 
         //Toplægter
         Material toplaegter = new Material();
 
-        toplaegter.setName("TOPLÆGTE" + toplaegter.getThickness() + "x" + toplaegter.getWidth());
+        toplaegter.setName("TOPLÆGTE");
+        System.out.println("name: "+toplaegter.getName());
         toplaegter.setCategory("RejsningTag Konstruktion");
         toplaegter.setUnit(LogicFacade.getUnitByName(toplaegter.getName()));
+        System.out.println("unit "+toplaegter.getUnit());
         toplaegter.setWidth(LogicFacade.getWidthByID(toplaegter.getId(),toplaegter.getName()));
+        System.out.println("width"+toplaegter.getWidth());
         toplaegter.setThickness(LogicFacade.getThicknessByID(toplaegter.getId()));
+        System.out.println("thic"+toplaegter.getThickness());
         int quantityOfToplaegter = amountOfT1_RygstenLength();
+        System.out.println("q of top L: "+ quantityOfToplaegter);
         toplaegter.setAmount(quantityOfToplaegter);
+        System.out.println("amount"+toplaegter.getAmount());
         toplaegter.setComment("Lægte til montering af rygsten - lægges i toplægte holder");
         toplaegter.setSize(toplaegter.getAvailablesize());
+        System.out.println("size"+toplaegter.getAvailablesize());
         toplaegter.setPrice(LogicFacade.getPrice(toplaegter.getId()));
-
+        System.out.println("price"+toplaegter.getPrice());
         pitchedRoofMaterialList .add(toplaegter);
-
+        System.out.println("top something added");
         //Taglægter
         Material taglaegter = new Material();
 
@@ -362,7 +373,7 @@ public class PitchedRoofMaterialCalculator {
         gavlOverlay.setPrice(LogicFacade.getPrice(gavlOverlay.getId()));
 
         pitchedRoofMaterialList .add(gavlOverlay);
-
+        System.out.println("In PitchedRoofMaterialCalc : ALL materials on the pitched roof list : " +pitchedRoofMaterialList.size());
         return pitchedRoofMaterialList ;
     }
 

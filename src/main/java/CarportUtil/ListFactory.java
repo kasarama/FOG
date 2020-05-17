@@ -334,7 +334,7 @@ public class ListFactory {
 
 
             } else
-                for (int i = 0; i < materialLengths.get(name).size(); i++) {
+                for (int i = 0; i < materialLengths.get(name).size()-1; i++) {
                     if (size >= materialLengths.get(name).get(i) && size < materialLengths.get(name).get(i + 1)) {
                         material.setAvailablesize(materialLengths.get(name).get(i));
 

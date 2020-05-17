@@ -118,7 +118,7 @@ public class LogicFacade {
 
         String msg = OverlayMaterialCalculator.allOverlayMaterialList(
                 order.getConstruction(), order.getConstruction().getOverlay());
-
+        System.out.println("Overlaymaterials genneført");
 
         //................Materials for roof...........//
         boolean orderedCaportIsPitched = order.getConstruction().getRoof().getIsPitched();
@@ -126,20 +126,21 @@ public class LogicFacade {
         if (orderedCaportIsPitched) {
             PitchedRoofMaterialCalculator pRMCalculator = new PitchedRoofMaterialCalculator(order.getConstruction());
             roofMaterialList = pRMCalculator.pitchedRoof();
-
+            System.out.println("pitchedroof materials gennemført");
         } else {
             RoofMaterialCalculator rMCalculator = new RoofMaterialCalculator(order.getConstruction());
             roofMaterialList = rMCalculator.getflatRoofMaterials();
+            System.out.println("flat roof mat. gennemført");
         }
         order.getConstruction().getRoof().setRoofMaterialList(roofMaterialList);
-
+        System.out.println("Material on roof list: " +roofMaterialList.size());
 
         //................Materials for construction...........//
         //todo create ArrayList with materials for construction and set it on order.construction
 
         ArrayList<Material> constructionMaterialList = ConstructionMaterialCalculator.constructionMaterialList(order.getConstruction());
         order.getConstruction().setFundamentMaterials(constructionMaterialList);
-
+        System.out.println("Fundament materials in total: "+constructionMaterialList.size());
         return msg;
     }
 

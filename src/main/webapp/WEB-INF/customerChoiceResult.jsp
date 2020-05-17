@@ -39,6 +39,10 @@ To change this template use File | Settings | File Templates.
                 <td>Tagtype:</td>
                 <td>${sessionScope.carportBase.roof.optionForTypeRoof()}</td>
             </tr>
+            <tr>
+                <td>Tag hældningsgræd:</td>
+                <td>${requestScope.attributeName}</td> <!-- replace with: sessionScope.carportBase. pitchedRoofDegree -->
+            </tr>
 
             <tr>
                 <td>Tagdækning:</td>

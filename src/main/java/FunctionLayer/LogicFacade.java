@@ -114,31 +114,33 @@ public class LogicFacade {
      * The purpose of setMaterialsForOrder is to generate ArrayLists for each element of Construction
      * objekt and to return an Order object with that Construction object
      */
-    public static void setMaterialsForOrder(Order order) throws LoginSampleException {
-
-        System.out.println("Is about to set materials for overlay\n" +
-                "Needed data to proceed construction selv and overlay. overlay: "+ order.getConstruction().getOverlay());
+    public static String setMaterialsForOrder(Order order) throws LoginSampleException {
 
         String msg = OverlayMaterialCalculator.allOverlayMaterialList(
                 order.getConstruction(), order.getConstruction().getOverlay());
-        System.out.println(msg);
-        // order.getConstruction().getShed().setMaterials(ovarlayMaterialList);
-        System.out.println("Materials saved for Shed in Logic facade:" +order.getConstruction().getShed().getMaterials().size());
 
 
         //................Materials for roof...........//
-        //todo create ArrayList with materials for roof and set it on order.construction.roof
+        boolean orderedCaportIsPitched = order.getConstruction().getRoof().getIsPitched();
+        ArrayList<Material> roofMaterialList = new ArrayList();
+        if (orderedCaportIsPitched) {
+            PitchedRoofMaterialCalculator pRMCalculator = new PitchedRoofMaterialCalculator(order.getConstruction());
+            roofMaterialList = pRMCalculator.pitchedRoof();
 
-        ArrayList<Material> roofMaterialList = new ArrayList<>(); // = call the method her
-        // order.getConstruction().getRoof().setTagMaterialList(roofMaterialList);
-
+        } else {
+            RoofMaterialCalculator rMCalculator = new RoofMaterialCalculator(order.getConstruction());
+            roofMaterialList = rMCalculator.getflatRoofMaterials();
+        }
+        order.getConstruction().getRoof().setRoofMaterialList(roofMaterialList);
 
 
         //................Materials for construction...........//
         //todo create ArrayList with materials for construction and set it on order.construction
+
         ArrayList<Material> constructionMaterialList = ConstructionMaterialCalculator.constructionMaterialList(order.getConstruction());
         order.getConstruction().setFundamentMaterials(constructionMaterialList);
 
+        return msg;
     }
 
     public static void sendOffer(Order order) throws LoginSampleException {

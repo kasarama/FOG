@@ -20,7 +20,6 @@
             <h2>Fladt tag design</h2>
             <label class="mt-3" for="flatroof"> Vælg tagdækning for fladt tag:</label>
             <select class="form-control mt-3" name="flatroof" id="flatroof">
-                <option selected disabled>Vælg tagdækning</option>
                 <c:forEach var="roofMaterial" items="${applicationScope.flatMaterialList}">
                     <option value="${roofMaterial.id}">${roofMaterial.name} ${roofMaterial.color}</option>
                 </c:forEach>

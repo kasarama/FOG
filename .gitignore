@@ -14,7 +14,7 @@
 .idea/**/dictionaries
 .idea/**/shelf
 src/**/Connector.java
-
+src/**/Log.java
 # Generated files
 .idea/**/contentModel.xml
 

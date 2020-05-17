@@ -497,11 +497,33 @@ public class MaterialMapper {
             ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                String unit = rs.getString("unit");
+                String unit = rs.getString(1);
                 material.setUnit(unit);
 
             } else {
                 throw new LoginSampleException("Material: "+material.getName() + " mangler unit verdi i databasen");
+            }
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new LoginSampleException(ex.getMessage());
+
+        }
+    }
+
+    public static void setPriceFromDB(Material material) throws LoginSampleException {
+        String name = material.getName();
+        try {
+            Connection con = Connector.connection();
+            String SQL = "SELECT price FROM fogdb.materials WHERE name=?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, name);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                double price = rs.getDouble(1);
+                material.setPrice(price);
+
+            } else {
+                throw new LoginSampleException("Material: "+material.getName() + " mangler pris verdi i databasen");
             }
 
         } catch (SQLException | ClassNotFoundException ex) {

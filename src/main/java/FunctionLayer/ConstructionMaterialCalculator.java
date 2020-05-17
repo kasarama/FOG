@@ -24,11 +24,12 @@ public class ConstructionMaterialCalculator {
         constructionMaterials.addAll(woodMaterials);
         constructionMaterials.addAll(metalMaterials);
         constructionMaterials.addAll(posts);
-
+        System.out.println("Finishe adding materials , there is "+constructionMaterials.size()+" materials on the list");
         return constructionMaterials;
     }
 
     public static ArrayList<Material> postsQuatity(Construction construction) throws LoginSampleException {
+
         // Stolper (uden skur)
         ArrayList<Material> posts = new ArrayList();
 
@@ -40,13 +41,13 @@ public class ConstructionMaterialCalculator {
                 construction.getRoof().getTilt());
         int quantityOfCarportPostsRows = postRows(construction.getCarportWidth());
         Integer[] heightsOfPostsPerRow = postsHeights(carportMinHeight, construction.getRoof().getDegree(),
-                construction.getConstructionWidth());
+                construction.getCarportWidth());
         for (int i = 0; i < quantityOfCarportPostsRows - 1; i++) {
             for (int postHeight : heightsOfPostsPerRow) {
-                actualHeightsOfPostsForConstruction.add(postHeight);
+                actualHeightsOfPostsForConstruction.add(postHeight+INGROUND);
             }
         }
-
+// todo tjek det: OverlayMaterialCalculator.fyrOneWall(Wall wall)
         ArrayList<Integer> postsMaterialsAvalibleLenghts = getLengthForMaterials("TRYKIMPRENERET STOLPE");
         ArrayList<Material> tempPostsMaterails = new ArrayList<>();
         int restOfAvalibleMaterial = 0;
@@ -86,6 +87,15 @@ public class ConstructionMaterialCalculator {
         System.out.println("Her er listen af stolper: " + posts.toString() );
 
         return posts;
+    }
+
+
+
+    public static ArrayList<Material> postForShed (Construction construction) {
+        ArrayList<Material> shedPost =new ArrayList<>();
+
+        //todo find amount of post for shed
+        return shedPost;
     }
     
 

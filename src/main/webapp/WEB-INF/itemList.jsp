@@ -91,6 +91,7 @@
         <c:set var="list" value="${applicationScope.orderForValidation.construction.shed.materials}"/>
         <c:choose>
             <c:when test="${list.size() != 0}">
+                <p>${requestScope.overlayMAterialMSG}</p>
                 <table class="table table-striped ">
                     <thead>
                     <tr class="tr1">

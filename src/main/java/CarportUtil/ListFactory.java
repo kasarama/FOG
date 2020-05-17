@@ -181,9 +181,7 @@ public class ListFactory {
 
         }
         setPackages(sorted);
-        for (Material material : sorted) {
 
-        }
 
         return sorted;
     }

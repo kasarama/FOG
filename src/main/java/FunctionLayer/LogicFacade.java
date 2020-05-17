@@ -13,13 +13,13 @@ import java.util.List;
 
 public class LogicFacade {
 
-    public static User login( String email, String password ) throws LoginSampleException {
-        return UserMapper.login( email, password );
+    public static User login(String email, String password) throws LoginSampleException {
+        return UserMapper.login(email, password);
     }
 
-    public static User createUser( String name, String email, String password ) throws LoginSampleException {
+    public static User createUser(String name, String email, String password) throws LoginSampleException {
         User user = new User(name, email, password, "customer");
-        UserMapper.createUser( user );
+        UserMapper.createUser(user);
         return user;
     }
 
@@ -29,21 +29,26 @@ public class LogicFacade {
     public static Material getMaterialBySizeName(int size, String name) throws LoginSampleException {
         return MaterialMapper.getMaterialBySizeName(size, name);
     }
+
     public static Material getMaterialByID(int id) throws LoginSampleException {
         return MaterialMapper.getMaterialByID(id);
     }
+
     public static String getUnitByName(String name) throws LoginSampleException {
         String unit = MaterialMapper.getUnitByName(name);
         return unit;
     }
+
     public static int getWidthByID(int id, String name) throws LoginSampleException {
         int width = MaterialMapper.getWidthByID(id, name);
         return width;
     }
+
     public static int getThicknessByID(int id) throws LoginSampleException {
         int thickness = MaterialMapper.getThicknessByID(id);
         return thickness;
     }
+
     public static double getPrice(int id) throws LoginSampleException {
         double price = MaterialMapper.getPrices(id);
         return price;
@@ -59,15 +64,15 @@ public class LogicFacade {
         return MaterialMapper.getNameFromMaterialID(idMaterial);
     }
 
-    public static String getColorByMaterialID(int materialID) throws LoginSampleException{
+    public static String getColorByMaterialID(int materialID) throws LoginSampleException {
         return MaterialMapper.getColorByMaterialID(materialID);
     }
 
-    public static String getColourByVariationID(int variationid) throws LoginSampleException{
+    public static String getColourByVariationID(int variationid) throws LoginSampleException {
         return MaterialMapper.getColorByID(variationid);
     }
 
-    public static Material getMaterialByNameColourAndSize(String name, int size, String color) throws LoginSampleException{
+    public static Material getMaterialByNameColourAndSize(String name, int size, String color) throws LoginSampleException {
         return MaterialMapper.getRoofFullMaterialBySizeColorAndName(name, size, color);
     }
 
@@ -75,6 +80,7 @@ public class LogicFacade {
     public static List<Material> getAllPitchedRoofMaterials() throws LoginSampleException {
         return MaterialMapper.getAllPitchedRoofMaterials(); //return 'getAllRoofMaterials()' method from MaterialMapper
     }
+
     public static List<Material> getAllFlatRoofMaterials() throws LoginSampleException {
         return MaterialMapper.getAllFlatRoofMaterials(); //return 'getAllRoofMaterials()' method from MaterialMapper
         /*if (isPitched) {
@@ -98,8 +104,8 @@ public class LogicFacade {
         OrderMapper.saveNewRequest(order);
     }
 
-    public static ArrayList<Order>  ReadOrders(String status) throws LoginSampleException {
-        return  OrderMapper.ReadAllOrdersByStatus(status);
+    public static ArrayList<Order> ReadOrders(String status) throws LoginSampleException {
+        return OrderMapper.ReadAllOrdersByStatus(status);
     }
 
 
@@ -108,16 +114,10 @@ public class LogicFacade {
      * The purpose of setMaterialsForOrder is to generate ArrayLists for each element of Construction
      * objekt and to return an Order object with that Construction object
      */
-    public static void setMaterialsForOrder(Order order) throws LoginSampleException {
-
-        System.out.println("Is about to set materials for overlay\n" +
-                "Needed data to proceed construction selv and overlay. overlay: "+ order.getConstruction().getOverlay());
+    public static String setMaterialsForOrder(Order order) throws LoginSampleException {
 
         String msg = OverlayMaterialCalculator.allOverlayMaterialList(
                 order.getConstruction(), order.getConstruction().getOverlay());
-        //System.out.println(msg);
-        // order.getConstruction().getShed().setMaterials(ovarlayMaterialList);
-        System.out.println("Materials saved for Shed in Logic facade:" +order.getConstruction().getShed().getMaterials().size());
 
 
         //................Materials for roof...........//
@@ -126,12 +126,12 @@ public class LogicFacade {
         if (orderedCaportIsPitched) {
             PitchedRoofMaterialCalculator pRMCalculator = new PitchedRoofMaterialCalculator(order.getConstruction());
             roofMaterialList = pRMCalculator.pitchedRoof();
+
         } else {
             RoofMaterialCalculator rMCalculator = new RoofMaterialCalculator(order.getConstruction());
             roofMaterialList = rMCalculator.getflatRoofMaterials();
         }
         order.getConstruction().getRoof().setRoofMaterialList(roofMaterialList);
-
 
 
         //................Materials for construction...........//
@@ -140,7 +140,7 @@ public class LogicFacade {
         ArrayList<Material> constructionMaterialList = ConstructionMaterialCalculator.constructionMaterialList(order.getConstruction());
         order.getConstruction().setFundamentMaterials(constructionMaterialList);
 
-
+        return msg;
     }
 
     public static void sendOffer(Order order) throws LoginSampleException {

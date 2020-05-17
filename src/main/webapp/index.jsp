@@ -15,6 +15,15 @@
         <a class=" mt-4 mb-3 btn btn-primary" href="FrontController?target=redirect&destination=login" role="button">DESIGN CARPORT</a>
         <br>
         <a class=" mt-3 btn btn-dark" href="FrontController?target=redirect&destination=login" role="button">Login/Registrer</a>
+
+        <form name="drawwalls" action="FrontController" method="post">
+            <input type="hidden" name="target" value="drawwalls"/>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-dark mt-3">Magda</button>
+            </div>
+        </form>
+
     </div>
 </div>
 <br>

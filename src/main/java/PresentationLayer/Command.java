@@ -28,6 +28,7 @@ abstract class Command {
         commands.put("validate", new Validate());
         commands.put("editprice", new EditOrderPrices());
         commands.put("sendoffer", new SendNewOffer());
+        commands.put("drawwalls", new DrawWalls());
 
     }
 

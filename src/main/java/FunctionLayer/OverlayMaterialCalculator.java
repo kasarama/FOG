@@ -253,7 +253,7 @@ public class OverlayMaterialCalculator {
 
 
     public static String allOverlayMaterialList(Construction construction, String overlayName) throws LoginSampleException {
-
+//TODO read me here and see if I can be usefull for you Cath
         ArrayList<Material> overlayMaterials = new ArrayList<>();
         ArrayList<Material> doorFraming = doorFraming(construction);
 
@@ -294,6 +294,11 @@ public class OverlayMaterialCalculator {
         ArrayList<Material> sorted = new ArrayList<>();
         sorted.addAll(materialsByPackage);
         sorted.addAll(materialsByOther);
+
+        for (Material material :sorted) {
+            MaterialMapper.setPriceFromDB(material);
+        }
+
 
         construction.getShed().setMaterials(sorted);
 

@@ -69,7 +69,6 @@ public class CarportBase extends Command {
 
         constructionBase.setConstructionWidth();
         constructionBase.setConstructionLength();
-
         //Roof roofBase;
         if (roofType == 1) {
             roofBase = new RoofPitched(0, constructionBase.getConstructionLength(), constructionBase.getConstructionWidth(), 0);
@@ -83,7 +82,6 @@ public class CarportBase extends Command {
         HttpSession session = request.getSession();
         if (session.getAttribute("carportBase") == null) {
             session.setAttribute("carportBase", constructionBase);
-
         }
 
         if (roofType == 1) {

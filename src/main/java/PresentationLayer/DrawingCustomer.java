@@ -14,8 +14,8 @@ public class DrawingCustomer extends Command{
     String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
         Construction construction = (Construction) session.getAttribute("carportBase");
-        int width = (construction.getConstructionWidth()/10);
-        int height = (construction.getConstructionLength()/10);
+        int width = (construction.getConstructionLength()/10);
+        int height = (construction.getConstructionWidth()/10);
 
         // Teksten mål:
         String text1 = height + " cm";

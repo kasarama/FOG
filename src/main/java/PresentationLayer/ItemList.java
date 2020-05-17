@@ -17,6 +17,13 @@ public class ItemList  extends Command{
         HttpSession session = request.getSession();
 
 
+        Order order = (Order) request.getServletContext().getAttribute("orderForValidation");
+
+        String msg =LogicFacade.setMaterialsForOrder(order);
+        request.setAttribute("overlayMAterialMSG", msg);
+
+        request.getServletContext().setAttribute("orderForValidation", order);
+        return "itemList";
 
         Order order = (Order) request.getServletContext().getAttribute("orderForValidation");
 

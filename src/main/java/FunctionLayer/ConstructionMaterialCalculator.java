@@ -17,12 +17,19 @@ public class ConstructionMaterialCalculator {
 
     //.......................All the materials for construction.............................//
     public static ArrayList<Material> constructionMaterialList(Construction construction) throws LoginSampleException {
+        System.out.println("Her 1?");
         ArrayList<Material> woodMaterials = woodMaterials(construction);
+        System.out.println("Her 2?");
         ArrayList<Material> metalMaterials = metalMaterials(construction);
+        System.out.println("Her 3?");
         ArrayList <Material> posts = postsQuatity(construction);
+        System.out.println("Her 4?");
         ArrayList<Material> constructionMaterials = new ArrayList<>();
+        System.out.println("Her 5?");
         constructionMaterials.addAll(woodMaterials);
+        System.out.println("Her 6?");
         constructionMaterials.addAll(metalMaterials);
+        System.out.println("Her 7?");
         constructionMaterials.addAll(posts);
         System.out.println("Finishe adding materials , there is "+constructionMaterials.size()+" materials on the list");
         return constructionMaterials;
@@ -102,6 +109,7 @@ public class ConstructionMaterialCalculator {
     //................................wood materials............................//
     public static ArrayList<Material> woodMaterials(Construction construction) throws LoginSampleException {
         ArrayList<Material> woodMaterials = new ArrayList<>();
+        System.out.println("1");
         // Rem
         int[] remPieces = ConstructionSizeCalculator.remPieces(construction);
         int counter = 0;
@@ -145,8 +153,8 @@ public class ConstructionMaterialCalculator {
         int counter2 = 0;
         Material underStern = null;
         for (int underSternObject : understernPieces) {
-            underStern = LogicFacade.getMaterialBySizeName(underSternObject, "TRYKIMPRENERET BRÆDT");
-            underStern.setName("TRYKIMPRENERET BRÆDT");
+            underStern = LogicFacade.getMaterialBySizeName(underSternObject, "TRYKIMPRENERET BRÆDT 200");
+            underStern.setName("TRYKIMPRENERET BRÆDT 200");
             underStern.setUnit(LogicFacade.getUnitByName(underStern.getName()));
             underStern.setId(2);
             underStern.setWidth(LogicFacade.getWidthByID(underStern.getId(), underStern.getName()));
@@ -166,7 +174,7 @@ public class ConstructionMaterialCalculator {
         int counter3 = 0;
         Material overStern = null;
         for (int overSternObject : oversternPieces) {
-            overStern = LogicFacade.getMaterialBySizeName(overSternObject, "TRYKIMPRENERET BRÆDT");
+            overStern = LogicFacade.getMaterialBySizeName(overSternObject, "TRYKIMPRENERET BRÆDT 125");
             overStern.setName("TRYKIMPRENERET BRÆDT 125");
             overStern.setUnit(LogicFacade.getUnitByName(overStern.getName()));
             overStern.setId(3);

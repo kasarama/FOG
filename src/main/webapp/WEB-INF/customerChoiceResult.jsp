@@ -60,7 +60,7 @@ To change this template use File | Settings | File Templates.
 
             <tr>
                 <td>Skur placering:</td>
-                <td>${sessionScope.carportBase.shed.danishSide()}</td>
+                <td>${sessionScope.carportBase.shed.side}</td>
             </tr>
 
             <tr>

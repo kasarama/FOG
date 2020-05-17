@@ -24,7 +24,6 @@ public class ConstructionMaterialCalculator {
         constructionMaterials.addAll(woodMaterials);
         constructionMaterials.addAll(metalMaterials);
         constructionMaterials.addAll(posts);
-        System.out.println("Finishe adding materials , there is "+constructionMaterials.size()+" materials on the list");
         return constructionMaterials;
     }
 
@@ -82,9 +81,7 @@ public class ConstructionMaterialCalculator {
             }
             tempPostsMaterails.add(post);
         }
-        System.out.println(tempPostsMaterails.toString());
         posts.addAll(tempPostsMaterails);
-        System.out.println("Her er listen af stolper: " + posts.toString() );
 
         return posts;
     }

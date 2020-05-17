@@ -45,15 +45,11 @@ public class EditOrderPrices extends Command {
         order.getConstruction().setWalls(costructionWalls);
         order.setCoverage(order.getDEFAULTCOVERAGE());
 
-        System.out.println("is about to call for adding all  materials");
-
         LogicFacade.setMaterialsForOrder(order);
-        System.out.println("Added materials to order - overlay has size: " + order.getConstruction().getShed().getMaterials().size());
 
         order.setCost(Math.round(Economy.ordersCostPrice(order) * 100.0) / 100.0);
         order.setSalePrice(Math.round(Economy.ordersSalePrice(order) * 100.0) / 100.0);
         order.setCoverage(Math.round(Economy.setCoverage(order) * 100.0) / 100.0);
-
         request.getServletContext().setAttribute("orderForValidation", order);
 
         return "prepareOffer";

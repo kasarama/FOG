@@ -2,6 +2,9 @@ package FunctionLayer;
 
 // Materiale type
 
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
+import org.w3c.dom.ls.LSOutput;
+
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -15,8 +18,10 @@ public class ConstructionMaterialCalculator {
     //public Construction construction = new Construction();
     private static int INGROUND = 900;
 
+
     //.......................All the materials for construction.............................//
     public static ArrayList<Material> constructionMaterialList(Construction construction) throws LoginSampleException {
+        System.out.println("is about to fill up the fundament list ");
         ArrayList<Material> woodMaterials = woodMaterials(construction);
         ArrayList<Material> metalMaterials = metalMaterials(construction);
         ArrayList <Material> posts = postsQuatity(construction);
@@ -24,6 +29,7 @@ public class ConstructionMaterialCalculator {
         constructionMaterials.addAll(woodMaterials);
         constructionMaterials.addAll(metalMaterials);
         constructionMaterials.addAll(posts);
+        System.out.println("is about to return fundament materials : "+constructionMaterials.size());
         return constructionMaterials;
     }
 

@@ -21,9 +21,11 @@ public class Validate extends Command {
             if (tmp.getOrderID()==orderID) {
                 order=tmp;
             }
+
             request.getServletContext().setAttribute("orderForValidation", order);
             request.getServletContext().setAttribute("constructionForValidation", order.getConstruction());
         }
+
         return "validateRequest";
     }
 }

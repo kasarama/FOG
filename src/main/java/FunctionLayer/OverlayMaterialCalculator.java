@@ -256,8 +256,9 @@ public class OverlayMaterialCalculator {
 //TODO read me here and see if I can be usefull for you Cath
         ArrayList<Material> overlayMaterials = new ArrayList<>();
         ArrayList<Material> doorFraming = doorFraming(construction);
-        ArrayList<Wall> walls = construction.getWalls();
-        construction.getWalls().addAll(construction.getShed().getWalls());
+
+        ArrayList<Wall> walls = new ArrayList<>();
+        walls.addAll(construction.getShed().getWalls());
 
         if (walls.size() == 0) {
             return null;

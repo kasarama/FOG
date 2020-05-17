@@ -1,28 +1,35 @@
 package PresentationLayer;
 
+import FunctionLayer.Order;
 import FunctionLayer.Svg;
-import FunctionLayer.Wall;
 import FunctionLayer.WallDrawer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
 public class DrawWalls extends Command{
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String wallsFromAbove = WallDrawer.wallsDrawings();
-        HashMap<String, Svg>drawings = WallDrawer.framings();
-        String wallSide = request.getParameter("wallSideName");
+        HttpSession session = request.getSession();
+        Order order = (Order) request.getServletContext().getAttribute("orderForValidation");
 
-        if (wallSide!=null){
-            request.setAttribute(wallSide,drawings.get(wallSide));
-        }
+        String wallsFromAbove = WallDrawer.allWallsFromAbove(order.getConstruction());
+        HashMap<String, Svg>drawings = WallDrawer.framings(order.getConstruction());
+         String showSVG = null;
 
-        request.setAttribute("wall1", drawings.get("carportright").toString());
+         if (request.getParameter("constructionWall")!=null){
+             showSVG= drawings.get(request.getParameter("constructionWall")).toString();
+         } else
+             if(request.getParameter("allFromAbove")!=null){
+                 showSVG=wallsFromAbove;
+             } else if (request.getParameter("shedWall")!=null){
+                 showSVG=drawings.get(request.getParameter("shedWall")).toString();
+             }
 
-        request.setAttribute("wallsFromAbove", wallsFromAbove);
+
+        request.setAttribute("wallsFromAbove", showSVG);
         return "wallSVG";
     }
 }

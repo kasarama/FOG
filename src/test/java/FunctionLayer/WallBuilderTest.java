@@ -94,4 +94,7 @@ public class WallBuilderTest {
 
 
         }
+
+    public void testTestCreateCarportWalls() {
     }
+}

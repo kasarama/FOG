@@ -68,6 +68,7 @@ public class CarportBase extends Command {
         }
 
         constructionBase.setConstructionWidth();
+
         constructionBase.setConstructionLength();
 
         //Roof roofBase;

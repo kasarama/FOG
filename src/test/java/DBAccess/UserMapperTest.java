@@ -19,11 +19,11 @@ public class UserMapperTest {
 //    (4,'someone@nowhere.com','sesam','customer');
 
     private static Connection testConnection;
-    private static String USER = "testinguser";
-    private static String USERPW = "try1try2tryAgain";
-    private static String DBNAME = "useradminTest";
-    private static String HOST = "46.101.253.149";
-
+    private static String USER = "root";
+    private static String USERPW = "1909145380Hanna";
+    private static String DBNAME = "fog_test?serverTimezone=CET&allowPublicKeyRetrieval=true&useSSL=false";
+    private static String HOST = "localhost";
+//"jdbc:mysql://localhost:3306/fogDB?serverTimezone=CET&allowPublicKeyRetrieval=true&useSSL=false"
     @Before
     public void setUp() {
         try {

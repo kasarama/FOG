@@ -45,12 +45,13 @@ public class EditOrderPrices extends Command {
         order.getConstruction().getRoof().setTilt(tilt);
         order.setTransport(transport);
 
+
         ArrayList<Wall> costructionWalls = WallBuilder.createCarportWalls(
                 order.getConstruction(), order.getConstruction().getWallSides());
 
+
         order.getConstruction().setWalls(costructionWalls);
         order.setCoverage(order.getDEFAULTCOVERAGE());
-
 
         LogicFacade.setMaterialsForOrder(order);
 

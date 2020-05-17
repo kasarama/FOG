@@ -2,6 +2,7 @@ package FunctionLayer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.jar.JarOutputStream;
 
 /**
  * @author Magdalena
@@ -18,14 +19,14 @@ public class WallDrawer {
     final static int SPAERdist = 100;
 
 
-    public static String wallsDrawings() {
+    public static String allWallsFromAbove(Construction construction) {
 
         //Setup :
-        Construction construction = new Construction();
+   /*     Construction construction = new Construction();
         construction.setCarportLength(6800);
         construction.setCarportWidth(6200);
         construction.setConstructionHeight(2000);
-        Shed setupshed = new Shed(construction.getCarportWidth(), 2400, "right");
+        Shed setupshed = new Shed(construction.getCarportWidth()/2+50, 2400, "right");
         construction.setShed(setupshed);
 
 
@@ -37,13 +38,13 @@ public class WallDrawer {
         ArrayList<Wall> shedWalls = WallBuilder.addShedWalls(construction);
         setupshed.setWalls(shedWalls);
         ArrayList<String> sides = new ArrayList<>();
-        // sides.add("back");
-        //sides.add("left");
+        sides.add("back");
+        sides.add("left");
         sides.add("right");
 
         ArrayList<Wall> carportWalls = WallBuilder.createCarportWalls(construction, sides);
         construction.setWalls(carportWalls);
-
+*/
 
 //........................end of setUp.................................//
         ArrayList<String > drawings = new ArrayList<>();
@@ -52,7 +53,6 @@ public class WallDrawer {
         ArrayList<Wall> allWalls = new ArrayList<>();
         allWalls.addAll(construction.getWalls());
         allWalls.addAll(construction.getShed().getWalls());
-
 
         int canvaWidth = construction.getConstructionLength() / 10 + 2 * MERGE + DOORwidth;
         int canvaHeight = construction.getConstructionWidth() / 10 + 2 * MERGE;
@@ -86,6 +86,7 @@ public class WallDrawer {
                     back = wall;
                     break;
                 case "front":
+                    System.out.println("Wall length "+wall.getLength());
                     front = wall;
                     break;
 
@@ -108,28 +109,37 @@ public class WallDrawer {
 
         if (shed.getDepth() != 0) {
             if (shed.getSide().equals("right")) {
-                rightWallL(svgFromAbove, right, 0, 0);
-                leftWallL(svgFromAbove, left, 0, shed.getWidth() / 10 - POSTwidth);
-                backWall(svgFromAbove, back, 0);
-                frontWall(svgFromAbove, front, shed.getDepth() / 10 - POSTwidth, 0);
-                door(svgFromAbove, shed.getDepth() / 10 - DOORwidth, shed.getWidth() / 10 - POSTwidth);
-                leftWallL(svgFromAbove, left, 0, construction.getCarportWidth()/10-POSTwidth);
+                rightWallL(svgFromAbove, right, 0, 0);  //shed right
+                leftWallL(svgFromAbove, left, 0, shed.getWidth() / 10 - POSTwidth); //shed left
+                backWall(svgFromAbove, back, 0); //shed back
+                frontWall(svgFromAbove, front, shed.getDepth() / 10 - POSTwidth, 0); //shed front
+                System.out.println("In WallDrawer , shed on right side: front wall length: " +front.getLength()+" , where shed width is: "+construction.getShed().getWidth());
 
+                door(svgFromAbove, shed.getDepth() / 10 - DOORwidth, shed.getWidth() / 10 - POSTwidth); //door
+
+                if(carportleft!=null) {
+                    leftWallL(svgFromAbove, left, 0, construction.getCarportWidth() / 10 - POSTwidth); //like shed left
+                }
 
                 if (carportback != null && shed.getWidth() < construction.getCarportWidth()) {
-                    backWall(svgFromAbove, back, shed.getWidth() / 10 - POSTwidth);
+                    backWall(svgFromAbove, back, shed.getWidth() / 10 - POSTwidth); //carport back
                 }
 
 
             } else {
-                rightWallL(svgFromAbove, right, 0, construction.getCarportWidth() / 10 / 2 - POSTwidth / 2);
-                leftWallL(svgFromAbove, left, 0, construction.getCarportWidth() / 10 - POSTwidth);
-                backWall(svgFromAbove, back, shed.getWidth() / 10 - POSTwidth);
-                frontWall(svgFromAbove, front, shed.getDepth() / 10 - POSTwidth, shed.getWidth() / 10 + DOORwidth);
-                door(svgFromAbove, shed.getDepth() / 10, shed.getWidth() / 10);
-                rightWallL(svgFromAbove,right, 0, 0);
+                rightWallL(svgFromAbove, right, 0, construction.getCarportWidth() / 10 / 2 - POSTwidth / 2); //shed rigt
+                leftWallL(svgFromAbove, left, 0, construction.getCarportWidth() / 10 - POSTwidth); //shed left
+                backWall(svgFromAbove, back, shed.getWidth() / 10 - POSTwidth); //shed back
+                frontWall(svgFromAbove, front, shed.getDepth() / 10 - POSTwidth, shed.getWidth() / 10 + DOORwidth); // shed front
+                System.out.println("In WallDrawer , shed on left side: front wall length: " +front.getLength()+" , where shed width is: "+construction.getShed().getWidth());
+                door(svgFromAbove, shed.getDepth() / 10, shed.getWidth() / 10); //door
+
+                if (carportright!=null) {
+                    rightWallL(svgFromAbove, right, 0, 0); // like shed right
+                }
+
                 if (carportback != null && shed.getWidth() < construction.getCarportWidth()) {
-                    backWall(svgFromAbove, back, 0);
+                    backWall(svgFromAbove, back, 0); //carport back
                 }
             }
 
@@ -151,22 +161,17 @@ public class WallDrawer {
             if (carportback!=null) {
                 backWall(svgFromAbove, carportback, 0);
             }
-
-
         }
         drawings.add(0,svgFromAbove.toString());
-
-
-
-
-
 
         return svgFromAbove.toString();
     }
 
-    public static HashMap<String, Svg> framings () {
 
 
+    public static HashMap<String, Svg> framings (Construction construction) {
+
+/*
         //Setup :
         Construction construction = new Construction();
         construction.setCarportLength(6800);
@@ -192,12 +197,14 @@ public class WallDrawer {
         construction.setWalls(carportWalls);
 
 
+*/
 //........................end of setUp.................................//
         ArrayList<Svg > drawings = new ArrayList<>();
         HashMap <String, Svg> framingSvg = new HashMap<>();
         ArrayList<Wall> allWalls = new ArrayList<>();
         allWalls.addAll(construction.getWalls());
         allWalls.addAll(construction.getShed().getWalls());
+
 
         for (Wall wall :allWalls) {
             int maxH = wall.getMinHeight()/10+ (int)ConstructionSizeCalculator.raising(wall.getRaising(),wall.getLength())/10 +MERGE*2;
@@ -241,12 +248,9 @@ public class WallDrawer {
             }
 
         }
-
-
-
-
-
     }
+
+
 
 
     public static void rightWallL(Svg svg, Wall wall, int x, int y) {

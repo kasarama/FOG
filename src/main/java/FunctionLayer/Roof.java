@@ -68,6 +68,8 @@ public abstract class Roof {
     public ArrayList<Material> getRoofMaterialList() {
         return roofMaterialList;
     }
+    //pictedRoof material list
+
 
     public void setPitched(boolean pitched) {
         this.pitched = pitched;

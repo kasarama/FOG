@@ -18,7 +18,7 @@
         <br>
 
         <!-- todo adjust tables  so they contain needed data
-        todo should sho material.availablesize-->
+        todo should sho material.availablesize -->
 
         <br>
         <br>
@@ -103,7 +103,6 @@
                     </tr>
                     </thead>
                     <tbody>
-
 
                     <c:forEach var="material" items="${list}">
                         <tr class="tr2">

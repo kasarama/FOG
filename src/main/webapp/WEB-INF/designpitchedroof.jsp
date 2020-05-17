@@ -6,7 +6,7 @@
 <%@ page import="FunctionLayer.Material" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="../includes/header.inc"%>
+<%@include file="../includes/headerCustomer.inc"%>
 
 <%
     // if i'm the first user on this application, then set the pitchedMaterialList. (else the list already exists)
@@ -35,7 +35,6 @@
             <h2>Tag med rejsning design</h2>
             <label class="mt-3" for="pitchedroofmaterial"> Vælg tagdækning for tag med hældning:</label>
             <select class="form-control mt-3" name="pitchedroofmaterial" id="pitchedroofmaterial">
-                <option selected disabled>Vælg tagdækning</option>
                 <c:forEach var="roofMaterial" items="${applicationScope.pitchedMaterialList}">
                     <option value="${roofMaterial.id};${roofMaterial.variationID}">${roofMaterial.name} ${roofMaterial.color}</option>
                 </c:forEach>

@@ -2,6 +2,7 @@ package DBAccess;
 
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.User;
+import PresentationLayer.Log;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +13,7 @@ import java.sql.Statement;
 /**
  * The purpose of UserMapper is to...
  *
- * @author
+ * @author kasper
  */
 public class UserMapper {
 
@@ -31,6 +32,11 @@ public class UserMapper {
             int id = ids.getInt(1);
             user.setUserID(id);
         } catch (SQLException | ClassNotFoundException ex) {
+            if (ex.getMessage().contains("The origin server did not ")){
+                Log.finest("createUser: " + user.getEmail() + " - Duplicated entry");
+                throw new LoginSampleException("En bruger med det brugernavn findes allerede");
+            }
+
             throw new LoginSampleException(ex.getMessage());
         }
     }
@@ -52,9 +58,15 @@ public class UserMapper {
                 user.setUserID(id);
                 return user;
             } else {
+                Log.info("login: \"Kunne ikke finde brugeren.\"");
                 throw new LoginSampleException("Kunne ikke finde brugeren.");
             }
         } catch (ClassNotFoundException | SQLException ex) {
+            if (ex.getMessage().contains("Communications link failure")){
+                Log.severe("login " + ex.getMessage());
+                throw new LoginSampleException("Databasen er nede. Kontakt venligts Fog.");
+            }
+            Log.severe("login " + ex.getMessage());
             throw new LoginSampleException(ex.getMessage());
         }
     }

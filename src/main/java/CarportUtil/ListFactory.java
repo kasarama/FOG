@@ -281,13 +281,11 @@ public class ListFactory {
 
         HashMap <String, ArrayList<Integer> >materialLengths = new HashMap<>();
         ArrayList<Material> meters = new ArrayList<>();
-
         for (Material material : materials) {
             if (material.getUnit().equals("m")){
                 meters.add(material);
             }
         }
-
         for (Material material : meters) {
 
             if (!materialLengths.containsKey(material.getName()) ){
@@ -295,7 +293,6 @@ public class ListFactory {
                 materialLengths.put(material.getName(), new ArrayList<Integer>());
             }
         }
-
 
         for ( String name : materialLengths.keySet()) {
             materialLengths.put( name, MaterialMapper.getLengths(name) );
@@ -322,31 +319,25 @@ public class ListFactory {
             String name = material.getName();
             int index = materialLengths.get(name).size()-1;
 
-
             if (size > materialLengths.get(name).get(index) ) {
-
                 material.setAvailablesize(material.getSize());
-
                 msg3 = msg3 + material.getName() + ", ";
-
             } else if (size < materialLengths.get(name).get(0)) {
                 material.setAvailablesize(materialLengths.get(name).get(0));
 
-
             } else
-                for (int i = 0; i < materialLengths.get(name).size(); i++) {
+                for (int i = 0; i < materialLengths.get(name).size()-1; i++) {
                     if (size >= materialLengths.get(name).get(i) && size < materialLengths.get(name).get(i + 1)) {
                         material.setAvailablesize(materialLengths.get(name).get(i));
-
                     }
                 }
 
         }
-
         if (msg3.equals(": ")) {
             return "Beregning af den tilgængelig længde til hver material lykkedes";
         } else
-            return msg1 + msg3 + msg2;
+        return msg1 + msg3 + msg2;
+
     }
 
 

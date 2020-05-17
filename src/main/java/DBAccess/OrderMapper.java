@@ -74,8 +74,8 @@ public class OrderMapper {
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, orderID);
             ps.setInt(2, construction.getConstructionHeight());
-            ps.setInt(3, construction.getCarportLength());
-            ps.setInt(4, construction.getCarportWidth());
+            ps.setInt(3, construction.getCarportWidth());
+            ps.setInt(4, construction.getCarportLength());
             ps.setInt(5, construction.getConstructionLength());
             ps.setInt(6, construction.getConstructionWidth());
             ps.setInt(7, shed.getDepth());

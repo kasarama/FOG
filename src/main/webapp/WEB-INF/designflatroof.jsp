@@ -1,7 +1,7 @@
 <%@ page import="CarportUtil.Initializer" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
-<%@include file="../includes/header.inc" %>
+<%@include file="../includes/headerCustomer.inc" %>
 <%
     //if i'm the first user on this application, then set the flatMaterialList. (else the list already exists)
     if (request.getServletContext().getAttribute("flatMaterialList") == null) {

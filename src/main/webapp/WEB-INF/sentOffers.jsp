@@ -7,7 +7,7 @@
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
-<%@include file="../includes/header.inc" %>
+<%@include file="../includes/headerEmployee.inc" %>
 
 <h2>Sendte tilbud</h2>
 

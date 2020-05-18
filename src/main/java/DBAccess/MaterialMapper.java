@@ -384,7 +384,7 @@ public class MaterialMapper {
             ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                double spending = rs.getDouble("spending");
+                double spending = rs.getDouble(1);
                 return spending;
             } else {
                 throw new LoginSampleException("Kunne ikke læse data om forbrug af den valgte materiale til beklædning");
@@ -524,6 +524,28 @@ public class MaterialMapper {
 
             } else {
                 throw new LoginSampleException("Material: "+material.getName() + " mangler pris verdi i databasen");
+            }
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new LoginSampleException(ex.getMessage());
+
+        }
+    }
+
+    public static void setID(Material material) throws LoginSampleException {
+        String name = material.getName();
+        try {
+            Connection con = Connector.connection();
+            String SQL = "SELECT materialID FROM fogdb.materials WHERE name=?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, name);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt(1);
+                material.setId(id);
+
+            } else {
+                throw new LoginSampleException("Material: "+material.getName() + " mangler ID verdi i databasen");
             }
 
         } catch (SQLException | ClassNotFoundException ex) {

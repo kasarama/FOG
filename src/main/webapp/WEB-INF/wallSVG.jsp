@@ -11,10 +11,8 @@
 </head>
 <body>
 <h1>Wall drawigs</h1>
+
 <br>
-${requestScope.wall1}
-<br>
-<p3>walls from above</p3>
 <br>
 ${requestScope.wallsFromAbove}
 </body>

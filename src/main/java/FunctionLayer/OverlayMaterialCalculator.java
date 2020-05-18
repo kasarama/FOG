@@ -289,6 +289,7 @@ public class OverlayMaterialCalculator {
         sorted.addAll(materialsByOther);
         for (Material material :sorted) {
             MaterialMapper.setPriceFromDB(material);
+            MaterialMapper.setID(material);
         }
 
         construction.getShed().setMaterials(sorted);

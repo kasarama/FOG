@@ -202,7 +202,24 @@ public class OrderMapper {
     }
 
     public static void saveNewOffer(Order order) throws LoginSampleException {
-        throw new LoginSampleException("Method for saving new offer in DB not awailable yet");
-        //todo update order and orderdetails in DB
+
+        try {
+            Connection con = Connector.connection();
+            String SQL = "UPDATE orders SET date =?, status =?, cost=?, salePrice=?, transport=?  WHERE orderID =?";
+            PreparedStatement ps = con.prepareStatement(SQL);//for at sikre os at vi fiske lige preæcis den id der er blevet genereret ved insertion
+
+            ps.setLong(1, order.getTimestamp());
+            ps.setString(2, order.getStatus());
+            ps.setDouble(3, order.getCost());
+            ps.setDouble(4, order.getSalePrice());
+            ps.setDouble(5, order.getTransport());
+            ps.setInt(6, order.getOrderID());
+            ps.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+            throw new LoginSampleException(ex.getMessage());
+        }
+
     }
 }

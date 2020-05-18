@@ -168,7 +168,7 @@ public class RoofMaterialCalculator {
         trapezPladeWidth = trapezPladeWidth*10;
         int tempTrapezPladeWidth = trapezPladeWidth;
         for (int i = 0; i < (roofWidth- tempTrapezPladeWidth + OVERLAP); i = i+ tempTrapezPladeWidth) {
-            for (int j = 0; j < roofLength-1; j = j+ T600ROOFPLADELENGTH) {
+            for (int j = 0; j < roofLength; j = j+ T600ROOFPLADELENGTH) {
                 square1numberOfT600Trapezplates++;
                 tempTrapezPladeWidth = trapezPladeWidth*10 - OVERLAP;
             }

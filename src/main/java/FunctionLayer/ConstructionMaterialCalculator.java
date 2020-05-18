@@ -55,7 +55,6 @@ public class ConstructionMaterialCalculator {
         Material post;
 
         for (int avaliblePostMaterialLength : postsMaterialsAvalibleLenghts) {
-            //avaliblePostMaterialLength + 900;
             post = LogicFacade.getMaterialBySizeName(avaliblePostMaterialLength, "TRYKIMPRENERET STOLPE");
             int avLength = post.getSize();
             post.setAvailablesize(avLength*10);

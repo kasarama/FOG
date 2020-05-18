@@ -11,17 +11,13 @@ public class EditOrderPrices extends Command {
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
 
         int carportLength = Integer.parseInt(request.getParameter("carportLength"));
-
         int carportWidth = Integer.parseInt(request.getParameter("carportWidth"));
-
-
 
         int angle = Integer.parseInt(request.getParameter("angle"));
 
         int tilt = Integer.parseInt(request.getParameter("tilt"));
 
         double transport = Double.parseDouble(request.getParameter("transport"));
-
 
         Order order = (Order) request.getServletContext().getAttribute("orderForValidation");
 
@@ -38,30 +34,24 @@ public class EditOrderPrices extends Command {
 
         }
 
-
         order.getConstruction().setConstructionWidth();
         order.getConstruction().setConstructionLength();
         order.getConstruction().getRoof().setDegree(angle);
         order.getConstruction().getRoof().setTilt(tilt);
         order.setTransport(transport);
 
-        ArrayList<Wall> costructionWalls = WallBuilder.createCarportWalls(
-                order.getConstruction(), order.getConstruction().getWallSides());
 
+        ArrayList<Wall> costructionWalls = WallBuilder.createCarportWalls(order.getConstruction(), order.getConstruction().getWallSides());
         order.getConstruction().setWalls(costructionWalls);
         order.setCoverage(order.getDEFAULTCOVERAGE());
 
-        System.out.println("is about to collect all the materials");
         LogicFacade.setMaterialsForOrder(order);
-
-        System.out.println("HAs colleted all teh materials");
 
         order.setCost(Math.round(Economy.ordersCostPrice(order) * 100.0) / 100.0);
         order.setSalePrice(Math.round(Economy.ordersSalePrice(order) * 100.0) / 100.0);
         order.setCoverage(Math.round(Economy.setCoverage(order) * 100.0) / 100.0);
-
-
         request.getServletContext().setAttribute("orderForValidation", order);
+
         return "prepareOffer";
 
     }

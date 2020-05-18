@@ -138,57 +138,54 @@ public class PitchedRoofMaterialCalculator {
         //Vandbræt
         Material vandbraet = new Material();
 
-        vandbraet.setName("VANDBRÆT" + vandbraet.getThickness() + "x" + vandbraet.getWidth());
-        vandbraet.setCategory("RejsningTag Konstruktion");
-        vandbraet.setUnit(LogicFacade.getUnitByName(vandbraet.getName()));
-        vandbraet.setWidth(LogicFacade.getWidthByID(vandbraet.getId(),vandbraet.getName()));
-        vandbraet.setThickness(LogicFacade.getThicknessByID(vandbraet.getId()));
+        vandbraet.setName("VANDBRÆT");
         int quantityOfVandbraet = amountOfVandbraet();
         vandbraet.setAmount(quantityOfStern);
+        vandbraet.setUnit(LogicFacade.getUnitByName(vandbraet.getName()));
         vandbraet.setComment("Bræt til montering på vindskeder -  beskytter mod fugtfæld");
-        vandbraet.setSize(vandbraet.getAvailablesize());
+        vandbraet.setCategory("RejsningTag Konstruktion");
+        vandbraet.setId(29);
         vandbraet.setPrice(LogicFacade.getPrice(vandbraet.getId()));
-
-        //
-        stern.setName("STERNBRÆT");
-        int quantityOfStern = amountOfStern();
-        stern.setAmount(quantityOfStern);
-        stern.setUnit(LogicFacade.getUnitByName(stern.getName()));
-        stern.setComment("Bræt påsømmes enderne af tagspærene - dækker og beskytter spærene");
-        stern.setCategory("RejsningTag Konstruktion");
-        stern.setId(28);
-        stern.setPrice(LogicFacade.getPrice(stern.getId()));
-        stern.setThickness(LogicFacade.getThicknessByID(stern.getId()));
-        stern.setWidth(LogicFacade.getWidthByID(toplaegter.getId(), stern.getName()));
+        vandbraet.setThickness(LogicFacade.getThicknessByID(vandbraet.getId()));
+        vandbraet.setWidth(LogicFacade.getWidthByID(vandbraet.getId(), vandbraet.getName()));
 
 
         //TEST
-        System.out.println("name: "+stern.getName());
-        System.out.println("amount: "+stern.getAmount());
-        System.out.println("comment: "+stern.getComment());
-        System.out.println("category: "+stern.getCategory());
-        System.out.println("unit "+stern.getUnit());
-        System.out.println("price "+stern.getPrice());
-        System.out.println("thickness "+stern.getThickness());
-        System.out.println("width " +stern.getWidth());
+        System.out.println("name: "+vandbraet.getName());
+        System.out.println("amount: "+vandbraet.getAmount());
+        System.out.println("comment: "+vandbraet.getComment());
+        System.out.println("category: "+vandbraet.getCategory());
+        System.out.println("unit "+vandbraet.getUnit());
+        System.out.println("price "+vandbraet.getPrice());
+        System.out.println("thickness "+vandbraet.getThickness());
+        System.out.println("width " +vandbraet.getWidth());
 
         pitchedRoofMaterialList.add(vandbraet);
-
-
 
         //Vindskeder
         Material vindskeder = new Material();
 
-        vindskeder.setName("VINDSKEDER" + vindskeder.getThickness() + "x" + vindskeder.getWidth());
-        vindskeder.setCategory("RejsningTag Konstruktion");
-        vindskeder.setUnit(LogicFacade.getUnitByName(vindskeder.getName()));
-        vindskeder.setWidth(LogicFacade.getWidthByID(vindskeder.getId(),vindskeder.getName()));
-        vindskeder.setThickness(LogicFacade.getThicknessByID(vindskeder.getId()));
+        vindskeder.setName("VINDSKEDER");
         int quantityOfVindskeder = amountOfVindskeder();
         vindskeder.setAmount(quantityOfVindskeder);
+        vindskeder.setUnit(LogicFacade.getUnitByName(vindskeder.getName()));
         vindskeder.setComment("Bræt til montering på tag rejsning som afslutning på tagpaptage");
-        vindskeder.setSize(vindskeder.getAvailablesize());
+        vindskeder.setCategory("RejsningTag Konstruktion");
+        vindskeder.setId(27);
         vindskeder.setPrice(LogicFacade.getPrice(vindskeder.getId()));
+        vindskeder.setThickness(LogicFacade.getThicknessByID(vindskeder.getId()));
+        vindskeder.setWidth(LogicFacade.getWidthByID(vindskeder.getId(), vindskeder.getName()));
+
+
+        //TEST
+        System.out.println("name: "+vindskeder.getName());
+        System.out.println("amount: "+vindskeder.getAmount());
+        System.out.println("comment: "+vindskeder.getComment());
+        System.out.println("category: "+vindskeder.getCategory());
+        System.out.println("unit "+vindskeder.getUnit());
+        System.out.println("price "+vindskeder.getPrice());
+        System.out.println("thickness "+vindskeder.getThickness());
+        System.out.println("width " +vindskeder.getWidth());
 
         pitchedRoofMaterialList.add(vindskeder);
 
@@ -196,247 +193,361 @@ public class PitchedRoofMaterialCalculator {
         //TagfodsLægte
         Material tagfodsLaegte = new Material();
 
-        tagfodsLaegte.setName("TAGFODSLÆGTE" + tagfodsLaegte.getThickness() + "x" + tagfodsLaegte.getWidth());
-        tagfodsLaegte.setCategory("Rejsning Konstruktion");
-        tagfodsLaegte.setUnit(LogicFacade.getUnitByName(tagfodsLaegte.getName()));
-        tagfodsLaegte.setWidth(LogicFacade.getWidthByID(tagfodsLaegte.getId(),tagfodsLaegte.getName()));
-        tagfodsLaegte.setThickness(LogicFacade.getThicknessByID(tagfodsLaegte.getId()));
+        tagfodsLaegte.setName("TAGFODSLÆGTE BRÆDT");
         int quantityOfTagfodsLaegte = amountOfTagfodsLaegte();
         tagfodsLaegte.setAmount(quantityOfTagfodsLaegte);
+        tagfodsLaegte.setUnit(LogicFacade.getUnitByName(tagfodsLaegte.getName()));
         tagfodsLaegte.setComment("Lægte til tagfod");
-        tagfodsLaegte.setSize(tagfodsLaegte.getAvailablesize());
+        tagfodsLaegte.setCategory("Rejsning Konstruktion");
+        tagfodsLaegte.setId(31);
         tagfodsLaegte.setPrice(LogicFacade.getPrice(tagfodsLaegte.getId()));
+        tagfodsLaegte.setThickness(LogicFacade.getThicknessByID(tagfodsLaegte.getId()));
+        tagfodsLaegte.setWidth(LogicFacade.getWidthByID(tagfodsLaegte.getId(), tagfodsLaegte.getName()));
 
 
-        pitchedRoofMaterialList .add(tagfodsLaegte);
+        //TEST
+        System.out.println("name: "+tagfodsLaegte.getName());
+        System.out.println("amount: "+tagfodsLaegte.getAmount());
+        System.out.println("comment: "+tagfodsLaegte.getComment());
+        System.out.println("category: "+tagfodsLaegte.getCategory());
+        System.out.println("unit "+tagfodsLaegte.getUnit());
+        System.out.println("price "+tagfodsLaegte.getPrice());
+        System.out.println("thickness "+tagfodsLaegte.getThickness());
+        System.out.println("width " +tagfodsLaegte.getWidth());
+
+        pitchedRoofMaterialList.add(tagfodsLaegte);
 
         //Rygsten
         Material rygsten = new Material();
 
-        rygsten.setName("RYGSTEN" + rygsten.getThickness() + "x" + rygsten.getWidth());
-        rygsten.setCategory("RejsningTag Konstruktion");
-        rygsten.setUnit(LogicFacade.getUnitByName(rygsten.getName()));
-        rygsten.setWidth(LogicFacade.getWidthByID(rygsten.getId(),rygsten.getName()));
-        rygsten.setThickness(LogicFacade.getThicknessByID(rygsten.getId()));
+        rygsten.setName("RYGSTEN");
         int quantityOfRygsten = quantityRygsten();
         rygsten.setAmount(quantityOfRygsten);
+        rygsten.setUnit(LogicFacade.getUnitByName(rygsten.getName()));
         rygsten.setComment("Monteres på toplægte");
-        rygsten.setSize(rygsten.getAvailablesize());
+        rygsten.setCategory("RejsningTag Konstruktion");
+        rygsten.setId(39);
         rygsten.setPrice(LogicFacade.getPrice(rygsten.getId()));
+
+        //TEST
+        System.out.println("name: "+rygsten.getName());
+        System.out.println("amount: "+rygsten.getAmount());
+        System.out.println("comment: "+rygsten.getComment());
+        System.out.println("category: "+rygsten.getCategory());
+        System.out.println("unit "+rygsten.getUnit());
+        System.out.println("price "+rygsten.getPrice());
 
         pitchedRoofMaterialList.add(rygsten);
 
-
-        //Tagplader
-        Material tagsten = new Material();
-
-        tagsten.setName("TAGPLADE" + tagsten.getThickness() + "x" + tagsten.getWidth());
-        tagsten.setCategory("RejsningTag Konstruktion");
-        tagsten.setUnit(LogicFacade.getUnitByName(tagsten.getName()));
-        tagsten.setWidth(LogicFacade.getWidthByID(tagsten.getId(),tagsten.getName()));
-        tagsten.setThickness(LogicFacade.getThicknessByID(tagsten.getId()));
-        int quantityOfTagsten = amountOfTagsten();
-        tagsten.setAmount(quantityOfTagsten);
-        tagsten.setComment("Monteres.. ");
-        tagsten.setSize(tagsten.getAvailablesize());
-        String roofColor = roof.getColor();
-        tagsten.setColor(roofColor);
-        tagsten.setPrice(LogicFacade.getPrice(tagsten.getId()));
-
-        pitchedRoofMaterialList.add(tagsten);
-
         // ** Beslag **
 
+        System.out.println("** BESLAG **");
         //toplægteHolder
         Material toplaegteHolder = new Material();
-        toplaegteHolder.setName("TOPLÆGTEHOLDER" + toplaegteHolder.getThickness() + "x" + toplaegteHolder.getWidth());
-        toplaegteHolder.setCategory("RejsningTag Konstruktion");
-        toplaegteHolder.setUnit(LogicFacade.getUnitByName(toplaegteHolder.getName()));
-        toplaegteHolder.setWidth(LogicFacade.getWidthByID(toplaegteHolder.getId(),toplaegteHolder.getName()));
-        toplaegteHolder.setThickness(LogicFacade.getThicknessByID(toplaegteHolder.getId()));
+
+        toplaegteHolder.setName("TOPLÆGTEHOLDER");
         int quantityOfToplaegteHolder = amountOfToplaegteHolder();
         toplaegteHolder.setAmount(quantityOfToplaegteHolder);
+        toplaegteHolder.setUnit(LogicFacade.getUnitByName(toplaegteHolder.getName()));
         toplaegteHolder.setComment("monteres på toppen af spæret af toplægte");
-        toplaegteHolder.setSize(toplaegteHolder.getAvailablesize());
+        toplaegteHolder.setCategory("RejsningTag Konstruktion");
+        toplaegteHolder.setId(34);
         toplaegteHolder.setPrice(LogicFacade.getPrice(toplaegteHolder.getId()));
+
+        //TEST
+        System.out.println("name: "+toplaegteHolder.getName());
+        System.out.println("amount: "+toplaegteHolder.getAmount());
+        System.out.println("comment: "+toplaegteHolder.getComment());
+        System.out.println("category: "+toplaegteHolder.getCategory());
+        System.out.println("unit "+toplaegteHolder.getUnit());
+        System.out.println("price "+toplaegteHolder.getPrice());
+        System.out.println("thickness "+toplaegteHolder.getThickness());
+        System.out.println("width " +toplaegteHolder.getWidth());
 
         pitchedRoofMaterialList.add(toplaegteHolder);
 
         //Taglægter skruer
-        Material taglaegteSkruer = new Material();
+        Material taglaegterSkruer = new Material();
 
-        taglaegteSkruer.setName("TAGLÆGTER SKRUER" + taglaegteSkruer.getThickness() + "x" + taglaegteSkruer.getWidth());
-        taglaegteSkruer.setCategory("RejsningTag Konstruktion");
-        taglaegteSkruer.setUnit(LogicFacade.getUnitByName(taglaegteSkruer.getName()));
-        taglaegteSkruer.setWidth(LogicFacade.getWidthByID(taglaegteSkruer.getId(),taglaegteSkruer.getName()));
-        taglaegteSkruer.setThickness(LogicFacade.getThicknessByID(taglaegteSkruer.getId()));
+        taglaegterSkruer.setName("TAGLÆGTER SKRUER");
         int quantityOfTaglaegteScrews = screwForTaglægterCalculated();
-        taglaegteSkruer.setAmount(quantityOfTaglaegteScrews);
-        taglaegteSkruer.setComment("Skruer til taglægter");
-        taglaegteSkruer.setSize(taglaegteSkruer.getAvailablesize());
-        taglaegteSkruer.setPrice(LogicFacade.getPrice(taglaegteSkruer.getId()));
+        taglaegterSkruer.setAmount(quantityOfTaglaegteScrews);
+        taglaegterSkruer.setUnit(LogicFacade.getUnitByName(taglaegterSkruer.getName()));
+        taglaegterSkruer.setComment("Skruer til taglægter");
+        taglaegterSkruer.setCategory("RejsningTag Konstruktion");
+        taglaegterSkruer.setId(37);
+        taglaegterSkruer.setPrice(LogicFacade.getPrice(taglaegterSkruer.getId()));
 
-        pitchedRoofMaterialList.add(taglaegteSkruer);
+        //TEST
+        System.out.println("name: "+taglaegterSkruer.getName());
+        System.out.println("amount: "+taglaegterSkruer.getAmount());
+        System.out.println("comment: "+taglaegterSkruer.getComment());
+        System.out.println("category: "+taglaegterSkruer.getCategory());
+        System.out.println("unit "+taglaegterSkruer.getUnit());
+        System.out.println("price "+taglaegterSkruer.getPrice());
+
+        pitchedRoofMaterialList.add(taglaegterSkruer);
 
 
         //Vandbræt skruer
         Material vandbraetSkruer = new Material();
 
-        vandbraetSkruer.setName("VANDBRÆT SKRUER" + vandbraetSkruer.getThickness() + "x" + vandbraetSkruer.getWidth());
-        vandbraetSkruer.setCategory("RejsningTag Konstruktion");
-        vandbraetSkruer.setUnit(LogicFacade.getUnitByName(vandbraetSkruer.getName()));
-        vandbraetSkruer.setWidth(LogicFacade.getWidthByID(vandbraetSkruer.getId(),vandbraetSkruer.getName()));
-        vandbraetSkruer.setThickness(LogicFacade.getThicknessByID(vandbraetSkruer.getId()));
+        vandbraetSkruer.setName("SKRUER");
         int quantityOfVandbraerScrews = screwsForVandbrætCalculated();
         vandbraetSkruer.setAmount(quantityOfVandbraerScrews);
+        vandbraetSkruer.setUnit(LogicFacade.getUnitByName(vandbraetSkruer.getName()));
         vandbraetSkruer.setComment("Skruer til vandbræt");
-        vandbraetSkruer.setSize(vandbraetSkruer.getAvailablesize());
+        vandbraetSkruer.setCategory("RejsningTag Konstruktion");
+        vandbraetSkruer.setId(35);
         vandbraetSkruer.setPrice(LogicFacade.getPrice(vandbraetSkruer.getId()));
+
+        //TEST
+        System.out.println("name: "+vandbraetSkruer.getName());
+        System.out.println("amount: "+vandbraetSkruer.getAmount());
+        System.out.println("comment: "+vandbraetSkruer.getComment());
+        System.out.println("category: "+vandbraetSkruer.getCategory());
+        System.out.println("unit "+vandbraetSkruer.getUnit());
+        System.out.println("price "+vandbraetSkruer.getPrice());
 
         pitchedRoofMaterialList.add(vandbraetSkruer);
 
         //toplægte skruer
-        Material toplaegteSkruer = new Material();
+        Material toplægteSkruer = new Material();
 
-        toplaegteSkruer.setName("TOPLÆGTER SKRUER" + toplaegteSkruer.getThickness() + "x" + toplaegteSkruer.getWidth());
-        toplaegteSkruer.setCategory("RejsningTag Konstruktion");
-        toplaegteSkruer.setUnit(LogicFacade.getUnitByName(toplaegteSkruer.getName()));
-        toplaegteSkruer.setWidth(LogicFacade.getWidthByID(toplaegteSkruer.getId(),toplaegteSkruer.getName()));
-        toplaegteSkruer.setThickness(LogicFacade.getThicknessByID(toplaegteSkruer.getId()));
+        toplægteSkruer.setName("SKRUER");
         int quantityOfToplaegteScrews = amountOfBeslagScrewsForToplægteCalculated();
-        toplaegteSkruer.setAmount(quantityOfToplaegteScrews);
-        toplaegteSkruer.setComment("Skruer til toplægter");
-        toplaegteSkruer.setSize(toplaegteSkruer.getAvailablesize());
-        toplaegteSkruer.setPrice(LogicFacade.getPrice(toplaegteSkruer.getId()));
+        toplægteSkruer.setAmount(quantityOfToplaegteScrews);
+        toplægteSkruer.setUnit(LogicFacade.getUnitByName(toplægteSkruer.getName()));
+        toplægteSkruer.setComment("Skruer til toplægter");
+        toplægteSkruer.setCategory("RejsningTag Konstruktion");
+        toplægteSkruer.setId(35);
+        toplægteSkruer.setPrice(LogicFacade.getPrice(toplægteSkruer.getId()));
 
-        pitchedRoofMaterialList .add(toplaegteSkruer);
+        //TEST
+        System.out.println("name: "+toplægteSkruer.getName());
+        System.out.println("amount: "+toplægteSkruer.getAmount());
+        System.out.println("comment: "+toplægteSkruer.getComment());
+        System.out.println("category: "+toplægteSkruer.getCategory());
+        System.out.println("unit "+toplægteSkruer.getUnit());
+        System.out.println("price "+toplægteSkruer.getPrice());
+
+        pitchedRoofMaterialList .add(toplægteSkruer);
+
 
         //Vindskeder skruer
         Material vindskederSkruer = new Material();
 
-        vindskederSkruer.setName("VINDSKEDER SKRUER" + vindskederSkruer.getThickness() + "x" + vindskederSkruer.getWidth());
-        vindskederSkruer.setCategory("RejsningTag Konstruktion");
-        vindskederSkruer.setUnit(LogicFacade.getUnitByName(vindskederSkruer.getName()));
-        vindskederSkruer.setWidth(LogicFacade.getWidthByID(vindskederSkruer.getId(), vindskederSkruer.getName()));
-        vindskederSkruer.setThickness(LogicFacade.getThicknessByID(vindskederSkruer.getId()));
+        vindskederSkruer.setName("SKRUER");
         int quantityOfVindskederScrews = screwsForVindskederCalculated();
         vindskederSkruer.setAmount(quantityOfVindskederScrews);
+        vindskederSkruer.setUnit(LogicFacade.getUnitByName(vindskederSkruer.getName()));
         vindskederSkruer.setComment("Skruer til vindskeder");
-        vindskederSkruer.setSize(vindskederSkruer.getAvailablesize());
+        vindskederSkruer.setCategory("RejsningTag Konstruktion");
+        vindskederSkruer.setId(35);
         vindskederSkruer.setPrice(LogicFacade.getPrice(vindskederSkruer.getId()));
 
-        pitchedRoofMaterialList .add(vindskederSkruer);
+        //TEST
+        System.out.println("name: "+vindskederSkruer.getName());
+        System.out.println("amount: "+vindskederSkruer.getAmount());
+        System.out.println("comment: "+vindskederSkruer.getComment());
+        System.out.println("category: "+vindskederSkruer.getCategory());
+        System.out.println("unit "+vindskederSkruer.getUnit());
+        System.out.println("price "+vindskederSkruer.getPrice());
+
+        pitchedRoofMaterialList.add(vindskederSkruer);
 
         //toplægteHolder skruer
-        Material toplaegteHolderSkruer = new Material();
+        Material toplaegterHolderSkruer = new Material();
 
-        toplaegteHolderSkruer.setName("TOPLÆGTEHOLDER SKRUER" + toplaegteHolderSkruer.getThickness() + "x" + toplaegteHolderSkruer.getWidth());
-        toplaegteHolderSkruer.setCategory("RejsningTag Konstruktion");
-        toplaegteHolderSkruer.setUnit(LogicFacade.getUnitByName(toplaegteHolderSkruer.getName()));
-        toplaegteHolderSkruer.setWidth(LogicFacade.getWidthByID(toplaegteHolderSkruer.getId(),  toplaegteHolderSkruer.getName()));
-        toplaegteHolderSkruer.setThickness(LogicFacade.getThicknessByID(toplaegteHolderSkruer.getId()));
-        int quantityOfToplaegteHolderScrews =  amountOfBeslagScrewsForToplægteCalculated();
-        toplaegteHolderSkruer.setAmount(quantityOfToplaegteHolderScrews);
-        toplaegteHolderSkruer.setComment("Skruer til toplægteholder");
-        toplaegteHolderSkruer.setSize(toplaegteHolderSkruer.getAvailablesize());
-        toplaegteHolderSkruer.setPrice(LogicFacade.getPrice(toplaegteHolderSkruer.getId()));
+        toplaegterHolderSkruer.setName("TOPLÆGTE BESLAGSKRUER");
+        int quantityOfToplaegteHolderScrews = amountOfBeslagScrewsForToplægteCalculated();
+        toplaegterHolderSkruer.setAmount(quantityOfToplaegteHolderScrews);
+        toplaegterHolderSkruer.setUnit(LogicFacade.getUnitByName(toplaegterHolderSkruer.getName()));
+        toplaegterHolderSkruer.setComment("Skruer til toplægteholder");
+        toplaegterHolderSkruer.setCategory("RejsningTag Konstruktion");
+        toplaegterHolderSkruer.setId(36);
+        toplaegterHolderSkruer.setPrice(LogicFacade.getPrice(toplaegterHolderSkruer.getId()));
 
-        pitchedRoofMaterialList.add(toplaegteHolderSkruer);
+        //TEST
+        System.out.println("name: "+toplaegterHolderSkruer.getName());
+        System.out.println("amount: "+toplaegterHolderSkruer.getAmount());
+        System.out.println("comment: "+toplaegterHolderSkruer.getComment());
+        System.out.println("category: "+toplaegterHolderSkruer.getCategory());
+        System.out.println("unit "+toplaegterHolderSkruer.getUnit());
+        System.out.println("price "+toplaegterHolderSkruer.getPrice());
+
+        pitchedRoofMaterialList.add(toplaegterHolderSkruer);
 
 
         //Rygsten Beslag
         Material rygstenBeslag = new Material();
 
-        rygstenBeslag.setName("RYGSTENBESLAG" + rygstenBeslag.getThickness() + "x" + rygstenBeslag.getWidth());
-        rygstenBeslag.setCategory("RejsningTag Konstruktion");
-        rygstenBeslag.setUnit(LogicFacade.getUnitByName(rygstenBeslag.getName()));
-        rygstenBeslag.setWidth(LogicFacade.getWidthByID(rygstenBeslag.getId(), rygstenBeslag.getName()));
-        rygstenBeslag.setThickness(LogicFacade.getThicknessByID(rygstenBeslag.getId()));
+        rygstenBeslag.setName("RYGSTENBESLAG");
         int quantityOfRygstenBeslag =  amoutOfRygstenBeslagCalculated();
         rygstenBeslag.setAmount(quantityOfRygstenBeslag);
+        rygstenBeslag.setUnit(LogicFacade.getUnitByName(rygstenBeslag.getName()));
         rygstenBeslag.setComment("Beslag til rygsten");
-        rygstenBeslag.setSize(rygstenBeslag.getAvailablesize());
+        rygstenBeslag.setCategory("RejsningTag Konstruktion");
+        rygstenBeslag.setId(40);
         rygstenBeslag.setPrice(LogicFacade.getPrice(rygstenBeslag.getId()));
+
+        //TEST
+        System.out.println("name: "+rygstenBeslag.getName());
+        System.out.println("amount: "+rygstenBeslag.getAmount());
+        System.out.println("comment: "+rygstenBeslag.getComment());
+        System.out.println("category: "+rygstenBeslag.getCategory());
+        System.out.println("unit "+rygstenBeslag.getUnit());
+        System.out.println("price "+rygstenBeslag.getPrice());
 
         pitchedRoofMaterialList.add(rygstenBeslag);
 
-        //spær til taglægter + rygsten
-        Material tagSpaer = new Material();
+        //Nakkekrog til eternittagB7
+        Material tagstenNakkekrog = new Material();
 
-        tagSpaer.setName("SPÆR" + tagSpaer.getThickness() + "x" + tagSpaer.getWidth());
-        tagSpaer.setCategory("RejsningTag Konstruktion");
-        tagSpaer.setUnit(LogicFacade.getUnitByName(tagSpaer.getName()));
-        tagSpaer.setWidth(LogicFacade.getWidthByID(tagSpaer.getId(), tagSpaer.getName()));
-        tagSpaer.setThickness(LogicFacade.getThicknessByID(tagSpaer.getId()));
-        int quantityOfSpaer = spærFullQuantityOfPlanksTotal();
-        tagSpaer.setAmount(quantityOfSpaer);
-        tagSpaer.setComment("Spær til taglægter og rysgten");
-        tagSpaer.setSize(tagSpaer.getAvailablesize());
-        tagSpaer.setPrice(LogicFacade.getPrice(tagSpaer.getId()));
-
-
-        pitchedRoofMaterialList.add(tagSpaer);
-
-
-        //Nakkekrog til tagsten
-        Material tagstenNakkekroge = new Material();
-
-        tagstenNakkekroge.setName("TAGSTEN NAKKEKROGE" + tagstenNakkekroge.getThickness() + "x" + tagstenNakkekroge.getWidth());
-        tagstenNakkekroge.setCategory("RejsningTag Konstruktion");
-        tagstenNakkekroge.setUnit(LogicFacade.getUnitByName(tagstenNakkekroge.getName()));
-        tagstenNakkekroge.setWidth(LogicFacade.getWidthByID(tagstenNakkekroge.getId(), tagstenNakkekroge.getName()));
-        tagstenNakkekroge.setThickness(LogicFacade.getThicknessByID(tagstenNakkekroge.getId()));
+        tagstenNakkekrog.setName("TAGSTEN NAKKEKROGE");
         int quantityOfNakkekrog = tagstenNakkekrogeCalculated();
-        tagstenNakkekroge.setAmount(quantityOfNakkekrog);
-        tagstenNakkekroge.setComment("Til montering af tagsten");
-        tagstenNakkekroge.setSize(tagstenNakkekroge.getAvailablesize());
-        tagstenNakkekroge.setPrice(LogicFacade.getPrice(tagstenNakkekroge.getId()));
+        tagstenNakkekrog.setAmount(quantityOfNakkekrog);
+        tagstenNakkekrog.setUnit(LogicFacade.getUnitByName(tagstenNakkekrog.getName()));
+        tagstenNakkekrog.setComment("Til montering af eternittagB7");
+        tagstenNakkekrog.setCategory("RejsningTag Konstruktion");
+        tagstenNakkekrog.setId(33);
+        tagstenNakkekrog.setPrice(LogicFacade.getPrice(tagstenNakkekrog.getId()));
 
-        pitchedRoofMaterialList .add(tagstenNakkekroge);
+        //TEST
+        System.out.println("name: "+tagstenNakkekrog.getName());
+        System.out.println("amount: "+tagstenNakkekrog.getAmount());
+        System.out.println("comment: "+tagstenNakkekrog.getComment());
+        System.out.println("category: "+tagstenNakkekrog.getCategory());
+        System.out.println("unit "+tagstenNakkekrog.getUnit());
+        System.out.println("price "+tagstenNakkekrog.getPrice());
 
-        //Bindere til tagsten
+        pitchedRoofMaterialList.add(tagstenNakkekrog);
+
+        //Bindere til eternittagB7
         Material tagstenBindere = new Material();
 
-        tagstenBindere.setName("TAGSTEN BINDERE" + tagstenBindere.getThickness() + "x" + tagstenBindere.getWidth());
-        tagstenBindere.setCategory("RejsningTag Konstruktion");
-        tagstenBindere.setUnit(LogicFacade.getUnitByName(tagstenBindere.getName()));
-        tagstenBindere.setWidth(LogicFacade.getWidthByID(tagstenBindere.getId(), tagstenBindere.getName()));
-        tagstenBindere.setThickness(LogicFacade.getThicknessByID(tagstenBindere.getId()));
+        tagstenBindere.setName("TAGSTEN BINDERE");
         int quantityOfBindere = tagstenBindereCalculated();
         tagstenBindere.setAmount(quantityOfBindere);
-        tagstenBindere.setComment("Til montering af tagsten");
-        tagstenBindere.setSize(tagstenBindere.getAvailablesize());
+        tagstenBindere.setUnit(LogicFacade.getUnitByName(tagstenBindere.getName()));
+        tagstenBindere.setComment("Til montering af eternittagB7");
+        tagstenBindere.setCategory("RejsningTag Konstruktion");
+        tagstenBindere.setId(32);
         tagstenBindere.setPrice(LogicFacade.getPrice(tagstenBindere.getId()));
+
+        //TEST
+        System.out.println("name: "+tagstenBindere.getName());
+        System.out.println("amount: "+tagstenBindere.getAmount());
+        System.out.println("comment: "+tagstenBindere.getComment());
+        System.out.println("category: "+tagstenBindere.getCategory());
+        System.out.println("unit "+tagstenBindere.getUnit());
+        System.out.println("price "+tagstenBindere.getPrice());
 
         pitchedRoofMaterialList.add(tagstenBindere);
 
+        //spær til taglægter + rygsten todo: add TAGSPÆR in DB + adjust its id in material list
+        Material tagSpaer = new Material();
 
-        // Gavl beklædning
-        Material gavlOverlay = new Material();
-        gavlOverlay.setName("GAVLOVERLAY" +  gavlOverlay.getThickness() + "x" +  gavlOverlay.getWidth());
-        gavlOverlay.setCategory("RejsningTag Konstruktion");
-        gavlOverlay.setUnit(LogicFacade.getUnitByName(gavlOverlay.getName()));
-        gavlOverlay.setWidth(LogicFacade.getWidthByID(gavlOverlay.getId(), gavlOverlay.getName()));
-        gavlOverlay.setThickness(LogicFacade.getThicknessByID(gavlOverlay.getId()));
-        int roofLength = roof.getLength();
-        int roofWidth = roof.getWidth();
-        int quantityOfGavlOverlay = gavlOverlayQuantity(roofLength,roofWidth);
-        gavlOverlay.setAmount(quantityOfGavlOverlay);
-        gavlOverlay.setComment("Til montering af tag");
-        gavlOverlay.setSize( gavlOverlay.getAvailablesize());
-        gavlOverlay.setPrice(LogicFacade.getPrice(gavlOverlay.getId()));
+        tagSpaer.setName("TAGSPÆR");
+        int quantityOfSpaer = spærFullQuantityOfPlanksTotal();
+        tagSpaer.setAmount(quantityOfSpaer);
+        tagSpaer.setUnit(LogicFacade.getUnitByName(tagSpaer.getName()));
+        tagSpaer.setComment("Spær til taglægter og rysgten");
+        tagSpaer.setCategory("RejsningTag Konstruktion");
+        tagSpaer.setId(40);
+        tagSpaer.setPrice(LogicFacade.getPrice(tagSpaer.getId()));
 
-        pitchedRoofMaterialList .add(gavlOverlay);
-        System.out.println("In PitchedRoofMaterialCalc : ALL materials on the pitched roof list : " +pitchedRoofMaterialList.size());
+        //TEST
+        System.out.println("name: "+tagSpaer.getName());
+        System.out.println("amount: "+tagSpaer.getAmount());
+        System.out.println("comment: "+tagSpaer.getComment());
+        System.out.println("category: "+tagSpaer.getCategory());
+        System.out.println("unit "+tagSpaer.getUnit());
+        System.out.println("price "+tagSpaer.getPrice());
+
+        pitchedRoofMaterialList.add(tagSpaer);
+
+        //** Tagplader ** todo: fix tagplader
+        System.out.println("** TAGPLADER ** ");
+
+        //Beton
+        Material betontagsten = new Material();
+
+        betontagsten.setName("BETONTAGSTEN");
+        int quantityOfTagstenBeton = amountOfTagsten();
+        betontagsten.setAmount(quantityOfTagstenBeton);
+        betontagsten.setId(24);
+        betontagsten.setUnit(LogicFacade.getUnitByName(betontagsten.getName()));
+        betontagsten.setColor(LogicFacade.getColorByMaterialID(betontagsten.getId()));
+        betontagsten.setComment("Tagplader til tag med rejsning");
+        betontagsten.setPrice(LogicFacade.getPrice(betontagsten.getId()));
+
+        //TEST
+        System.out.println("name: "+betontagsten.getName());
+        System.out.println("amount: "+betontagsten.getAmount());
+        System.out.println("comment: "+betontagsten.getComment());
+        System.out.println("category: "+betontagsten.getCategory());
+        System.out.println("unit "+betontagsten.getUnit());
+        System.out.println("price "+betontagsten.getPrice());
+        //System.out.println("color "+betontagsten.getColor());
+
+        pitchedRoofMaterialList.add(betontagsten);
+
+        //Eternittag B6
+        Material eternittagB6 = new Material();
+
+        eternittagB6.setName("ETERNITTAG B6");
+        int quantityOfTagstenB6 = amountOfTagsten();
+        eternittagB6.setAmount(quantityOfTagstenB6);
+        eternittagB6.setId(25);
+        eternittagB6.setUnit(LogicFacade.getUnitByName(eternittagB6.getName()));
+        eternittagB6.setColor(LogicFacade.getColorByMaterialID(eternittagB6.getId()));
+        eternittagB6.setComment("Tagplader til tag med rejsning");
+        eternittagB6.setPrice(LogicFacade.getPrice(eternittagB6.getId()));
+
+        //TEST
+        System.out.println("name: "+eternittagB6.getName());
+        System.out.println("amount: "+eternittagB6.getAmount());
+        System.out.println("comment: "+eternittagB6.getComment());
+        System.out.println("category: "+eternittagB6.getCategory());
+        System.out.println("unit "+eternittagB6.getUnit());
+        System.out.println("price "+eternittagB6.getPrice());
+        //System.out.println("color "+eternittagB6.getColor());
+
+        pitchedRoofMaterialList.add(eternittagB6);
+
+        //Eternittag B7
+        Material eternittagB7 = new Material();
+
+        eternittagB7.setName("ETERNITTAG B7");
+        int quantityOfTagstenB7 = amountOfTagsten();
+        eternittagB7.setAmount(quantityOfTagstenB7);
+        eternittagB7.setId(26);
+        eternittagB7.setUnit(LogicFacade.getUnitByName(eternittagB7.getName()));
+        eternittagB7.setColor(LogicFacade.getColorByMaterialID(eternittagB7.getId()));
+        eternittagB7.setComment("Tagplader til tag med rejsning");
+        eternittagB7.setPrice(LogicFacade.getPrice(eternittagB7.getId()));
+
+        //TEST
+        System.out.println("name: "+eternittagB7.getName());
+        System.out.println("amount: "+eternittagB7.getAmount());
+        System.out.println("comment: "+eternittagB7.getComment());
+        System.out.println("category: "+eternittagB7.getCategory());
+        System.out.println("unit "+eternittagB7.getUnit());
+        System.out.println("price "+eternittagB7.getPrice());
+        //System.out.println("color "+eternittagB7.getColor());
+
+        pitchedRoofMaterialList.add(eternittagB7);
 
 
         // ROOF COLOR--> taglaegter.setVariationID(LogicFacade.getColourByVariationID(1)); // to get color of roof
-
-        return pitchedRoofMaterialList ;
+        System.out.println("færdig med liste");
+        return pitchedRoofMaterialList;
     }
 
 
     //........ CALCULATIONS .........
+
 
     public int amoutOfRygstenBeslagCalculated() {
         rygstenBeslag = quantityRygsten();
@@ -503,8 +614,9 @@ public class PitchedRoofMaterialCalculator {
         return screwPackage;
     }*/
 
+    //todo: fix amountOfBeslagScrewsForToplægteCalculated() line 620
     public int amountOfBeslagScrewsForToplægteCalculated(){
-        beslagForToplægte = 9*2*amountOfBeslagScrewsForToplægteCalculated();
+        beslagForToplægte = 9*2* amountOfT1_RygstenLength();
         return beslagForToplægte;
     }
 

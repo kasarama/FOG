@@ -66,6 +66,7 @@ public class PitchedRoofMaterialCalculator {
         toplaegter.setId(38);
         toplaegter.setPrice(LogicFacade.getPrice(toplaegter.getId()));
 
+
         //TEST
         System.out.println("name: "+toplaegter.getName());
         System.out.println("amount: "+toplaegter.getAmount());

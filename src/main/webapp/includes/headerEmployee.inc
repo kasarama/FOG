@@ -46,7 +46,7 @@
 
     <!-- Navigation -->
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" style="border-bottom: 2px solid black;">
-        <a class="navbar-brand ml-4 c" href="FrontController?target=redirect&destination=customerpage">
+        <a class="navbar-brand ml-4 c" href="FrontController?target=redirect&destination=employeePage">
             Fog
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
@@ -56,7 +56,7 @@
         <div class="collapse navbar-collapse mr-4" id="navbarNavDropdown" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="FrontController?target=redirect&destination=customerpage"><i
+                    <a class="nav-link" href="FrontController?target=redirect&destination=employeePage"><i
                             class="fa fa-fw fa-home"></i>Hjem</a>
                 </li>
             </ul>

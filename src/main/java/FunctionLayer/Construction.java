@@ -164,13 +164,4 @@ public class Construction {
     }
 
 
-    /*@Override
-    public String toString() {
-        return "Carport{" +
-                "width=" + carportWidth +
-                ", length=" + carportLength +
-                ", shed=" + shed.getWidth()+"x"+shed.getDepth()+shed.getSide() +
-                ", pitchedroof? :" + roof.getIsPitched() +
-                '}';
-    }*/
 }

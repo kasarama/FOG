@@ -9,14 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class Drawing extends Command{
+public class DrawingCustomer extends Command{
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession();
+        Construction construction = (Construction) session.getAttribute("carportBase");
 
-        Order order = (Order) request.getServletContext().getAttribute("orderForValidation");
+        int width = (construction.getConstructionLength()/10);
+        int height = (construction.getConstructionWidth()/10);
 
-        int width = (order.getConstruction().getConstructionLength()/10);
-        int height = (order.getConstruction().getConstructionWidth()/10);
 
         // Teksten mål:
         String text1 = height + " cm";
@@ -27,7 +28,6 @@ public class Drawing extends Command{
             width = width/2;
             height = height/2;
         }
-
         String viewBox2 = "-50, -10, " + (width+100) + ", " + (height+50);
         Svg svg = new Svg(width+100, height+50, viewBox2, 0, 0);
 
@@ -40,14 +40,13 @@ public class Drawing extends Command{
         if (height > 600){
             svg.addRect(0,height/2,3,width);
         }
-
         // Spær:
         // metode roofSpaerAmount  --  hvordan skal jeg køre metoden roofSpaerAmount gange?
         // Længde/roofSpaerAmount = mellemrum
-        int space = width/(ConstructionSizeCalculator.roofSpaerAmount(order.getConstruction()));
+        int space = width/(ConstructionSizeCalculator.roofSpaerAmount(construction));
         svg.addRect(0,0,height,3);
         // Der skal sættes et spær for hvert mellemrum: space, space*2, space*3, indtil man når antallet af stopler
-        for (int i = 0; i < ConstructionSizeCalculator.roofSpaerAmount(order.getConstruction()); i++){
+        for (int i = 0; i < ConstructionSizeCalculator.roofSpaerAmount(construction); i++){
             svg.addRect(space*i, 0, height, 3);
         }
 
@@ -64,6 +63,8 @@ public class Drawing extends Command{
         svg.addBand(0, 30, spacePosts, height-30);
         svg.addBand(0, height-28, spacePosts, 30);
         // Mål:
+
+
         svg.addArrows(-25, 0, -25, height, -35, height/2, -90, text1);
         svg.addArrows(0, height+25, width, height+25, width/2, height+40, 0, text2);
 
@@ -76,6 +77,6 @@ public class Drawing extends Command{
 
 */
         request.setAttribute("svgdrawing", svg.toString());
-        return "drawing";
+        return "drawingCustomer";
     }
 }

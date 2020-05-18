@@ -16,15 +16,16 @@ public class Validate extends Command {
         int orderID = Integer.parseInt(request.getParameter("orderID"));
         ArrayList<Order> orders = (ArrayList<Order>) request.getServletContext().getAttribute("newRequestsList");
 
-
         Order order = new Order();
         for (Order tmp : orders) {
             if (tmp.getOrderID()==orderID) {
                 order=tmp;
             }
+
             request.getServletContext().setAttribute("orderForValidation", order);
             request.getServletContext().setAttribute("constructionForValidation", order.getConstruction());
         }
+
         return "validateRequest";
     }
 }

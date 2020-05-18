@@ -7,7 +7,7 @@
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
-<%@include file="../includes/header.inc" %>
+<%@include file="../includes/headerCustomer.inc" %>
 
 <div class="container2">
     <div class="col-md-12">
@@ -23,7 +23,6 @@
                     <div class="form-group">
                         <label>Vælg carportens længde:</label>
                         <select name="carportLength" class="form-control">
-                            <option selected disabled>Vælg længde</option>
                             <c:forEach var="i" begin="24" end="75">
                                 <option value=${i*100}>${i*10} cm</option>
                             </c:forEach>
@@ -34,7 +33,6 @@
                     <div class="form-group">
                         <label>Vælg carportens bredde:</label>
                         <select name="carportWidth" class="form-control">
-                            <option selected disabled>Vælg bredde</option>
                             <c:forEach var="i" begin="24" end="75">
                                 <option value=${i*100}>${i*10} cm</option>
                             </c:forEach>
@@ -48,7 +46,6 @@
                     <div class="form-group">
                         <label>Vælg tagtype:</label>
                         <select name="roofType" class="form-control">
-                            <option selected disabled>Vælg tagtype</option>
                             <option value="0">Fladt tag</option>
                             <option value="1">Tag med rejsning</option>
                         </select>
@@ -67,7 +64,6 @@
                     <div class="form-group">
                         <label>Vælg skurets bredde:</label>
                         <select name="shedWidthParameter" class="form-control">
-                            <option selected disabled>Vælg bredde</option>
                             <option value="1">Hele carportens bredde</option>
                             <option value="2">Halvdelen af carportens bredde</option>
                         </select>
@@ -77,7 +73,6 @@
                     <div class="form-group">
                         <label>Vælg skurets dybde:</label>
                         <select name="shedDepth" class="form-control">
-                            <option selected disabled>Vælg dybde</option>
                             <c:forEach var="i" begin="12" end="35">
                                 <option value=${i*100}>${i*10} cm</option>
                             </c:forEach>
@@ -91,7 +86,6 @@
                     <div class="form-group">
                         <label>Vælg skurets placering:</label>
                         <select name="shedSide" class="form-control">
-                            <option selected disabled>Vælg side</option>
                             <option value="left">Venstre</option>
                             <option value="right">Højre</option>
                         </select>

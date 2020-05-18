@@ -1,7 +1,7 @@
 <%@ page import="CarportUtil.Initializer" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
-<%@include file="../includes/header.inc" %>
+<%@include file="../includes/headerCustomer.inc" %>
 <%
     //if i'm the first user on this application, then set the flatMaterialList. (else the list already exists)
     if (request.getServletContext().getAttribute("flatMaterialList") == null) {
@@ -20,7 +20,6 @@
             <h2>Fladt tag design</h2>
             <label class="mt-3" for="flatroof"> Vælg tagdækning for fladt tag:</label>
             <select class="form-control mt-3" name="flatroof" id="flatroof">
-                <option selected disabled>Vælg tagdækning</option>
                 <c:forEach var="roofMaterial" items="${applicationScope.flatMaterialList}">
                     <option value="${roofMaterial.id}">${roofMaterial.name} ${roofMaterial.color}</option>
                 </c:forEach>

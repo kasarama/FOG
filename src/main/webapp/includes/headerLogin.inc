@@ -1,5 +1,3 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!doctype html>
 <html lang="en">
@@ -53,32 +51,12 @@
     </button>
     <div class="collapse navbar-collapse mr-4" id="navbarNavDropdown" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="FrontController?target=redirect&destination=index"><i class="fa fa-fw fa-home"></i>Hjem <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="FrontController?target=redirect&destination=login">Min profil</a>
             </li>
         </ul>
     </div>
 </nav>
-
-<div class="container2">
-    <div class="col-md-12">
-        <br>
-        <br>
-        <h2>Velkommen til</h2>
-        <img class="mt-4 mb-3" src="./images/logo.png" alt="Logo" width="430" height=auto>
-        <h6  class="mb-3" style="font-size: small;">Her kan du designe din egen carport & <br>
-            få vejledning, inden du køber</h6>
-        <br><br>
-        <a class=" mt-4 mb-3 btn btn-primary" href="FrontController?target=redirect&destination=login" role="button">DESIGN CARPORT</a>
-        <br>
-        <a class=" mt-3 btn btn-dark" href="FrontController?target=redirect&destination=login" role="button">Login/Registrer</a>
-
-
-    </div>
-</div>
-<br>
-<br>
-<%@include file="includes/footer.inc"%>

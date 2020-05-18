@@ -257,14 +257,12 @@ public class OverlayMaterialCalculator {
         ArrayList<Material> overlayMaterials = new ArrayList<>();
         ArrayList<Material> doorFraming = doorFraming(construction);
 
-        ArrayList<Wall> walls = construction.getWalls();
-        construction.getWalls().addAll(construction.getShed().getWalls());
-
+        ArrayList<Wall> walls = new ArrayList<>();
+        walls.addAll(construction.getShed().getWalls());
 
         if (walls.size() == 0) {
             return null;
         } else
-
             for (Wall wall : walls) {
                 ArrayList<Material> oneWallMaterials = new ArrayList<>();
                 oneWallMaterials = wallFraming(wall);
@@ -273,7 +271,6 @@ public class OverlayMaterialCalculator {
         overlayMaterials.addAll(doorFraming);
         try {
             overlayMaterials.addAll(overlayMaterial(construction, overlayName));
-
         } catch (Exception e) {
             e.printStackTrace();
             throw new LoginSampleException(e.getMessage());
@@ -281,27 +278,21 @@ public class OverlayMaterialCalculator {
         for (Material material : overlayMaterials) {
             MaterialMapper.setUnitFromDB(material);
         }
-
         //...........sorting of materials:............//
         ArrayList<Material>[] splitMaterials = ListFactory.splitMaterialsByUnits(overlayMaterials);
-
         ArrayList<Material> materialsByPackage = ListFactory.sortMaterialsUnitPackage(splitMaterials[0]);
-
 
         String msg = ListFactory.setLengths(splitMaterials[1]);
         ArrayList<Material> materialsByOther = ListFactory.sortMaterialsOtherUnit(splitMaterials[1]);
-
         ArrayList<Material> sorted = new ArrayList<>();
         sorted.addAll(materialsByPackage);
         sorted.addAll(materialsByOther);
-
         for (Material material :sorted) {
             MaterialMapper.setPriceFromDB(material);
+            MaterialMapper.setID(material);
         }
 
-
         construction.getShed().setMaterials(sorted);
-
         return msg;
 
     }

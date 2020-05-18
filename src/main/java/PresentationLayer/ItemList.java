@@ -14,10 +14,6 @@ public class ItemList  extends Command{
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
 
-        HttpSession session = request.getSession();
-
-
-
         Order order = (Order) request.getServletContext().getAttribute("orderForValidation");
 
         String msg = LogicFacade.setMaterialsForOrder(order);

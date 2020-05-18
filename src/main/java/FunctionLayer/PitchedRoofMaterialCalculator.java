@@ -24,6 +24,7 @@ public class PitchedRoofMaterialCalculator {
     private int vindskedeLængde;
     private int vandBrætsLength;
     private int tagstenEntirePitchedRoof;
+    //NOTE: tagpladerne fylder 307mm i længden og vi antager 200mm i bredden, derfor disse værdier for tagsten.
     private int tagstenBredde;
     private int rygstenBeslag;
     private int spærFullPlankLength;
@@ -43,6 +44,7 @@ public class PitchedRoofMaterialCalculator {
         roof = construction.getRoof();
     }
 
+    //todo: fix skruer til vandbræt - beregning (amount = 0?)
 
     //........Pitched Roof Material list.......
     public ArrayList<Material> pitchedRoof() throws LoginSampleException {
@@ -60,11 +62,9 @@ public class PitchedRoofMaterialCalculator {
         toplaegter.setAmount(quantityOfToplaegter);
         toplaegter.setUnit(LogicFacade.getUnitByName(toplaegter.getName()));
         toplaegter.setComment("Lægte til montering af rygsten - lægges i toplægte holder");
-        toplaegter.setCategory("RejsningTag Konstruktion"); // todo: replace with method that gets category byID from DB
-        toplaegter.setId(38); // todo: replace with method that gets ID of material from DB
+        toplaegter.setCategory("RejsningTag Konstruktion");
+        toplaegter.setId(38);
         toplaegter.setPrice(LogicFacade.getPrice(toplaegter.getId()));
-        toplaegter.setThickness(LogicFacade.getThicknessByID(toplaegter.getId()));
-        toplaegter.setWidth(LogicFacade.getWidthByID(toplaegter.getId(),toplaegter.getName()));
 
         //TEST
         System.out.println("name: "+toplaegter.getName());
@@ -73,12 +73,9 @@ public class PitchedRoofMaterialCalculator {
         System.out.println("category: "+toplaegter.getCategory());
         System.out.println("unit "+toplaegter.getUnit());
         System.out.println("price "+toplaegter.getPrice());
-        System.out.println("thickness "+toplaegter.getThickness());
-        System.out.println("width " +toplaegter.getWidth());
+
 
         pitchedRoofMaterialList.add(toplaegter);
-
-
 
         //Taglægter
         Material taglaegter = new Material();
@@ -91,8 +88,6 @@ public class PitchedRoofMaterialCalculator {
         taglaegter.setCategory("RejsningTag Konstruktion");
         taglaegter.setId(30);
         taglaegter.setPrice(LogicFacade.getPrice(taglaegter.getId()));
-        taglaegter.setThickness(LogicFacade.getThicknessByID(taglaegter.getId()));
-        taglaegter.setWidth(LogicFacade.getWidthByID(taglaegter.getId(),taglaegter.getName())); // todo: fix width - why is it read once?
 
         //TEST
         System.out.println("name: "+taglaegter.getName());
@@ -101,8 +96,6 @@ public class PitchedRoofMaterialCalculator {
         System.out.println("category: "+taglaegter.getCategory());
         System.out.println("unit "+taglaegter.getUnit());
         System.out.println("price "+taglaegter.getPrice());
-        System.out.println("thickness "+taglaegter.getThickness());
-        System.out.println("width " + taglaegter.getWidth());
 
         pitchedRoofMaterialList.add(taglaegter);
 
@@ -118,9 +111,6 @@ public class PitchedRoofMaterialCalculator {
         stern.setCategory("RejsningTag Konstruktion");
         stern.setId(28);
         stern.setPrice(LogicFacade.getPrice(stern.getId()));
-        stern.setThickness(LogicFacade.getThicknessByID(stern.getId()));
-        stern.setWidth(LogicFacade.getWidthByID(toplaegter.getId(), stern.getName()));
-
 
         //TEST
         System.out.println("name: "+stern.getName());
@@ -129,9 +119,6 @@ public class PitchedRoofMaterialCalculator {
         System.out.println("category: "+stern.getCategory());
         System.out.println("unit "+stern.getUnit());
         System.out.println("price "+stern.getPrice());
-        System.out.println("thickness "+stern.getThickness());
-        System.out.println("width " +stern.getWidth());
-
 
         pitchedRoofMaterialList.add(stern);
 
@@ -146,9 +133,6 @@ public class PitchedRoofMaterialCalculator {
         vandbraet.setCategory("RejsningTag Konstruktion");
         vandbraet.setId(29);
         vandbraet.setPrice(LogicFacade.getPrice(vandbraet.getId()));
-        vandbraet.setThickness(LogicFacade.getThicknessByID(vandbraet.getId()));
-        vandbraet.setWidth(LogicFacade.getWidthByID(vandbraet.getId(), vandbraet.getName()));
-
 
         //TEST
         System.out.println("name: "+vandbraet.getName());
@@ -157,8 +141,6 @@ public class PitchedRoofMaterialCalculator {
         System.out.println("category: "+vandbraet.getCategory());
         System.out.println("unit "+vandbraet.getUnit());
         System.out.println("price "+vandbraet.getPrice());
-        System.out.println("thickness "+vandbraet.getThickness());
-        System.out.println("width " +vandbraet.getWidth());
 
         pitchedRoofMaterialList.add(vandbraet);
 
@@ -173,8 +155,7 @@ public class PitchedRoofMaterialCalculator {
         vindskeder.setCategory("RejsningTag Konstruktion");
         vindskeder.setId(27);
         vindskeder.setPrice(LogicFacade.getPrice(vindskeder.getId()));
-        vindskeder.setThickness(LogicFacade.getThicknessByID(vindskeder.getId()));
-        vindskeder.setWidth(LogicFacade.getWidthByID(vindskeder.getId(), vindskeder.getName()));
+
 
 
         //TEST
@@ -184,8 +165,6 @@ public class PitchedRoofMaterialCalculator {
         System.out.println("category: "+vindskeder.getCategory());
         System.out.println("unit "+vindskeder.getUnit());
         System.out.println("price "+vindskeder.getPrice());
-        System.out.println("thickness "+vindskeder.getThickness());
-        System.out.println("width " +vindskeder.getWidth());
 
         pitchedRoofMaterialList.add(vindskeder);
 
@@ -201,9 +180,6 @@ public class PitchedRoofMaterialCalculator {
         tagfodsLaegte.setCategory("Rejsning Konstruktion");
         tagfodsLaegte.setId(31);
         tagfodsLaegte.setPrice(LogicFacade.getPrice(tagfodsLaegte.getId()));
-        tagfodsLaegte.setThickness(LogicFacade.getThicknessByID(tagfodsLaegte.getId()));
-        tagfodsLaegte.setWidth(LogicFacade.getWidthByID(tagfodsLaegte.getId(), tagfodsLaegte.getName()));
-
 
         //TEST
         System.out.println("name: "+tagfodsLaegte.getName());
@@ -212,8 +188,7 @@ public class PitchedRoofMaterialCalculator {
         System.out.println("category: "+tagfodsLaegte.getCategory());
         System.out.println("unit "+tagfodsLaegte.getUnit());
         System.out.println("price "+tagfodsLaegte.getPrice());
-        System.out.println("thickness "+tagfodsLaegte.getThickness());
-        System.out.println("width " +tagfodsLaegte.getWidth());
+
 
         pitchedRoofMaterialList.add(tagfodsLaegte);
 
@@ -261,8 +236,7 @@ public class PitchedRoofMaterialCalculator {
         System.out.println("category: "+toplaegteHolder.getCategory());
         System.out.println("unit "+toplaegteHolder.getUnit());
         System.out.println("price "+toplaegteHolder.getPrice());
-        System.out.println("thickness "+toplaegteHolder.getThickness());
-        System.out.println("width " +toplaegteHolder.getWidth());
+
 
         pitchedRoofMaterialList.add(toplaegteHolder);
 
@@ -396,8 +370,8 @@ public class PitchedRoofMaterialCalculator {
         System.out.println("amount: "+rygstenBeslag.getAmount());
         System.out.println("comment: "+rygstenBeslag.getComment());
         System.out.println("category: "+rygstenBeslag.getCategory());
-        System.out.println("unit "+rygstenBeslag.getUnit());
-        System.out.println("price "+rygstenBeslag.getPrice());
+        System.out.println("unit " +rygstenBeslag.getUnit());
+        System.out.println("price " +rygstenBeslag.getPrice());
 
         pitchedRoofMaterialList.add(rygstenBeslag);
 
@@ -445,16 +419,16 @@ public class PitchedRoofMaterialCalculator {
 
         pitchedRoofMaterialList.add(tagstenBindere);
 
-        //spær til taglægter + rygsten todo: add TAGSPÆR in DB + adjust its id in material list
+        //spær til taglægter + rygsten
         Material tagSpaer = new Material();
 
-        tagSpaer.setName("TAGSPÆR");
-        int quantityOfSpaer = spærFullQuantityOfPlanksTotal();
+        tagSpaer.setName("SPÆR");
+        int quantityOfSpaer = constructionSizeCalculator.roofSpaerAmount(construction);
         tagSpaer.setAmount(quantityOfSpaer);
         tagSpaer.setUnit(LogicFacade.getUnitByName(tagSpaer.getName()));
         tagSpaer.setComment("Spær til taglægter og rysgten");
         tagSpaer.setCategory("RejsningTag Konstruktion");
-        tagSpaer.setId(40);
+        tagSpaer.setId(58);
         tagSpaer.setPrice(LogicFacade.getPrice(tagSpaer.getId()));
 
         //TEST
@@ -467,7 +441,7 @@ public class PitchedRoofMaterialCalculator {
 
         pitchedRoofMaterialList.add(tagSpaer);
 
-        //** Tagplader ** todo: fix tagplader
+        //** Tagplader **
         System.out.println("** TAGPLADER ** ");
 
         //Beton
@@ -478,8 +452,8 @@ public class PitchedRoofMaterialCalculator {
         betontagsten.setAmount(quantityOfTagstenBeton);
         betontagsten.setId(24);
         betontagsten.setUnit(LogicFacade.getUnitByName(betontagsten.getName()));
-        betontagsten.setColor(LogicFacade.getColorByMaterialID(betontagsten.getId()));
         betontagsten.setComment("Tagplader til tag med rejsning");
+        betontagsten.setCategory("RejsningTag Konstruktion");
         betontagsten.setPrice(LogicFacade.getPrice(betontagsten.getId()));
 
         //TEST
@@ -489,7 +463,7 @@ public class PitchedRoofMaterialCalculator {
         System.out.println("category: "+betontagsten.getCategory());
         System.out.println("unit "+betontagsten.getUnit());
         System.out.println("price "+betontagsten.getPrice());
-        //System.out.println("color "+betontagsten.getColor());
+
 
         pitchedRoofMaterialList.add(betontagsten);
 
@@ -501,8 +475,8 @@ public class PitchedRoofMaterialCalculator {
         eternittagB6.setAmount(quantityOfTagstenB6);
         eternittagB6.setId(25);
         eternittagB6.setUnit(LogicFacade.getUnitByName(eternittagB6.getName()));
-        eternittagB6.setColor(LogicFacade.getColorByMaterialID(eternittagB6.getId()));
         eternittagB6.setComment("Tagplader til tag med rejsning");
+        eternittagB6.setCategory("RejsningTag Konstruktion");
         eternittagB6.setPrice(LogicFacade.getPrice(eternittagB6.getId()));
 
         //TEST
@@ -512,7 +486,6 @@ public class PitchedRoofMaterialCalculator {
         System.out.println("category: "+eternittagB6.getCategory());
         System.out.println("unit "+eternittagB6.getUnit());
         System.out.println("price "+eternittagB6.getPrice());
-        //System.out.println("color "+eternittagB6.getColor());
 
         pitchedRoofMaterialList.add(eternittagB6);
 
@@ -524,24 +497,24 @@ public class PitchedRoofMaterialCalculator {
         eternittagB7.setAmount(quantityOfTagstenB7);
         eternittagB7.setId(26);
         eternittagB7.setUnit(LogicFacade.getUnitByName(eternittagB7.getName()));
-        eternittagB7.setColor(LogicFacade.getColorByMaterialID(eternittagB7.getId()));
         eternittagB7.setComment("Tagplader til tag med rejsning");
+        eternittagB7.setCategory("RejsningTag Konstruktion");
         eternittagB7.setPrice(LogicFacade.getPrice(eternittagB7.getId()));
 
         //TEST
-        System.out.println("name: "+eternittagB7.getName());
-        System.out.println("amount: "+eternittagB7.getAmount());
+        System.out.println("name: " +eternittagB7.getName());
+        System.out.println("amount: " +eternittagB7.getAmount());
         System.out.println("comment: "+eternittagB7.getComment());
         System.out.println("category: "+eternittagB7.getCategory());
         System.out.println("unit "+eternittagB7.getUnit());
         System.out.println("price "+eternittagB7.getPrice());
-        //System.out.println("color "+eternittagB7.getColor());
 
         pitchedRoofMaterialList.add(eternittagB7);
 
 
-        // ROOF COLOR--> taglaegter.setVariationID(LogicFacade.getColourByVariationID(1)); // to get color of roof
-        System.out.println("færdig med liste");
+        System.out.println("færdig med liste - YASS!!! ");
+
+
         return pitchedRoofMaterialList;
     }
 
@@ -554,7 +527,10 @@ public class PitchedRoofMaterialCalculator {
         return rygstenBeslag;
     }
 
+
     public int amountOfTagsten(){
+        //NOTE: tagpladerne fylder 307mm i længden og vi antager 200mm i bredden, derfor disse værdier.
+        tagstenBredde = 200;
         int tagstenHalfePitchedRoof = 0;
         //Vi trækker ikke en tagstenbredde fra i tagets længde i for-loopet fordi vi vil have det hele antal + en hvis
         // der er en rest
@@ -730,7 +706,7 @@ public class PitchedRoofMaterialCalculator {
     private int amountOfToplaegteHolder()
     {
         int spaer = constructionSizeCalculator.roofSpaerAmount(construction);
-        int toplaegteholder = 0;
+        int toplaegteholder = spaer;
 
         numberOfToplaegteHolder = toplaegteholder * spaer;
         return numberOfToplaegteHolder;
@@ -777,18 +753,10 @@ public class PitchedRoofMaterialCalculator {
         return numberOfTagfodsLaegte;
     }
 
-    //** Beregning af antal vindskeder i forhold til tagets længde og højde **
+    //** Beregning af antal vindskeder i forhold til tagets længde**
     public int amountOfVindskeder ()
     {
         int  roofLength = roof.getLength();
-        int  roofHeight = roof.getHeight();
-
-        if (roofHeight < 100) //if roofHeight is less than 1 m - no vindskeder is needed
-        {
-            return 0; //return nothing
-        }
-        else {  //roofHeight > 100 - vinsdkeder is needed
-
             if (roofLength <= 480 ) //if roofLength equal/smaller than 480 - længde af 1 vindskede bræt
             {
                 numberOfVindskeder = 2;
@@ -797,7 +765,6 @@ public class PitchedRoofMaterialCalculator {
             {
                 numberOfVindskeder = 4;
             }
-        }
         return numberOfVindskeder;
     }
 

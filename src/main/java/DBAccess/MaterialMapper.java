@@ -536,7 +536,7 @@ public class MaterialMapper {
         String name = material.getName();
         try {
             Connection con = Connector.connection();
-            String SQL = "SELECT materialID FROM fogdb.materials WHERE name=?";
+            String SQL = "SELECT materialID FROM materials WHERE name=?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, name);
             ResultSet rs = ps.executeQuery();

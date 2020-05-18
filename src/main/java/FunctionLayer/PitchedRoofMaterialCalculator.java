@@ -575,10 +575,10 @@ public class PitchedRoofMaterialCalculator {
     }
 
     public int screwsForVandbrætCalculated(){
-        //Vi antager der skal bruges til hver 30 cm en skrue
+        //Vi antager der skal bruges til hver 300 mm en skrue, med mindst 10 mm fra sidste kant
         vandBrætsLength = construction.getRoof().getLength();
-        for (int i = 30; i < vandBrætsLength -30 ; i = i + 30) {
-            screwsForVindskeder++;
+        for (int i = 300; i < vandBrætsLength -10 ; i = i + 300) {
+            screwsForVandbræt++;
         }
         return screwsForVandbræt;
     }

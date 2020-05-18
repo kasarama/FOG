@@ -64,7 +64,7 @@ To change this template use File | Settings | File Templates.
 
             <tr>
                 <td>Skur placering:</td>
-                <td>${sessionScope.carportBase.shed.sideS}</td>
+                <td>${applicationScope.attrbuteName}</td>
             </tr>
 
             <tr>

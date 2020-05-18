@@ -13,6 +13,7 @@ import java.util.List;
 
 public class LogicFacade {
 
+
     public static User login(String email, String password) throws LoginSampleException {
         return UserMapper.login(email, password);
     }

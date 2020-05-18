@@ -131,6 +131,7 @@ public class OverlaySizeCalculator {
     public static double allWallsArea(Construction construction) {
         ArrayList<Wall> allWalls = new ArrayList<>();
         ArrayList<Wall> shedWalls = new ArrayList<>();
+
         for (Wall shedW: construction.getShed().getWalls()) {
             shedWalls.add(shedW);
         }

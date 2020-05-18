@@ -28,8 +28,42 @@
         <div class="col-md-6 school-options-dropdown text-center">
 
             <c:if test="${requestScope.orderMSG!= null}">
-                <h2>Error ! </h2>
-                ${requestScope.orderReadyMSG}
+                <h2>${requestScope.orderReadyMSG}</h2>
+   <!--
+                <table class="table table-striped ">
+                <thead>
+                <tr class="tr1">
+                <th>Ordre nr.</th>
+                <th>Dato</th>
+                <th>Pris</th>
+                <th>Transportomkostninger</th>
+                <th> </th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="order" items="${applicationScope.sentOffersList}">
+                    <tr class="tr2">
+                    <td>${order.orderID}</td>
+                    <td>${order.date}</td>
+                    <td>${order.salePrice}</td>
+                    <td>${order.transport}</td>
+                    <td>
+
+                    <form name="validate" action="FrontController" method="POST">
+                    <input type="hidden" name="target" value="validate">
+                    <input type="hidden" name="origin" value="newRequests">
+                    <input type="hidden" name="orderID" value="${order.orderID}">
+                    <input class="mt-3 mb-4 btn btn-outline-dark" type="submit" name="newrequest" value="Til validering">
+                    </form>
+
+                    </td>
+                    </tr>
+                </c:forEach>
+
+                </tbody>
+                </table>
+     -->
             </c:if>
         </div>
         <img class="mt-4 mb-3" src="./images/logo.png" alt="Logo" width="430" height=auto>

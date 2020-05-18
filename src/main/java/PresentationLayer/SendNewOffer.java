@@ -23,18 +23,22 @@ public class SendNewOffer extends Command {
 
 
         Order order = (Order) request.getServletContext().getAttribute("orderForValidation");
-        Construction construction = order.getConstruction();
 
         if (request.getParameter("byPrice")!=null){
+            System.out.println("click on Gem Pris");
+
             order.setSalePrice(saleprice);
+            System.out.println("Pice: "+order.getSalePrice());
             order.setCoverage(Economy.setCoverage(order));
-        }
+            System.out.println("coverage "+order.getCoverage());
+        } else
 
         if (request.getParameter("byCoverage")!=null){
             order.setCoverage(coverage);
             order.setSalePrice(Economy.ordersSalePrice(order));
+            System.out.println("click on gem dækningsgrad");
         }
-
+        System.out.println(("salePrice: "+order.getSalePrice()+"cost: "+order.getCost()+" coverage "+ order.getCoverage()));
         LogicFacade.sendOffer(order);
 
         request.setAttribute("orderMSG","Tilbud er blevet sendt til "+ order.getEmail()+"" +

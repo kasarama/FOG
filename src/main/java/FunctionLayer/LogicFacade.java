@@ -118,6 +118,8 @@ public class LogicFacade {
 
         String msg = OverlayMaterialCalculator.allOverlayMaterialList(
                 order.getConstruction(), order.getConstruction().getOverlay());
+        ArrayList<Wall> newWalls=WallBuilder.addShedWalls(order.getConstruction());
+        order.getConstruction().getShed().setWalls(newWalls);
 
         //................Materials for roof...........//
         boolean orderedCaportIsPitched = order.getConstruction().getRoof().getIsPitched();
@@ -139,7 +141,6 @@ public class LogicFacade {
 
         ArrayList<Material> constructionMaterialList = ConstructionMaterialCalculator.constructionMaterialList(order.getConstruction());
         order.getConstruction().setFundamentMaterials(constructionMaterialList);
-
         return msg;
     }
 

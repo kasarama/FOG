@@ -70,7 +70,7 @@ public class OrderMapper {
         int orderID = newOrder(order);
         try {
             Connection con = Connector.connection();
-            String SQL = "INSERT INTO fogdb.orderdetails VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String SQL = "INSERT INTO orderdetails VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, orderID);
             ps.setInt(2, construction.getConstructionHeight());

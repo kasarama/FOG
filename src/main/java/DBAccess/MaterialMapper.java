@@ -21,7 +21,7 @@ public class MaterialMapper {
         Material material = new Material();
         try {
             Connection con = Connector.connection();
-            String SQL = "SELECT * FROM fogdb.materials LEFT JOIN fogdb.variations " +
+            String SQL = "SELECT * FROM materials LEFT JOIN variations " +
                     "ON variations.materialID = materials.materialID WHERE materials.name=? and variations.length=?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, name);
@@ -46,7 +46,7 @@ public class MaterialMapper {
         Material material = new Material();
         try {
             Connection con = Connector.connection();
-            String SQL = "SELECT name FROM fogdb.materials "
+            String SQL = "SELECT name FROM materials "
                     + "WHERE materialID=?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, id);
@@ -67,7 +67,7 @@ public class MaterialMapper {
         Material material = new Material();
         try {
             Connection con = Connector.connection();
-            String SQL = "SELECT unit FROM fogdb.materials WHERE name=?";
+            String SQL = "SELECT unit FROM materials WHERE name=?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
@@ -92,7 +92,7 @@ public class MaterialMapper {
         Material material = new Material();
         try {
             Connection con = Connector.connection();
-            String SQL = "SELECT width FROM fogdb.materials WHERE materialID=? and name=?";
+            String SQL = "SELECT width FROM materials WHERE materialID=? and name=?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, id);
             ps.setString(2, name);
@@ -115,7 +115,7 @@ public class MaterialMapper {
         Material material = new Material();
         try {
             Connection con = Connector.connection();
-            String SQL = "SELECT thickness FROM fogdb.materials WHERE materialID=?";
+            String SQL = "SELECT thickness FROM materials WHERE materialID=?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -137,7 +137,7 @@ public class MaterialMapper {
         Material material = new Material();
         try {
             Connection con = Connector.connection();
-            String SQL = "SELECT price FROM fogdb.materials WHERE materialID=?";
+            String SQL = "SELECT price FROM materials WHERE materialID=?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -167,7 +167,7 @@ public class MaterialMapper {
             //2. start the connection by calling ".connection()" method from the "DBAccess.Connector" class
             Connection con = Connector.connection();
             //3. create an SQL statement - select everything from only 'RejsningTag' from the 'material' table
-            String SQL = "SELECT * FROM fogdb.materials JOIN fogdb.variations " +
+            String SQL = "SELECT * FROM materials JOIN variations " +
                     "ON materials.materialID=variations.materialID WHERE materials.category=?";
             //4. insert the SQL statement into the ".preparedStatement()" method - it sends the SQL statement to the DB
             PreparedStatement ps = con.prepareStatement(SQL);
@@ -213,7 +213,7 @@ public class MaterialMapper {
         Material material = null;
         try {
             Connection con = Connector.connection();
-            String SQL = "SELECT * FROM fogdb.materials RIGHT JOIN fogdb.variations ON " +
+            String SQL = "SELECT * FROM materials RIGHT JOIN variations ON " +
                     "materials.materialID=variations.materialID WHERE materials.name=? AND " +
                     "variations.length=? AND variations.color=?;";
             PreparedStatement ps = con.prepareStatement(SQL);
@@ -264,7 +264,7 @@ public class MaterialMapper {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT Distinct materials.materialID, name, unit, keyword, category, color FROM " +
-                    "fogdb.materials JOIN fogdb.variations ON materials.materialID = variations.materialID " +
+                    "materials JOIN variations ON materials.materialID = variations.materialID " +
                     "WHERE materials.category=?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, "FladtTag");
@@ -379,7 +379,7 @@ public class MaterialMapper {
     public static double spending(String name) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
-            String SQL = "SELECT spending FROM fogdb.materials WHERE name=?";
+            String SQL = "SELECT spending FROM materials WHERE name=?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
@@ -399,7 +399,7 @@ public class MaterialMapper {
 
         try {
             Connection con = Connector.connection();
-            String SQL = "SELECT width FROM fogdb.materials WHERE name=?";
+            String SQL = "SELECT width FROM materials WHERE name=?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, materialName);
             ResultSet rs = ps.executeQuery();
@@ -492,7 +492,7 @@ public class MaterialMapper {
         String name = material.getName();
         try {
             Connection con = Connector.connection();
-            String SQL = "SELECT unit FROM fogdb.materials WHERE name=?";
+            String SQL = "SELECT unit FROM materials WHERE name=?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
@@ -514,7 +514,7 @@ public class MaterialMapper {
         String name = material.getName();
         try {
             Connection con = Connector.connection();
-            String SQL = "SELECT price FROM fogdb.materials WHERE name=?";
+            String SQL = "SELECT price FROM materials WHERE name=?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
@@ -540,7 +540,7 @@ public class MaterialMapper {
         ArrayList<Integer> lengthViaMaterailName = new ArrayList();
         try {
             Connection con = Connector.connection();
-            String SQLRequest = "SELECT variations.length FROM fogdb.variations JOIN fogdb.materials ON " +
+            String SQLRequest = "SELECT variations.length FROM variations JOIN materials ON " +
                     "materials.materialID = variations.materialID WHERE materials.name=?";
             PreparedStatement preparedStatement = con.prepareStatement(SQLRequest);
             preparedStatement.setString(1, materialName);
@@ -562,7 +562,7 @@ public class MaterialMapper {
         String materialNameByID = null;
         try {
             Connection con = Connector.connection();
-            String SQLRequest = "SELECT materials.name FROM fogdb.materials WHERE materials.materialID=?";
+            String SQLRequest = "SELECT materials.name FROM materials WHERE materials.materialID=?";
             PreparedStatement preparedStatement = con.prepareStatement(SQLRequest);
             preparedStatement.setInt(1, idMaterial);
             ResultSet resultSet = preparedStatement.executeQuery();

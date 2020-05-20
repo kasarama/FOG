@@ -2,7 +2,6 @@ package FunctionLayer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.jar.JarOutputStream;
 
 /**
  * @author Magdalena
@@ -86,7 +85,6 @@ public class WallDrawer {
                     back = wall;
                     break;
                 case "front":
-                    System.out.println("Wall length "+wall.getLength());
                     front = wall;
                     break;
 
@@ -113,7 +111,6 @@ public class WallDrawer {
                 leftWallL(svgFromAbove, left, 0, shed.getWidth() / 10 - POSTwidth); //shed left
                 backWall(svgFromAbove, back, 0); //shed back
                 frontWall(svgFromAbove, front, shed.getDepth() / 10 - POSTwidth, 0); //shed front
-                System.out.println("In WallDrawer , shed on right side: front wall length: " +front.getLength()+" , where shed width is: "+construction.getShed().getWidth());
 
                 door(svgFromAbove, shed.getDepth() / 10 - DOORwidth, shed.getWidth() / 10 - POSTwidth); //door
 
@@ -131,7 +128,6 @@ public class WallDrawer {
                 leftWallL(svgFromAbove, left, 0, construction.getCarportWidth() / 10 - POSTwidth); //shed left
                 backWall(svgFromAbove, back, shed.getWidth() / 10 - POSTwidth); //shed back
                 frontWall(svgFromAbove, front, shed.getDepth() / 10 - POSTwidth, shed.getWidth() / 10 + DOORwidth); // shed front
-                System.out.println("In WallDrawer , shed on left side: front wall length: " +front.getLength()+" , where shed width is: "+construction.getShed().getWidth());
                 door(svgFromAbove, shed.getDepth() / 10, shed.getWidth() / 10); //door
 
                 if (carportright!=null) {

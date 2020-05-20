@@ -102,12 +102,11 @@ public class OverlaySizeCalculatorTest {
         }
 
         Wall carportsRightWall = construction.getWalls().get(index);
-        int expected = 9;
+        int expected = 13;
         int actual = OverlaySizeCalculator.fyrQuantityOnWall(carportsRightWall);
 
                 /*
-                 3 distances af 2366 mm hver
-                 3 fyr per distance
+                 (7200-100)/600=11,83333 //12+1
                  */
         assertEquals(expected, actual);
     }
@@ -131,11 +130,11 @@ public class OverlaySizeCalculatorTest {
         raising=17
 
          */
-        int result = lengths.get(0);
+        int result = lengths.get(1);
         int result2 = lengths.get(7);
         int expected1=wall.getMinHeight()+17;
-        int expected2=wall.getMinHeight()+17*9;
-        assertEquals(8,lengths.size());
+        int expected2=wall.getMinHeight()+17*7;
+        assertEquals(11,lengths.size());
         assertEquals(expected1,result);
         assertEquals(expected2,result2);
     }

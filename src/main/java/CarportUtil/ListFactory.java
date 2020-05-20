@@ -197,10 +197,9 @@ public class ListFactory {
         for (int i = 0; i < matArr.length; i++) {
             if (matArr[i].getName().equals("boom")) {
                 i++;
-
             } else {
-                for (int j = i + 1; j < matArr.length; j++) {
-                    if (matArr[i].equals(matArr[j])) {
+                for (int j = 0 ; j < matArr.length; j++) {
+                    if (matArr[i].equals(matArr[j])&&j!=i) {
                         matArr[j].setName("boom");
                         int amount = matArr[i].getAmount();
                         String comm = matArr[i].getComment() + ", " + matArr[j].getComment();

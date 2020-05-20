@@ -30,6 +30,7 @@ abstract class Command {
         commands.put("editprice", new EditOrderPrices());
         commands.put("sendoffer", new SendNewOffer());
         commands.put("drawwalls", new DrawWalls());
+        commands.put("ordercarport", new OrderCarport());
 
     }
 

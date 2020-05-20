@@ -77,13 +77,11 @@ public class ConstructionSizeCalculatorTest {
         Integer[]heights= ConstructionSizeCalculator.postsHeights(2000,3,7200);
 
         int result = heights[3];
-        assertEquals(2210,result);
+        assertEquals(2212,result);
         /*
         distance mellem stolper: 2366,7 og det svarer til 2366 som int
-        højde stiger 70,98 mm dvs 70 som int
-        1: 2000 (idex 0)
-        2:2070 (idex 1)
-        3:2140
+        højde stiger 70,91 mm dvs 70 som int
+        1: index 3: 3*70,91= 212,94 = 212 as int
          */
     }
 

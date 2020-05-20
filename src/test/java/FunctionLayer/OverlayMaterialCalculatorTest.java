@@ -1,17 +1,15 @@
 package FunctionLayer;
 
 import org.junit.Before;
-import org.junit.Test;
-
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
 
 public class OverlayMaterialCalculatorTest {
 
     Construction construction = new Construction();
-    Shed shed = new Shed(3050,2500,"left");
-    Roof roof = new RoofFlat(0,0,0,3);
+    Shed shed = new Shed(3050, 2500, "left");
+    Roof roof = new RoofFlat(0, 0, 0, 3);
+
     @Before
     public void setUp() throws Exception {
         construction.setRoof(roof);
@@ -28,45 +26,4 @@ public class OverlayMaterialCalculatorTest {
         construction.setOverlay("SIBIRISK LÆRK KLINKBEKLÆDNING");
     }
 
-    @Test
-    public void spaerOneWall() {
-    }
-
-    @Test
-    public void screwSparOneWall() {
-    }
-
-    @Test
-    public void fyrOneWall() {
-    }
-
-    @Test
-    public void screwFYROneWall() {
-    }
-
-    @Test
-    public void screwForOverlayOneWall() {
-    }
-
-    @Test
-    public void wallFraming() {
-    }
-
-    @Test
-    public void overlayMaterial() {
-
-    }
-
-    @Test
-    public void doorFraming() {
-    }
-
-    @Test
-    public void allOverlayMaterialList() {
-    }
-
-
-    @Test
-    public void testOverlayMaterial() {
-    }
 }

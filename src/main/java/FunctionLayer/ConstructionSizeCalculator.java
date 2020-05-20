@@ -38,7 +38,7 @@ public class ConstructionSizeCalculator {
 
     //counts how much the roof drops/raises on the given distance in mm
     public static double raising(int angle, int distance){
-
+        System.out.println("raising: "+(double) angle* (double) distance/ (double)CMPERM);
         return (double) angle* (double) distance/ (double)CMPERM;
     }
 
@@ -46,7 +46,9 @@ public class ConstructionSizeCalculator {
     public static Integer[] postsHeights(double height, int angle, int size){
         //todo when calculating postHeights of carport, int height should be the heighest one of shed posts
         int postNumber=sidePostAmount(size);
+        System.out.println("post q: " + postNumber);
         int distance = postDistanceMax3000(size);
+        System.out.println("distance: "+distance);
         Integer[] postHeights = new Integer[postNumber];
         postHeights[0]=(int)height;
         for (int i = 1; i < postHeights.length ; i++) {

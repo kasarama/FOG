@@ -48,7 +48,7 @@
                                     <div class="form-group">
 
                                         <div class="form-group">
-                                            <label>Vælg redskansrummet bredde i mm - original : ${shed.depth}</label>
+                                            <label>Vælg redskansrummet dybde i mm - original : ${shed.depth}</label>
                                             <input type="number" name="shedDepth" class="form-control"
                                                    value=${shed.depth} min="1200" max="3500">
                                         </div>

@@ -53,7 +53,6 @@ public class EditOrderPrices extends Command {
         Economy.setSalePriceFromCoverage(order);
 
         request.getServletContext().setAttribute("orderForValidation", order);
-
         return "prepareOffer";
 
     }

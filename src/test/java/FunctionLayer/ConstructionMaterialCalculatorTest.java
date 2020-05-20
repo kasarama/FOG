@@ -1,10 +1,12 @@
 package FunctionLayer;
 
 
+import DBAccess.Connector;
 import org.junit.Before;
 import org.junit.Test;
 
 
+import java.sql.Connection;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -15,6 +17,8 @@ public class ConstructionMaterialCalculatorTest {
 
     @Before
     public void setUp() throws Exception {
+        Connector.setConnection(null);
+
         Shed shed = new Shed((construction.getCarportWidth()/2),0,"left");
         construction.setShed(shed);
         construction.setCarportWidth(4500);

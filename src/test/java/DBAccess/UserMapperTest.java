@@ -20,7 +20,7 @@ public class UserMapperTest {
 
     private static Connection testConnection;
     private static String USER = "root";
-    private static String USERPW = "1909145380Hanna";
+    private static String USERPW = "12345ROOT!";
     private static String DBNAME = "fog_test?serverTimezone=CET&allowPublicKeyRetrieval=true&useSSL=false";
     private static String HOST = "localhost";
 //"jdbc:mysql://localhost:3306/fogDB?serverTimezone=CET&allowPublicKeyRetrieval=true&useSSL=false"

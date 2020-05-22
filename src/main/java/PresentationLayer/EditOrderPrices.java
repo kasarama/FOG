@@ -50,6 +50,9 @@ public class EditOrderPrices extends Command {
         order.setCost(Math.round(Economy.ordersCostPrice(order) * 100.0) / 100.0);
         System.out.println("set cost:" +order.getCost());
         order.setSalePrice(Math.round(Economy.ordersSalePrice(order) * 100.0) / 100.0);
+
+         order.setCoverage(Math.round(Economy.setCoverage(order) * 100.0) / 100.0);
+
         System.out.println("set salePrice: "+order.getSalePrice());
 
         request.getServletContext().setAttribute("orderForValidation", order);

@@ -35,4 +35,12 @@ public class PitchedRoofMaterialCalculatorTest {
         //Assert
         assertEquals(expected, atual);
     }
+
+    @Test
+    //Vinskeder Method Test
+    public void amountOfVindskederTest()
+    {
+
+    }
+
 }

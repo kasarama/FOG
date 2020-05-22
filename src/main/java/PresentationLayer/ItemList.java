@@ -16,7 +16,7 @@ public class ItemList  extends Command{
 
         Order order = (Order) request.getServletContext().getAttribute("orderForValidation");
 
-        String msg =LogicFacade.setMaterialsForOrder(order);
+        String msg = LogicFacade.setMaterialsForOrder(order);
         request.setAttribute("overlayMAterialMSG", msg);
 
         request.getServletContext().setAttribute("orderForValidation", order);

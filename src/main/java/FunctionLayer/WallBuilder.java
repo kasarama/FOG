@@ -14,7 +14,8 @@ public class WallBuilder {
     /**
      * @param construction : Construction object that it's attributes can not be null
      * @return int height : calculated from dependencies between Tilt of Roof and Shed's depth -
-     * is a value of height of front Wall of shed. Is beeing used in WallBuilder.addShedWalls method.
+     * is a value of height of front Wall of shed.
+     * Used in WallBuilder.addShedWalls method.
      */
     public static int frontWallHeight(Construction construction) {
         int tilt = construction.getRoof().getTilt();
@@ -28,7 +29,8 @@ public class WallBuilder {
     /**
      * @param construction  Construction object that it's attributes can not be null
      * @return ArrayList with four Wall objects that are being created from dependencies
-     * between Shed's lengths and width, constructions height and Roof's tilt
+     * between Shed's lengths and width, constructions height and Roof's tilt.
+     * Used in FunctionLayer.LogicFacade.setMaterialsForOrder, PresentationLayer.CarportBase.execute, PresentationLayer.EditOrderPrices.execute
      */
     public static ArrayList<Wall> addShedWalls(Construction construction) {
         ArrayList<Wall> walls = new ArrayList<>();

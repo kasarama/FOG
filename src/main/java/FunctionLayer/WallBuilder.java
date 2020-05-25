@@ -4,12 +4,18 @@ import java.util.ArrayList;
 
 /**
  * @author Magdalena
+ * The purpose of this class is to fill up the lists with proper Walls objects
  */
 public class WallBuilder {
 
     private final static int DOORSIZE = 1000;
     private final static int POSTWIDTH = 100;
 
+    /**
+     * @param construction : Construction object that it's attributes can not be null
+     * @return int height : calculated from dependencies between Tilt of Roof and Shed's depth -
+     * is a value of height of front Wall of shed. Is beeing used in WallBuilder.addShedWalls method.
+     */
     public static int frontWallHeight(Construction construction) {
         int tilt = construction.getRoof().getTilt();
         int shedDepth = construction.getShedDepth();
@@ -18,6 +24,12 @@ public class WallBuilder {
         return height;
     }
 
+
+    /**
+     * @param construction  Construction object that it's attributes can not be null
+     * @return ArrayList with four Wall objects that are being created from dependencies
+     * between Shed's lengths and width, constructions height and Roof's tilt
+     */
     public static ArrayList<Wall> addShedWalls(Construction construction) {
         ArrayList<Wall> walls = new ArrayList<>();
         if (construction.getShedDepth() != 0) {
@@ -55,6 +67,13 @@ public class WallBuilder {
 
     }
 
+    /**
+     *
+     * @param construction : Construction object that it's attributes can not be null
+     * @param sides : An ArrayLists with String as names of Walls to be created
+     * @return ArrayList with Wall object that are being created from dependencies
+     * between Shed's lengths and width, constructions height, carportLength, carportWidth and Roof's tilt
+     */
     public static ArrayList<Wall> createCarportWalls(Construction construction, ArrayList<String> sides) {
         ArrayList<Wall> carportWalls = new ArrayList<>();
         if (sides.size() == 0) {
@@ -137,9 +156,6 @@ public class WallBuilder {
                 }
             }
 
-            for (Wall wa :
-                    carportWalls) {
-            }
             return carportWalls;
         }
     }

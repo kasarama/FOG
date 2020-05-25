@@ -8,7 +8,9 @@ import java.util.ArrayList;
 
 /**
  * @author Magdalena
- * the purpouse of this class is to update values of attributes of a chosen Construcion object
+ * The purpouse of this class is to update values of attributes of a chosen Construcion object
+ * <p>
+ *
  */
 public class Validate extends Command {
     @Override

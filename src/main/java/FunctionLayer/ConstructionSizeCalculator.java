@@ -6,7 +6,7 @@ package FunctionLayer;
 public class ConstructionSizeCalculator {
     //todo some of the post are common for sides and the back - remember that when drowing or making itemlist
     //todo method counting shared posts
-    //todo we need to update postHights with data about the length to be berried in the ground. We can also ask Tu if
+    //todo we need to update postHights with data about the length to be berried in the ground. We can also ask Tue if
     // the posts could be chosen to be set on a surface instead of in the ground
 
     final private  static int POSTSIZE=100;
@@ -38,7 +38,6 @@ public class ConstructionSizeCalculator {
 
     //counts how much the roof drops/raises on the given distance in mm
     public static double raising(int angle, int distance){
-        System.out.println("raising: "+(double) angle* (double) distance/ (double)CMPERM);
         return (double) angle* (double) distance/ (double)CMPERM;
     }
 
@@ -46,9 +45,7 @@ public class ConstructionSizeCalculator {
     public static Integer[] postsHeights(double height, int angle, int size){
         //todo when calculating postHeights of carport, int height should be the heighest one of shed posts
         int postNumber=sidePostAmount(size);
-        System.out.println("post q: " + postNumber);
         int distance = postDistanceMax3000(size);
-        System.out.println("distance: "+distance);
         Integer[] postHeights = new Integer[postNumber];
         postHeights[0]=(int)height;
         for (int i = 1; i < postHeights.length ; i++) {
@@ -59,7 +56,7 @@ public class ConstructionSizeCalculator {
         return postHeights;
     }
 
-    //counts how many rows of post should there be because max distans between posts is 600 cm from side to side
+    //counts how many rows of post should there be because max distance between posts is 600 cm from side to side
     public static int postRows (int width){
         int rows;
         if(width%MAXROWSISTANCE==0){

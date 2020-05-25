@@ -124,11 +124,11 @@ public class WallDrawer {
 
 
             } else {
-                rightWallL(svgFromAbove, right, 0, construction.getCarportWidth() / 10 / 2 - POSTwidth / 2); //shed rigt
-                leftWallL(svgFromAbove, left, 0, construction.getCarportWidth() / 10 - POSTwidth); //shed left
-                backWall(svgFromAbove, back, shed.getWidth() / 10 - POSTwidth); //shed back
-                frontWall(svgFromAbove, front, shed.getDepth() / 10 - POSTwidth, shed.getWidth() / 10 + DOORwidth); // shed front
-                door(svgFromAbove, shed.getDepth() / 10, shed.getWidth() / 10); //door
+                rightWallL(svgFromAbove, right, 0, construction.getCarportWidth() / 10 -shed.getWidth()/10); //shed rigt
+                leftWallL(svgFromAbove, left, 0, construction.getCarportWidth()/10-POSTwidth); //shed left
+                backWall(svgFromAbove, back, construction.getCarportWidth() / 10 -shed.getWidth()/10); //shed back
+                frontWall(svgFromAbove, front, shed.getDepth() / 10 - POSTwidth, construction.getCarportWidth() / 10 -shed.getWidth()/10+ DOORwidth+POSTwidth); // shed front
+                door(svgFromAbove, shed.getDepth() / 10-DOORwidth, construction.getCarportWidth() / 10 -shed.getWidth()/10+ DOORwidth+POSTwidth); //door
 
                 if (carportright!=null) {
                     rightWallL(svgFromAbove, right, 0, 0); // like shed right

@@ -90,7 +90,7 @@ public class Economy {
 
     public static void setCoverageFromPrice (Order order) throws LoginSampleException {
         double coverage;
-        double saleprice= order.getSalePrice()*1/order.getTAX();
+        double saleprice= order.getSalePrice()/(1+order.getTAX());
         double cost = order.getCost()+order.getTransport();
         if (order.getSalePrice()<=0){
             throw new LoginSampleException("Salgspris ikke stor nok");

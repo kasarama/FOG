@@ -475,11 +475,10 @@ public class MaterialMapper {
                     "ON materials.materialID=variations.materialID WHERE materials.name= ? ORDER BY length ASC";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, name);
-
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 length = rs.getInt(1);
-                lengths.add(length*10);
+                lengths.add(length);
             }
         } catch (ClassNotFoundException | SQLException ex) {
             ex.printStackTrace();

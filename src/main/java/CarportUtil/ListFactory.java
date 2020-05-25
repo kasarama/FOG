@@ -118,18 +118,18 @@ public class ListFactory {
     public static ArrayList<Material> sortMaterialsUnitPackage(ArrayList<Material> materialsByPackage) throws LoginSampleException {
         ArrayList<Material> sorted = new ArrayList<>();
         Material[] matArr = new Material[materialsByPackage.size()];
-
+        System.out.println("pk.: "+materialsByPackage.size());
+        for (Material mat: materialsByPackage) {
+            System.out.println(mat.getName()+": "+mat.getSize());
+        }
         for (int i = 0; i < materialsByPackage.size(); i++) {
             matArr[i] = materialsByPackage.get(i);
         }
 
         for (int i = 0; i < matArr.length; i++) {
-            if (matArr[i].getName().equals("boom")) {
-                i++;
 
-            } else {
-                for (int j = i + 1; j < matArr.length; j++) {
-                    if (matArr[i].equals(matArr[j])) {
+                for (int j = i ; j < matArr.length; j++) {
+                    if (matArr[i].equals(matArr[j]) && i!=j) {
                         matArr[j].setName("boom");
                         int size = matArr[i].getSize();
                         String comm = matArr[i].getComment() + ", " + matArr[j].getComment();
@@ -139,8 +139,11 @@ public class ListFactory {
                     }
                 }
             }
-        }
 
+
+        for (int i = 0; i < matArr.length; i++) {
+            System.out.println(matArr[i].getName());
+        }
 
         for (int i = 0; i < matArr.length; i++) {
             if (!matArr[i].getName().equals("boom")) {
@@ -198,8 +201,8 @@ public class ListFactory {
             if (matArr[i].getName().equals("boom")) {
                 i++;
             } else {
-                for (int j = 0 ; j < matArr.length; j++) {
-                    if (matArr[i].equals(matArr[j])&&j!=i) {
+                for (int j = 0; j < matArr.length; j++) {
+                    if (matArr[i].equals(matArr[j]) && j != i) {
                         matArr[j].setName("boom");
                         int amount = matArr[i].getAmount();
                         String comm = matArr[i].getComment() + ", " + matArr[j].getComment();
@@ -256,7 +259,7 @@ public class ListFactory {
     }
 
     public static void setPackages(ArrayList<Material> materials) throws LoginSampleException {
-
+        System.out.println("setPAckages, size of list: "+materials.size());
         for (Material material : materials) {
 
             int availableSize = MaterialMapper.getPackageSize(material.getName());
@@ -278,30 +281,31 @@ public class ListFactory {
 
     public static String setLengths(ArrayList<Material> materials) throws LoginSampleException {
 
-        HashMap <String, ArrayList<Integer> >materialLengths = new HashMap<>();
+        HashMap<String, ArrayList<Integer>> materialLengths = new HashMap<>();
         ArrayList<Material> meters = new ArrayList<>();
+        ArrayList<Material> otherUnit = new ArrayList<>();
+
         for (Material material : materials) {
-            if (material.getUnit().equals("m")){
+            if (material.getUnit().equals("m")) {
+                int size = material.getSize();
+                material.setSize(size / 10);
                 meters.add(material);
+            } else {
+                otherUnit.add(material);
             }
+
         }
+
+        // to avoid multiple connection with DB I make a hashmap with material names as a key to fill objects with data from DB for that given name
         for (Material material : meters) {
-
-            if (!materialLengths.containsKey(material.getName()) ){
-
-                materialLengths.put(material.getName(), new ArrayList<Integer>());
+            if (!materialLengths.containsKey(material.getName())) {
+                materialLengths.put(material.getName(), null);
             }
         }
 
-        for ( String name : materialLengths.keySet()) {
-            materialLengths.put( name, MaterialMapper.getLengths(name) );
-
+        for (String name : materialLengths.keySet()) {
+            materialLengths.replace(name, MaterialMapper.getLengths(name));
             Collections.sort(materialLengths.get(name));
-
-            for (Integer i :materialLengths.get(name)) {
-
-
-            }
         }
 
         String msg1 = "Følgende";
@@ -310,32 +314,39 @@ public class ListFactory {
                 "Du kan bestille en ekstra funktionalitet for kun 500 kr for at kunne tilføje vare til databasen. "
                 + "Indtil videre den tilgængelig længde er lige med den du skal bruge. Hilsen, IT folk";
 
-
         for (Material material : meters) {
 
             int size = material.getSize();
 
             String name = material.getName();
-            int index = materialLengths.get(name).size()-1;
+            int index = materialLengths.get(name).size() - 1;
 
-            if (size > materialLengths.get(name).get(index) ) {
+            if (size > materialLengths.get(name).get(index)) {
+
                 material.setAvailablesize(material.getSize());
                 msg3 = msg3 + material.getName() + ", ";
             } else if (size < materialLengths.get(name).get(0)) {
                 material.setAvailablesize(materialLengths.get(name).get(0));
 
-            } else
-                for (int i = 0; i < materialLengths.get(name).size()-1; i++) {
-                    if (size >= materialLengths.get(name).get(i) && size < materialLengths.get(name).get(i + 1)) {
-                        material.setAvailablesize(materialLengths.get(name).get(i));
+            } else {
+                for (int i = 0; i < materialLengths.get(name).size() - 1; i++) {
+                    if (size > materialLengths.get(name).get(i) && size <= materialLengths.get(name).get(i + 1)) {
+                        material.setAvailablesize(materialLengths.get(name).get(i + 1));
                     }
                 }
-
+            }
         }
+
+
+        materials = new ArrayList<>();
+        materials.addAll(otherUnit);
+        materials.addAll(meters);
+
+
         if (msg3.equals(": ")) {
             return "Beregning af den tilgængelig længde til hver material lykkedes";
         } else
-        return msg1 + msg3 + msg2;
+            return msg1 + msg3 + msg2;
 
     }
 

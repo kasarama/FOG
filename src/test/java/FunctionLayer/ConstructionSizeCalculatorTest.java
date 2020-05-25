@@ -1,5 +1,6 @@
 package FunctionLayer;
 
+import DBAccess.Connector;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,6 +16,7 @@ public class ConstructionSizeCalculatorTest {
 
     @Before
     public void setUp() throws Exception {
+        Connector.setConnection(null);
         construction.setCarportLength(5000);
         construction.setCarportWidth(4000);
         Shed shed = new Shed((construction.getCarportWidth() / 2), 0, "left");

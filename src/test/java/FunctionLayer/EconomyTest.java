@@ -1,5 +1,6 @@
 package FunctionLayer;
 
+import DBAccess.Connector;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +14,7 @@ public class EconomyTest {
     Construction construction = new Construction();
     @Before
     public void setUp() throws Exception {
+        Connector.setConnection(null);
         Material rem = new Material();
         rem.setPrice(1000);
         rem.setId(1);

@@ -256,6 +256,7 @@ public class OverlayMaterialCalculator {
 //TODO read me here and see if I can be usefull for you Cath
         ArrayList<Material> overlayMaterials = new ArrayList<>();
         ArrayList<Material> doorFraming = doorFraming(construction);
+        overlayMaterials.addAll(doorFraming);
 
         ArrayList<Wall> walls = new ArrayList<>();
         walls.addAll(construction.getShed().getWalls());
@@ -264,11 +265,9 @@ public class OverlayMaterialCalculator {
             return null;
         } else
             for (Wall wall : walls) {
-                ArrayList<Material> oneWallMaterials = new ArrayList<>();
-                oneWallMaterials = wallFraming(wall);
+                ArrayList<Material> oneWallMaterials = wallFraming(wall);
                 overlayMaterials.addAll(oneWallMaterials);
             }
-        overlayMaterials.addAll(doorFraming);
         try {
             overlayMaterials.addAll(overlayMaterial(construction, overlayName));
         } catch (Exception e) {
@@ -283,7 +282,10 @@ public class OverlayMaterialCalculator {
         ArrayList<Material> materialsByPackage = ListFactory.sortMaterialsUnitPackage(splitMaterials[0]);
 
         String msg = ListFactory.setLengths(splitMaterials[1]);
+
+
         ArrayList<Material> materialsByOther = ListFactory.sortMaterialsOtherUnit(splitMaterials[1]);
+
         ArrayList<Material> sorted = new ArrayList<>();
         sorted.addAll(materialsByPackage);
         sorted.addAll(materialsByOther);

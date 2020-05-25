@@ -16,8 +16,6 @@ abstract class Command {
         commands.put( "designflatroof", new FlatRoof() );
         commands.put( "designpitchedroof", new PitchedRoof() );
         commands.put( "newrequest", new StartRequestOver() );
-        commands.put( "findmaterial", new FindMaterial() );
-        commands.put("materiale", new Materials());
         commands.put( "carportbase", new CarportBase() );
         commands.put( "addmaterial", new AddMaterial() );
         commands.put( "overlay", new Overlay() );

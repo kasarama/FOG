@@ -1,6 +1,6 @@
 package FunctionLayer;
 
-import DBAccess.MaterialMapper;
+import DBAccess.Connector;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,6 +18,7 @@ public class OverlaySizeCalculatorTest {
 
     @Before
     public void setUp() throws Exception {
+        Connector.setConnection(null);
         construction.setCarportLength(7200);
         construction.setConstructionHeight(2000);
         construction.setCarportWidth(4200);

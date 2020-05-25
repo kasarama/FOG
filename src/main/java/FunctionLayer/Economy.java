@@ -3,7 +3,7 @@ package FunctionLayer;
 import java.util.ArrayList;
 
 /**
- * @author Mia
+ * @author Mia and Magda
  * The purpose of this class is to calculate prices and cost of different elements of a construction
  * and of the whole construction
  */
@@ -45,7 +45,7 @@ public class Economy {
         double transport = order.getTransport(); // Transport udgift
         double tax = order.getTAX(); // 0,25
 
-        double salesPriceNoTax = ordersCostPrice(order) + transport; // order.getCost() +transport
+        double salesPriceNoTax = ordersCostPrice(order) + transport;
         double salesPrice = salesPriceNoTax + salesPriceNoTax * tax;
 
         return salesPrice;
@@ -56,8 +56,8 @@ public class Economy {
 
         double transport = order.getTransport(); // Transport udgift
         double tax = order.getTAX(); // 0,25
-        double cost = ordersCostPrice(order); // order.getCost();
-        double salesPrice = ordersSalePrice(order); //order.getSalePrice()
+        double cost = ordersCostPrice(order);
+        double salesPrice = ordersSalePrice(order);
 
         // Dækningsbidrag = Salgspris - (Indkøbspris+Fragt) skat?
         double coverageContribution = ((salesPrice * tax) + cost + transport) - salesPrice;
@@ -67,7 +67,37 @@ public class Economy {
 
         return coverage;
     }
-// hvis du bruger getter og sætter så er der mindre performance - Når vi kalder på metoder så bruger de værdier
-// fra attributerne af objekt i stedet for at beregne dem.
+
+
+
+    public static void setSalePriceFromCoverage (Order order) throws LoginSampleException {
+        //Dækningsgrad = ( Dækningsbidrag / Omsætning ) * 100
+        //Dækningsbidrag=(Omsætning-Kost-Transport)
+        double salePrice;
+        double coverage = order.getCoverage();
+        double cost = order.getCost() + order.getTransport();
+
+
+        if (order.getCoverage()<=0){
+            throw new LoginSampleException("Dækningsgrad ikke stor nok");
+        }else
+            salePrice = cost / (100 - coverage) *100;
+
+
+        salePrice= salePrice*(1+order.getTAX());
+        order.setSalePrice((Math.round(salePrice) * 100.0) / 100.0);
+    }
+
+    public static void setCoverageFromPrice (Order order) throws LoginSampleException {
+        double coverage;
+        double saleprice= order.getSalePrice()/(1+order.getTAX());
+        double cost = order.getCost()+order.getTransport();
+        if (order.getSalePrice()<=0){
+            throw new LoginSampleException("Salgspris ikke stor nok");
+        } else
+            coverage = (saleprice-cost)/saleprice*100;
+        order.setCoverage((Math.round(coverage) * 100.0) / 100.0);
+    }
+
 
 }

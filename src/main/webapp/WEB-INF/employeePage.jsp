@@ -29,7 +29,7 @@
         <input type="hidden" name="target" value="showrequests">
         <input type="hidden" name="origin" value="employeePage">
         <input class="mt-3 mb-4 btn btn-outline-dark" type="submit" name="newrequests"
-               value="Vis ny forespørgelser">
+               value="Vis nye forespørgsler">
         <input class="mt-3 mb-4 btn btn-outline-dark" type="submit" name="sentoffers"
                value="Vis sendte tilbud">
         <input class="mt-3 mb-4 btn btn-outline-dark" type="submit" name="orders" value="Vis bestillinger">

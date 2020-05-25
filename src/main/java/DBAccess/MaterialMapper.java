@@ -475,11 +475,10 @@ public class MaterialMapper {
                     "ON materials.materialID=variations.materialID WHERE materials.name= ? ORDER BY length ASC";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, name);
-
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 length = rs.getInt(1);
-                lengths.add(length*10);
+                lengths.add(length);
             }
         } catch (ClassNotFoundException | SQLException ex) {
             ex.printStackTrace();
@@ -520,10 +519,14 @@ public class MaterialMapper {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 double price = rs.getDouble(1);
-                material.setPrice(price);
 
+                material.setPrice(price);
             } else {
                 throw new LoginSampleException("Material: "+material.getName() + " mangler pris verdi i databasen");
+            }
+            if (material.getPrice()==0.0){
+                throw new LoginSampleException("Material: "+material.getName() + " mangler pris verdi i databasen");
+
             }
 
         } catch (SQLException | ClassNotFoundException ex) {

@@ -6,7 +6,7 @@ package FunctionLayer;
 public class ConstructionSizeCalculator {
     //todo some of the post are common for sides and the back - remember that when drowing or making itemlist
     //todo method counting shared posts
-    //todo we need to update postHights with data about the length to be berried in the ground. We can also ask Tu if
+    //todo we need to update postHights with data about the length to be berried in the ground. We can also ask Tue if
     // the posts could be chosen to be set on a surface instead of in the ground
 
     final private  static int POSTSIZE=100;
@@ -38,7 +38,6 @@ public class ConstructionSizeCalculator {
 
     //counts how much the roof drops/raises on the given distance in mm
     public static double raising(int angle, int distance){
-
         return (double) angle* (double) distance/ (double)CMPERM;
     }
 
@@ -57,7 +56,7 @@ public class ConstructionSizeCalculator {
         return postHeights;
     }
 
-    //counts how many rows of post should there be because max distans between posts is 600 cm from side to side
+    //counts how many rows of post should there be because max distance between posts is 600 cm from side to side
     public static int postRows (int width){
         int rows;
         if(width%MAXROWSISTANCE==0){

@@ -1,13 +1,10 @@
 package FunctionLayer;
 
-import DBAccess.OrderMapper;
 import DBAccess.MaterialMapper;
+import DBAccess.OrderMapper;
 import DBAccess.UserMapper;
-
 import java.util.ArrayList;
-
 import java.util.Date;
-
 import java.util.List;
 
 
@@ -89,10 +86,20 @@ public class LogicFacade {
         return MaterialMapper.getAllRoofMaterialsByCategory("FladtTag");*/
     }
 
+    /**
+     * @author Magdalena
+     * @return ArrayList
+     * @throws LoginSampleException
+     */
     public static List<Material> getAllOverlays() throws LoginSampleException {
         return MaterialMapper.getAllOverlays();
     }
 
+    /**
+     *  @author Magdalena
+     * @param order
+     * @throws LoginSampleException
+     */
     public static void sendNewRequest(Order order) throws LoginSampleException {
         Date nowDate = new Date();
         long timestamp = nowDate.getTime();
@@ -104,6 +111,12 @@ public class LogicFacade {
         OrderMapper.saveNewRequest(order);
     }
 
+    /**
+     * @author Magdalena
+     * @param status
+     * @return ArrayList
+     * @throws LoginSampleException
+     */
     public static ArrayList<Order> ReadOrders(String status) throws LoginSampleException {
         return OrderMapper.ReadAllOrdersByStatus(status);
     }
@@ -113,6 +126,8 @@ public class LogicFacade {
      * @author Magdalena
      * The purpose of setMaterialsForOrder is to generate ArrayLists for each element of Construction
      * objekt and to return an Order object with that Construction object
+     * @param order
+     * @return msg
      */
     public static String setMaterialsForOrder(Order order) throws LoginSampleException {
 
@@ -137,13 +152,17 @@ public class LogicFacade {
 
 
         //................Materials for construction...........//
-        //todo create ArrayList with materials for construction and set it on order.construction
 
         ArrayList<Material> constructionMaterialList = ConstructionMaterialCalculator.constructionMaterialList(order.getConstruction());
         order.getConstruction().setFundamentMaterials(constructionMaterialList);
         return msg;
     }
 
+    /**
+     *  @author Magdalena
+     * @param order
+     * @throws LoginSampleException
+     */
     public static void sendOffer(Order order) throws LoginSampleException {
         Date nowDate = new Date();
         long timestamp = nowDate.getTime();

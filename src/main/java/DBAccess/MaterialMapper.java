@@ -519,10 +519,14 @@ public class MaterialMapper {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 double price = rs.getDouble(1);
-                material.setPrice(price);
 
+                material.setPrice(price);
             } else {
                 throw new LoginSampleException("Material: "+material.getName() + " mangler pris verdi i databasen");
+            }
+            if (material.getPrice()==0.0){
+                throw new LoginSampleException("Material: "+material.getName() + " mangler pris verdi i databasen");
+
             }
 
         } catch (SQLException | ClassNotFoundException ex) {

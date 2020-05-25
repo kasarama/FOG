@@ -1,6 +1,7 @@
 package DBAccess;
 
 import FunctionLayer.LoginSampleException;
+import FunctionLayer.Material;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -53,7 +54,8 @@ public class MaterialMapperTest {
                     "(2, 'Magda', 500,200,'stk','hungry','human',0.01,'magda.jpg',1)," +
                     "(3, 'cat',100,200,'stk','mew','animal',123.95,'',10)," +
                     "(4, 'bread',150,100,'pk.','fresh','animal',503,'',1)," +
-                    "(5,'plank',20,18,'m','get','roof',15.95,'',5.7)");
+                    "(5,'plank',20,18,'m','get','roof',15.95,'',5.7),"+
+                    "(6,'loop',20,18,'m','get','roof',null,'',5.7)");
         } catch (SQLException ex) {
             System.out.println("Could not open connection to database. " + ex.getMessage());
         }
@@ -80,25 +82,23 @@ public class MaterialMapperTest {
         assertEquals(exp,result);
     }
 
-    @Test
-    public void testGetPackageSize() {
+
+    @Test (expected = LoginSampleException.class)
+    public void testSetPriceFromDBNEGATIV () throws LoginSampleException {
+        Material material = new Material();
+        material.setName("pool");
+        MaterialMapper.setPriceFromDB(material);
+        System.out.println("result:" +material.getPrice());
     }
 
-    @Test
-    public void testSetUnitFromDB() {
+    @Test (expected = LoginSampleException.class)
+    public void testSetPriceFromDBNEGATIV2 () throws LoginSampleException {
+        Material material = new Material();
+        material.setName("loop");
+        MaterialMapper.setPriceFromDB(material);
+        System.out.println("result:" +material.getPrice());
     }
 
-    public void testSetPriceFromDB() {
-    }
 
-    public void testSetID() {
-    }
 
-    @Test
-    public void getAllFlatRoofMaterials() {
-    }
-
-    @Test
-    public void getAllOverlays() {
-    }
 }

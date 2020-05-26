@@ -22,10 +22,10 @@ public class ConstructionSizeCalculator {
     public  static int sidePostAmount(int size){
         int numberOfPost;
         size=size-POSTSIZE;
-        if(size%MAXPOSTDISTANCE==0){ //
+        if(size%MAXPOSTDISTANCE==0){
             numberOfPost=size/MAXPOSTDISTANCE+1;
         } else {
-            numberOfPost= (( size - size%MAXPOSTDISTANCE)/MAXPOSTDISTANCE)+2; //(750cm -(3*300) =0) 750%300=2 2*300=600 (150????)
+            numberOfPost= (( size - size%MAXPOSTDISTANCE)/MAXPOSTDISTANCE)+2;
         }
         return numberOfPost;
     }

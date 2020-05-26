@@ -138,8 +138,6 @@ public class ListFactory {
             }
 
 
-
-
         for (int i = 0; i < matArr.length; i++) {
             if (!matArr[i].getName().equals("boom")) {
                 sorted.add(matArr[i]);
@@ -290,7 +288,8 @@ public class ListFactory {
 
         }
 
-        // to avoid multiple connection with DB I make a hashmap with material names as a key to fill objects with data from DB for that given name
+        // to avoid multiple connection with DB I make a hashmap with material names as a key
+        // to fill objects with data from DB for that given name
         for (Material material : meters) {
             if (!materialLengths.containsKey(material.getName())) {
                 materialLengths.put(material.getName(), null);
@@ -330,7 +329,6 @@ public class ListFactory {
                 }
             }
         }
-
 
         materials = new ArrayList<>();
         materials.addAll(otherUnit);

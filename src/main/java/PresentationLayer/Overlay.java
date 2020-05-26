@@ -38,8 +38,6 @@ public class Overlay extends Command {
 
         }
 
-
-
         if (right != null) {
             wallsToCover.add(right);
         }

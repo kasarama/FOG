@@ -8,7 +8,9 @@ import FunctionLayer.Order;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+/**
+ * @author Magdalena
+ */
 public class SendNewOffer extends Command {
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

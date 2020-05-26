@@ -266,11 +266,8 @@ public class WallDrawer {
 
         for (int i = 0; i < fyrQ; i++) {
             svg.addRect(x + (int) (i * fyrDistance + 0.5 * POSTwidth - 0.5 * FYRwidth) + MERGE, y + MERGE - (SPAERthick + FYRthick), FYRthick, FYRwidth);
-
         }
-
         svg.addRect(x + MERGE, y + MERGE - (SPAERthick + FYRthick + OVERLAYthick), OVERLAYthick, wall.getLength() / 10);
-
     }
 
     public static void leftWallL(Svg svg, Wall wall, int x, int y) {

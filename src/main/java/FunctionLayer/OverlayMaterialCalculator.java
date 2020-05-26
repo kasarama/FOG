@@ -16,6 +16,8 @@ public class OverlayMaterialCalculator {
     final private static int MAXGAPDOORROOF = 100;
     final private static int SCREWFORDOORELEMEN = 9;
     final private static int DOORMETALELEMENS = 3;
+    final private static int OVERLAYPLANKLENGTH = 3600;
+
 
 
     //......................SPAER......................//
@@ -138,8 +140,8 @@ public class OverlayMaterialCalculator {
 
         Material overlay = new Material();
         overlay.setName(overlayName);
-        overlay.setSize(3600);
-        overlay.setAvailablesize(3600);
+        overlay.setSize(OVERLAYPLANKLENGTH);
+        overlay.setAvailablesize(OVERLAYPLANKLENGTH);
         overlay.setAmount(quantity);
         overlay.setComment("Beklædning");
         if (quantity == 0) {

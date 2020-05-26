@@ -1,8 +1,7 @@
-package FunctionLayer;
 /**
- * Package contains plain java classes and theirs methods.
- * Some of them are Object classes and some of them  are help classes
- * Object classes: Construction, Material, Order, Roof - abstract, RoofFlat, RoofPitched, Shed, Svg, Wall
- * Help classes are used to create and modify objects.
- *
+ * Package contains plain java classes and theirs methods:
+ * Plain Old Java Object classes : Construction, Material, Order, Roof - abstract, RoofFlat, RoofPitched, Shed, Svg, Wall
+ * Other classes are used as a facade or to create and modify objects, they represent company logic
  */
+package FunctionLayer;
+

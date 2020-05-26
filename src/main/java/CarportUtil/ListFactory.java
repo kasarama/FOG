@@ -118,10 +118,7 @@ public class ListFactory {
     public static ArrayList<Material> sortMaterialsUnitPackage(ArrayList<Material> materialsByPackage) throws LoginSampleException {
         ArrayList<Material> sorted = new ArrayList<>();
         Material[] matArr = new Material[materialsByPackage.size()];
-        System.out.println("pk.: "+materialsByPackage.size());
-        for (Material mat: materialsByPackage) {
-            System.out.println(mat.getName()+": "+mat.getSize());
-        }
+
         for (int i = 0; i < materialsByPackage.size(); i++) {
             matArr[i] = materialsByPackage.get(i);
         }
@@ -141,9 +138,7 @@ public class ListFactory {
             }
 
 
-        for (int i = 0; i < matArr.length; i++) {
-            System.out.println(matArr[i].getName());
-        }
+
 
         for (int i = 0; i < matArr.length; i++) {
             if (!matArr[i].getName().equals("boom")) {
@@ -259,7 +254,6 @@ public class ListFactory {
     }
 
     public static void setPackages(ArrayList<Material> materials) throws LoginSampleException {
-        System.out.println("setPAckages, size of list: "+materials.size());
         for (Material material : materials) {
 
             int availableSize = MaterialMapper.getPackageSize(material.getName());

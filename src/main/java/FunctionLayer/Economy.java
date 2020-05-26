@@ -3,7 +3,7 @@ package FunctionLayer;
 import java.util.ArrayList;
 
 /**
- * @author Mia and Magda
+ * @author Mia and Magdalena
  * The purpose of this class is to calculate prices and cost of different elements of a construction
  * and of the whole construction
  */

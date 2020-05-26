@@ -2,6 +2,11 @@ package FunctionLayer;
 
 import java.util.Date;
 
+/**
+ * @author Magdalena
+ * the purpose of this class is to create an Order object
+ */
+
 public class Order {
     private Construction construction;
     private int orderID;

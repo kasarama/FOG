@@ -141,7 +141,7 @@ public class LogicFacade {
         ArrayList<Material> roofMaterialList = new ArrayList();
         if (orderedCaportIsPitched) {
             PitchedRoofMaterialCalculator pRMCalculator = new PitchedRoofMaterialCalculator(order.getConstruction());
-            roofMaterialList = new ArrayList<>(); // pRMCalculator.pitchedRoof();
+            roofMaterialList = pRMCalculator.pitchedRoof();
 
         } else {
             RoofMaterialCalculator rMCalculator = new RoofMaterialCalculator(order.getConstruction());

@@ -225,7 +225,7 @@ public class PitchedRoofMaterialCalculator {
         int quantityOfToplaegteHolder = amountOfToplaegteHolder();
         toplaegteHolder.setAmount(quantityOfToplaegteHolder);
         toplaegteHolder.setUnit(LogicFacade.getUnitByName(toplaegteHolder.getName()));
-        toplaegteHolder.setComment("monteres på toppen af spæret af toplægte");
+        toplaegteHolder.setComment("monteres på toppen af spæret til toplægte for rygsten");
         toplaegteHolder.setCategory("RejsningTag Konstruktion");
         toplaegteHolder.setId(34);
         toplaegteHolder.setPrice(LogicFacade.getPrice(toplaegteHolder.getId()));
@@ -670,12 +670,12 @@ public class PitchedRoofMaterialCalculator {
 
     //Vi antager at der herfra og ned er et slags materiale og derfor disse beregninger:
 
-    //** Beregning af antal taglægter i forhold til tagets bredde - Remember: tilpas med t1_SpaerLength!? **
+    //** Beregning af antal taglægter i forhold til tagets bredde **
     private int amountOfT1_Spaer_Taglaegter()
     {
         int roofWidth = roof.getWidth();
         int T1_SpaerDistance = 307; // 307 mm mellem hvert lægte - dog ikke den første
-        int topDistance = 30; // 30 mm på hver side dvs * 2
+        int topDistance = - 30; // 30 mm på hver side dvs * 2
 
         numberOfTaglaegter = roofWidth - (topDistance * 2)/T1_SpaerDistance + 2; // 2 = 350mm bræt
         return numberOfTaglaegter;
@@ -684,8 +684,7 @@ public class PitchedRoofMaterialCalculator {
     // ** Beregning af antal sternbrædder i forhold til tagets længde - stern skal have samme længde som taget + 300 mm**
     public int amountOfStern()
     {
-        int roofLength = roof.getLength();
-        int sternLength = roofLength + 300; //tag længde + 300mm lægte udhæng
+        int roofLength = roof.getLength() + 300;
 
         if (roofLength <= 600 ) //600 mm = 1 stern længde - if roofLength equal/smaller than 600
         {
@@ -706,10 +705,8 @@ public class PitchedRoofMaterialCalculator {
     //** Beregning af antal Toplægteholdere i forhold til spær (beslag)
     private int amountOfToplaegteHolder()
     {
-        int spaer = constructionSizeCalculator.roofSpaerAmount(construction);
-        int toplaegteholder = spaer;
+        int numberOfToplaegteHolder = constructionSizeCalculator.roofSpaerAmount(construction);
 
-        numberOfToplaegteHolder = toplaegteholder * spaer;
         return numberOfToplaegteHolder;
     }
 

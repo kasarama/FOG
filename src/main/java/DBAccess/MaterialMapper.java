@@ -173,7 +173,7 @@ public class MaterialMapper {
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, "RejsningTag");
             //5. call the ".executeQuery()" to execute the SQL statement and return the result (stored in ResultSet).
-            ResultSet rs = ps.executeQuery();//works with getters/setters from "Info" class
+            ResultSet rs = ps.executeQuery();//works with getters/setters from "Roof" class
 
             //6. while there is a next 'rs' (result i.e element) - do the following code
             while (rs.next()) {

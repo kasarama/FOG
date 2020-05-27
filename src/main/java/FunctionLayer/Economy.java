@@ -69,7 +69,6 @@ public class Economy {
     }
 
 
-
     public static void setSalePriceFromCoverage (Order order) throws LoginSampleException {
         //Dækningsgrad = ( Dækningsbidrag / Omsætning ) * 100
         //Dækningsbidrag=(Omsætning-Kost-Transport)

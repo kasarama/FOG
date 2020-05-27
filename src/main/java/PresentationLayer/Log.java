@@ -5,6 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.*;
 
+/**
+ * The purpose of this class is to make an automatic writer to a log file regarding the error that occurs for the user.
+ * In this way we will be able to examine what errors happens often.
+ * @author Mia
+ */
 
 public class Log {
 
@@ -33,10 +38,9 @@ public class Log {
 
     }
 
-
-
-
-
+    /**
+     * @param description is the text that is written to the log file
+     */
     public static void severe(String description ) {
 
         try {
@@ -44,7 +48,6 @@ public class Log {
         } catch (Exception e) {
         }
     }
-
 
     public static void info(String description ) {
 
@@ -54,7 +57,6 @@ public class Log {
         }
     }
 
-
     public static void finest(String description ) {
 
         try {
@@ -62,8 +64,6 @@ public class Log {
         } catch (Exception e) {
         }
     }
-
-
 }
 
 
@@ -71,6 +71,11 @@ class VerySimpleFormatter extends Formatter {
 
     private static final String PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
 
+    /**
+     * @param record is an Log object from which we can achive information like the time and date and the level of the
+     *               error, which we have placed for instance in the mappers.
+     * @return a string with the record information
+     */
 
     @Override
     public String format(final LogRecord record) {

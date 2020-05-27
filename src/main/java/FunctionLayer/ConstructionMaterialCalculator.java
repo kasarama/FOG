@@ -12,7 +12,6 @@ import static FunctionLayer.ConstructionSizeCalculator.*;
 import static FunctionLayer.LogicFacade.getLengthForMaterials;
 import static FunctionLayer.LogicFacade.sendOffer;
 
-
 public class ConstructionMaterialCalculator {
     public static ConstructionSizeCalculator constructionSizeCalculator = new ConstructionSizeCalculator();
     //public Construction construction = new Construction();

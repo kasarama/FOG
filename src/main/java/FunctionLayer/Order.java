@@ -22,7 +22,6 @@ public class Order {
     final private double TAX=0.25;
     final private double DEFAULTCOVERAGE=50.0;
 
-
     public Order() {
     }
 

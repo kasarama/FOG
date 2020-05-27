@@ -14,6 +14,10 @@ import java.util.List;
 
 import java.sql.*;
 
+/**
+ * The purpose of this class is to get/insert material data into the database
+ */
+
 public class MaterialMapper {
 
     //.......................................Mia's Metoder.......................................................//

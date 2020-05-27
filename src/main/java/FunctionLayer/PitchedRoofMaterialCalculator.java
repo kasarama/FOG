@@ -4,6 +4,11 @@ import DBAccess.MaterialMapper;
 
 import java.util.ArrayList;
 
+/**
+ * @author monajakobmeshal & Cathrine
+ * The purpose of this class is to calculate the amount of materials needed to construct a pitched roof
+ * This class also contains the pitched roof material list.
+ */
 public class PitchedRoofMaterialCalculator {
 
     private int numberOfTaglaegter; // T1 taglægter til spær

@@ -7,17 +7,10 @@ import FunctionLayer.Material;
 
 import java.util.List;
 
-/*
-NOTE 1: This class ‘initializes’ (gives a start value) to the called methods from the “LogicFacade”,
- in case they don’t have one already.
+/**
+ * The purpose of this class is to initialize the material lists, in case they are null.
+ */
 
-
-NOTE 2: what's exactly being returned?
-        the "materialList" which calls ".getAllMaterials()" method
-       from “LogicFacade” which calls the “getAllMaterials(” from the “MaterialMapper”
-       --> i.e. we are calling a method that connects to DB,
-       creates list of materials obj and gets its data (rows) from DB in each 'Getter'.
-*/
 public class Initializer {
 
     private static List<Material> pitchedRoofMateriallist = null;

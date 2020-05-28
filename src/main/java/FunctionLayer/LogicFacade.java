@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 
+
 public class LogicFacade {
 
     public static User login(String email, String password) throws LoginSampleException {
@@ -20,9 +21,7 @@ public class LogicFacade {
         return user;
     }
 
-    /**
-     * @author Mia
-     */
+
     public static Material getMaterialBySizeName(int size, String name) throws LoginSampleException {
         return MaterialMapper.getMaterialBySizeName(size, name);
     }
@@ -87,18 +86,21 @@ public class LogicFacade {
     }
 
     /**
+     * The purpose of this method is to get data from database throught MaterialMapper
+     * that represent materials used for overlay for walls and return a list of them
      * @author Magdalena
      * @return ArrayList
-     * @throws LoginSampleException
+     * @throws LoginSampleException that is thrown by MaterialMapper.getAllOverlay
      */
     public static List<Material> getAllOverlays() throws LoginSampleException {
         return MaterialMapper.getAllOverlays();
     }
 
     /**
-     *  @author Magdalena
-     * @param order
-     * @throws LoginSampleException
+     * The purpose of this method is to to save values of the Order object in databese throught OrderMapper
+     * @author Magdalena
+     * @param order that contains Construction designed by a customer
+     * @throws LoginSampleException that is thrown by OrderMapper.saveNewRequest
      */
     public static void sendNewRequest(Order order) throws LoginSampleException {
         Date nowDate = new Date();
@@ -112,10 +114,11 @@ public class LogicFacade {
     }
 
     /**
+     * The purpose of this method is to create a list of orders that in database have given status
      * @author Magdalena
-     * @param status
-     * @return ArrayList
-     * @throws LoginSampleException
+     * @param status String used to call a method that read data from database for given status
+     * @return ArrayList filled up with Order objects
+     * @throws LoginSampleException that is thrown by OrderMapper.ReadAllOrdersByStatus
      */
     public static ArrayList<Order> ReadOrders(String status) throws LoginSampleException {
         return OrderMapper.ReadAllOrdersByStatus(status);
@@ -123,11 +126,12 @@ public class LogicFacade {
 
 
     /**
-     * @author Magdalena
      * The purpose of setMaterialsForOrder is to generate ArrayLists for each element of Construction
      * objekt and to return an Order object with that Construction object
-     * @param order
+     * @param order object with not null attributter.
      * @return msg
+     * @throws LoginSampleException that is thrown by OverlayMaterialCalculator.allOverlayMaterialList,
+     * pRMCalculator.pitchedRoof(), rMCalculator.getflatRoofMaterials or ConstructionMaterialCalculator.constructionMaterialList
      */
     public static String setMaterialsForOrder(Order order) throws LoginSampleException {
 
@@ -159,9 +163,10 @@ public class LogicFacade {
     }
 
     /**
-     *  @author Magdalena
-     * @param order
-     * @throws LoginSampleException
+     * The purpose of this method is to update data in database for given order
+     * @author Magdalena
+     * @param order that contains a construction that has been validated/edited by en amployee
+     * @throws LoginSampleException that ist thrown by  OrderMapper.saveNewOffer
      */
     public static void sendOffer(Order order) throws LoginSampleException {
         Date nowDate = new Date();

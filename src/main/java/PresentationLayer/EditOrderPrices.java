@@ -6,9 +6,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 /**
+ * The purpose of thiss class is to edit Construction object from user input, edit Order object
+ * and fill up the ArayLists with Materials for construction
  * @author Magdalena
  */
 public class EditOrderPrices extends Command {
+    /**
+     *
+     * @param request
+     * @param response
+     * @return String - name of jsp
+     * @throws LoginSampleException if an error occurs
+     */
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
 

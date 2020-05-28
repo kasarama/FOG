@@ -9,14 +9,20 @@ import FunctionLayer.Order;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 /**
+ * The purpose of SendNewOffer class is to update values of an Order object, save its data in database through LogicFacade,
+ * to set a String on request and to set Order object on null
  * @author Magdalena
  */
 public class SendNewOffer extends Command {
+    /**
+     *
+     * @param request
+     * @param response
+     * @return String - name of jsp
+     * @throws LoginSampleException if an error occurs
+     */
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        //todo read order from aplication scoop, call a method from FunctionLayer that will send it further to
-        // OrderMapper and sæt Order on aplicationScoop as null
-
+    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
 
         double saleprice = Double.parseDouble(request.getParameter("saleprice"));
 
@@ -38,6 +44,8 @@ public class SendNewOffer extends Command {
 
         request.setAttribute("orderMSG","Tilbud er blevet sendt til "+ order.getEmail()+"" +
                 "Salgspris: "+ order.getSalePrice()+", dækningsgrad: "+order.getCoverage());
+
+        //LogicFacade.setMaterialsForOrder(order) should not be used here
         try {
             LogicFacade.setMaterialsForOrder(order);
         } catch (LoginSampleException e) {

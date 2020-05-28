@@ -15,7 +15,7 @@ public class WallBuilder {
      * @param construction : Construction object that it's attributes can not be null
      * @return int height : calculated from dependencies between Tilt of Roof and Shed's depth -
      * is a value of height of front Wall of shed.
-     * Used in WallBuilder.addShedWalls method.
+     * used in WallBuilder.addShedWalls method.
      */
     public static int frontWallHeight(Construction construction) {
         int tilt = construction.getRoof().getTilt();

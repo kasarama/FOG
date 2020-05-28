@@ -75,7 +75,8 @@ public class OverlayMaterialCalculator {
 
 
     //..............SCREWS FOR OVERLAY........................//
-    public static Material screwForOverlayOneWall(Wall wall, String overlayName) throws LoginSampleException {
+    public static Material screwForOverlayOneWall
+    (Wall wall, String overlayName) throws LoginSampleException {
         Material screwOverlay = new Material();
         if (overlayName.equals("HARDIEPLANK 180X3600X8MM")) {
             screwOverlay.setName("FACADESKRUE TIL HARDIEPLANK");
@@ -86,11 +87,7 @@ public class OverlayMaterialCalculator {
         screwOverlay.setSize(size);
         screwOverlay.setComment("til montering af beklædningsplanke");
         screwOverlay.setAmount(0);
-
-
         return screwOverlay;
-
-
     }
 
 

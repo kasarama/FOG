@@ -98,7 +98,8 @@ public class ListFactory {
         return materials;
     }
 
-    public static ArrayList<Material>[] splitMaterialsByUnits(ArrayList<Material> materialList) {
+    public static ArrayList<Material>[] splitMaterialsByUnits
+            (ArrayList<Material> materialList) {
 
         ArrayList[] splitedLists = new ArrayList[2];
         ArrayList<Material> packages = new ArrayList<>();

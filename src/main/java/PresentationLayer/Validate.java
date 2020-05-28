@@ -11,6 +11,12 @@ import java.util.ArrayList;
  * The purpouse of this class is to update values of attributes of a chosen Construcion object
  */
 public class Validate extends Command {
+    /**
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @return string - name of JavaServer Page
+     */
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response)  {
         int orderID = Integer.parseInt(request.getParameter("orderID"));

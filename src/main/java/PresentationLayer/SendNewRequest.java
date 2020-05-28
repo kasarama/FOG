@@ -9,9 +9,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * The purpose of this class is to create new order object with customer's chosen Construction,
+ * save its data in database throuhgh LogicFacade and set String message on request
  * @author Magdalena
  */
 public class SendNewRequest extends Command {
+
+    /**
+     * @param request servlet request
+     * @param response servlet response
+     * @return String - name of JavaServer Page
+     */
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
 

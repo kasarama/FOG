@@ -33,6 +33,7 @@ public class ConstructionMaterialCalculator {
         return constructionMaterials;
     }
 
+
     public static ArrayList<Material> postsQuatity(Construction construction) throws LoginSampleException {
 
         // Stolper (uden skur)

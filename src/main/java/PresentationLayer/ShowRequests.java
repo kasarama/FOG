@@ -10,9 +10,15 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 /**
+ * The purpose of this class is to read user's input and to set an ArrayList with Orders on servletContext object
  * @author Magdalena
  */
 public class ShowRequests extends Command {
+    /**
+     * @param request servlet request
+     * @param response servlet response
+     * @return string - name of JavaServer Page
+     */
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         String page = "employeePage";

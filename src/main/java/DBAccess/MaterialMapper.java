@@ -299,7 +299,7 @@ public class MaterialMapper {
 
 
     /**
-     * @return List<Material>
+     * @return List with all the Materials for Overlay read from database
      * @throws LoginSampleException The purpose of this method is to get all position from database from materials table, where
      *                              category='overlayMaterial' end return them on list of Material
      * @author Magdalena
@@ -338,7 +338,7 @@ public class MaterialMapper {
 
 
     /**
-     * @param material
+     * @param material contaons data in it's attributes to be saved in database
      * @throws LoginSampleException The purpose of this method is to save data contained in attributes of parameter material
      *                              in database in materials table
      * @author Magdalena
@@ -370,7 +370,7 @@ public class MaterialMapper {
 
 
     /**
-     * @param name
+     * @param name Strong used to search for data in database where column value is name
      * @return double
      * @throws LoginSampleException the purpose of this method is to find a value of 'spending' colon in materials table,
      *                              where value of name collon is the parameter

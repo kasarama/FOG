@@ -14,12 +14,8 @@ import java.util.HashMap;
  */
 public class DrawWalls extends Command{
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession session = request.getSession();
+    String execute(HttpServletRequest request, HttpServletResponse response) {
         Order order = (Order) request.getServletContext().getAttribute("orderForValidation");
-        for (Wall wall :order.getConstruction().getWalls()) {
-            System.out.println(wall.getSide()+ " length"+ wall.getLength()+", min height "+wall.getMinHeight()+", tilt: "+ wall.getRaising());
-        }
 
         String wallsFromAbove = WallDrawer.allWallsFromAbove(order.getConstruction());
         HashMap<String, Svg>drawings = WallDrawer.framings(order.getConstruction());

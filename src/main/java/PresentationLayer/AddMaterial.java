@@ -13,6 +13,13 @@ import java.util.ArrayList;
  * @author Magdalena
  */
 public class AddMaterial extends Command {
+    /**
+     *
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String status = "Awaiting your action...";

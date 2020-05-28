@@ -20,6 +20,7 @@ public class ConstructionSizeCalculator {
 
 
     //counts how many posts should there be on one side of a carport or a shed
+    //Magdalena
     public  static int sidePostAmount(int size){
         int numberOfPost;
         size=size-POSTSIZE;
@@ -33,16 +34,19 @@ public class ConstructionSizeCalculator {
 
 
     //counts distance between posts on the side
+    //Magdalena
     public static int postDistanceMax3000(int size) {
         return (size-POSTSIZE)/(sidePostAmount(size)-1);
     }
 
     //counts how much the roof drops/raises on the given distance in mm
+    //Magdalena
     public static double raising(int angle, int distance){
         return (double) angle* (double) distance/ (double)CMPERM;
     }
 
     // fills up the array with heights of posts on the one side of the shed or carport starting from the shortest one
+    //Magdalena
     public static Integer[] postsHeights(double height, int angle, int size){
         //todo when calculating postHeights of carport, int height should be the heighest one of shed posts
         int postNumber=sidePostAmount(size);
@@ -58,6 +62,7 @@ public class ConstructionSizeCalculator {
     }
 
     //counts how many rows of post should there be because max distance between posts is 600 cm from side to side
+    //Magdalena
     public static int postRows (int width){
         int rows;
         if(width%MAXROWSISTANCE==0){
@@ -70,7 +75,7 @@ public class ConstructionSizeCalculator {
 
 
     //////.........SHED FRONT SIDE ........../////////
-
+    //Magdalena
     //counts number of post on the front side of the shed
     public static int shedFrontPostsAmount(int width) {
         //method cunts posts starting from the door not from the very first post. That missing post comes in door calculation
@@ -79,6 +84,7 @@ public class ConstructionSizeCalculator {
         return sidePostAmount(width);
     }
 
+    //Magdalena
     public static int carportMinHeight(int constuctionsMinHeight,int shedDepth, int raising) {
         //todo returns length of the lowest post of carport
         return (int) (constuctionsMinHeight+raising(raising,shedDepth));
@@ -116,10 +122,12 @@ public class ConstructionSizeCalculator {
      * @author Mia
      * @param construction is the Construction object that the customer have created.
      * @return an array of Integers which is the sizes of the rems that fits the construction sizes.
-     * There exist 45*195: 300, 360, 420, 480, 540, 600, 660, 720
+     */
+
+     /*      There exist 45*195: 300, 360, 420, 480, 540, 600, 660, 720
      *      The space between posts is postDistanceMax300
      *      The number of post pr. side are sidePostAmount
-     *          1. if carport length>720 and no shed:
+     *          1. if carport length'>'720 and no shed:
      *             Length = 750 cm, sidePostAmount = 4, postDistanceMax300 = 246,67 cm
      *             Collected on 2. post: (1*300 og 1*480)*2
      *          2. if construction length>720:

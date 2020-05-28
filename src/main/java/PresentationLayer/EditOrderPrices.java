@@ -5,23 +5,30 @@ import FunctionLayer.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-
+/**
+ * The purpose of thiss class is to edit Construction object from user input, edit Order object
+ * and fill up the ArayLists with Materials for construction
+ * @author Magdalena
+ */
 public class EditOrderPrices extends Command {
+    /**
+     *
+     * @param request
+     * @param response
+     * @return String - name of jsp
+     * @throws LoginSampleException if an error occurs
+     */
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
 
         int carportLength = Integer.parseInt(request.getParameter("carportLength"));
-
         int carportWidth = Integer.parseInt(request.getParameter("carportWidth"));
-
-
 
         int angle = Integer.parseInt(request.getParameter("angle"));
 
         int tilt = Integer.parseInt(request.getParameter("tilt"));
 
         double transport = Double.parseDouble(request.getParameter("transport"));
-
 
         Order order = (Order) request.getServletContext().getAttribute("orderForValidation");
 
@@ -38,29 +45,25 @@ public class EditOrderPrices extends Command {
 
         }
 
-
         order.getConstruction().setConstructionWidth();
         order.getConstruction().setConstructionLength();
         order.getConstruction().getRoof().setDegree(angle);
         order.getConstruction().getRoof().setTilt(tilt);
+
         order.setTransport(transport);
+
 
         ArrayList<Wall> costructionWalls = WallBuilder.createCarportWalls(order.getConstruction(), order.getConstruction().getWallSides());
         order.getConstruction().setWalls(costructionWalls);
         order.setCoverage(order.getDEFAULTCOVERAGE());
 
-        System.out.println("is about to call for adding all  materials");
-
         LogicFacade.setMaterialsForOrder(order);
 
-
         order.setCost(Math.round(Economy.ordersCostPrice(order) * 100.0) / 100.0);
-        order.setSalePrice(Math.round(Economy.ordersSalePrice(order) * 100.0) / 100.0);
-        order.setCoverage(Math.round(Economy.setCoverage(order) * 100.0) / 100.0);
 
+        Economy.setSalePriceFromCoverage(order);
 
         request.getServletContext().setAttribute("orderForValidation", order);
-
         return "prepareOffer";
 
     }

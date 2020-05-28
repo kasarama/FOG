@@ -14,7 +14,7 @@ public class RoofPitched extends Roof {
     }
 
     @Override
-    public String optionForFlatRoof(){
+    public String optionForTypeRoof(){
         return "Tag med rejsning";
     }
 

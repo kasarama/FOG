@@ -13,13 +13,20 @@ public class RoofSizingTest {
     RoofSizing rs = new RoofSizing(con);
     Roof roof;
 
+    @Before
+    public void setUp() throws Exception {
+        //Arrange
+        con.setConstructionWidth();
+        con.getConstructionLength();
+    }
+
     //TODO - Husk Negative Test
-/*
+
     @Test
     public void roofFlatHeight() {
         //Arrange
-        con.setConstructionLength(7800);
-        con.setConstructionWidth(3600);
+        con.setCarportLength(7800);
+        con.setCarportWidth(3600);
         roof = new RoofFlat(0,con.getConstructionLength(), con.getConstructionWidth(), 3);
         con.setRoof(roof);
         //Act
@@ -33,8 +40,8 @@ public class RoofSizingTest {
     @Test
     public void roofPitchedHeight() {
         //Arrange
-        con.setConstructionLength(7800);
-        con.setConstructionWidth(3600);
+        con.setCarportLength(7800);
+        con.setCarportWidth(3600);
         roof = new RoofPitched(0, con.getConstructionLength(), con.getConstructionWidth(), 30);
         con.setRoof(roof);
         //Act
@@ -49,8 +56,8 @@ public class RoofSizingTest {
     @Test
     public void roofWidthSurfaceFlatRoof() {
         //Arrange
-        con.setConstructionLength(7800);
-        con.setConstructionWidth(3600);
+        con.setCarportLength(7800);
+        con.setCarportWidth(3600);
         roof = new RoofFlat(0,con.getConstructionLength(), con.getConstructionWidth(), 3);
         con.setRoof(roof);
         //Act
@@ -64,8 +71,8 @@ public class RoofSizingTest {
     @Test
     public void roofWidthSurfacePitchedRoof() {
         //Arrange
-        con.setConstructionLength(7800);
-        con.setConstructionWidth(3600);
+        con.setCarportLength(7800);
+        con.setCarportWidth(3600);
         roof = new RoofPitched(0, con.getConstructionLength(), con.getConstructionWidth(), 30);
         con.setRoof(roof);
         //Act
@@ -79,8 +86,8 @@ public class RoofSizingTest {
     @Test
     public void roofLengthSurfaceFlatRoof() {
         //Arrange
-        con.setConstructionLength(7800);
-        con.setConstructionWidth(3600);
+        con.setCarportLength(7800);
+        con.setCarportWidth(3600);
         roof = new RoofFlat(0,con.getConstructionLength(), con.getConstructionWidth(), 3);
         con.setRoof(roof);
         //Act
@@ -94,8 +101,8 @@ public class RoofSizingTest {
     @Test
     public void roofLengthSurfacePitchedRoof() {
         //Arrange
-        con.setConstructionLength(7800);
-        con.setConstructionWidth(3600);
+        con.setCarportLength(7800);
+        con.setCarportWidth(3600);
         roof = new RoofPitched(0, con.getConstructionLength(), con.getConstructionWidth(), 30);
         con.setRoof(roof);
         //Act
@@ -108,8 +115,8 @@ public class RoofSizingTest {
     @Test
     public void flatRoofCalcutatedLength() {
         //Arrange
-        con.setConstructionLength(7800);
-        con.setConstructionWidth(3600);
+        con.setCarportLength(7800);
+        con.setCarportWidth(3600);
         roof = new RoofFlat(0,con.getConstructionLength(), con.getConstructionWidth(), 3);
         con.setRoof(roof);
         //Act
@@ -122,8 +129,8 @@ public class RoofSizingTest {
     @Test
     public void pitchedRoofCalcutatedWidth() {
         //Arrange
-        con.setConstructionLength(7800);
-        con.setConstructionWidth(3600);
+        con.setCarportLength(7800);
+        con.setCarportWidth(3600);
         roof = new RoofPitched(0, con.getConstructionLength(), con.getConstructionWidth(), 30);
         con.setRoof(roof);
         //Act
@@ -132,5 +139,4 @@ public class RoofSizingTest {
         //Assert
         assertEquals(expected, actuel);
     }
-    */
 }

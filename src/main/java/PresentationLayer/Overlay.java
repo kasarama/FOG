@@ -9,17 +9,21 @@ import java.util.ArrayList;
 
 
 /**
+ * The purpose of this class is to read user input to edit Construction object
  * @author Magdalena
  */
 public class Overlay extends Command {
+
+    /**
+     *
+     * @param request
+     * @param response
+     * @return name of jsp
+     */
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         Construction construction = (Construction) session.getAttribute("carportBase");
-
-        ArrayList<Material> ovarlayMaterialList;
-
-
 
         String overlayComponents = request.getParameter("overlayName");
         String right = request.getParameter("right");
@@ -37,8 +41,6 @@ public class Overlay extends Command {
             color=components[1];
 
         }
-
-
 
         if (right != null) {
             wallsToCover.add(right);
@@ -70,8 +72,7 @@ public class Overlay extends Command {
                 construction.setColor(color);
                 construction.setWallSides(wallsToCover);
                 construction.setWalls(WallBuilder.createCarportWalls(construction, wallsToCover));
-                //OverlayMaterialList(construction, overlayName);
-                //request.setAttribute("ovarlayMaterialList", ovarlayMaterialList);
+
                 return targetPage;
             }
         } else
@@ -82,8 +83,7 @@ public class Overlay extends Command {
             } else {
                 construction.setOverlay(overlayName);
                 construction.setColor(color);
-                //OverlayMaterialList(construction, overlayName);
-                //request.setAttribute("ovarlayMaterialList", ovarlayMaterialList);
+
                 return targetPage;
             }
 
@@ -95,8 +95,7 @@ public class Overlay extends Command {
                 construction.setOverlay(overlayName);
                 construction.setColor(color);
                 construction.setWalls(WallBuilder.createCarportWalls(construction, wallsToCover));
-                //OverlayMaterialList(construction, overlayName);
-                //request.setAttribute("ovarlayMaterialList", ovarlayMaterialList);
+
                 return targetPage;
             }
 

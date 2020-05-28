@@ -16,18 +16,19 @@ abstract class Command {
         commands.put( "designflatroof", new FlatRoof() );
         commands.put( "designpitchedroof", new PitchedRoof() );
         commands.put( "newrequest", new StartRequestOver() );
-        commands.put( "findmaterial", new FindMaterial() );
-        commands.put("materiale", new Materials());
         commands.put( "carportbase", new CarportBase() );
         commands.put( "addmaterial", new AddMaterial() );
         commands.put( "overlay", new Overlay() );
         commands.put("drawing", new Drawing());
+        commands.put("drawingCustomer", new DrawingCustomer());
         commands.put("sendnewrequest", new SendNewRequest());
         commands.put("itemlist", new ItemList());
         commands.put("showrequests", new ShowRequests());
         commands.put("validate", new Validate());
         commands.put("editprice", new EditOrderPrices());
         commands.put("sendoffer", new SendNewOffer());
+        commands.put("drawwalls", new DrawWalls());
+        commands.put("ordercarport", new OrderCarport());
 
     }
 

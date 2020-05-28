@@ -25,7 +25,7 @@ public abstract class Roof {
 
     }
 
-    public String optionForFlatRoof(){
+    public String optionForTypeRoof(){
         return "";
     }
 

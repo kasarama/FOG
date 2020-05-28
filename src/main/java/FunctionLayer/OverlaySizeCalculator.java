@@ -51,14 +51,18 @@ public class OverlaySizeCalculator {
     //................calculates number of fyr pr wall.......................//
     public static int fyrQuantityOnWall(Wall wall) {
         int distance = wall.getLength() - POSTSIZE;
-        int fyrPlusPost = 0;
+        int fyrQuantity = 0;
         if (distance % FYRMAXDISTANCE == 0) {
-            fyrPlusPost = (distance / FYRMAXDISTANCE) + 1;
+            fyrQuantity = (distance / FYRMAXDISTANCE) + 1;
         } else {
-            fyrPlusPost = (distance - distance % FYRMAXDISTANCE) / FYRMAXDISTANCE + 2;
+            fyrQuantity = (distance - distance % FYRMAXDISTANCE) / FYRMAXDISTANCE + 2;
         }
-        int justFyr = fyrPlusPost - ConstructionSizeCalculator.sidePostAmount(wall.getLength());
-        return justFyr;
+
+        return fyrQuantity;
+    }
+
+    public static int fyrDistance (Wall wall) {
+        return (wall.getLength()-POSTSIZE)/(fyrQuantityOnWall(wall)-1);
     }
 
 
@@ -77,23 +81,22 @@ public class OverlaySizeCalculator {
         calculates and adds height of every element that is not on index of post
          */
         int distance = wall.getLength() - POSTSIZE; // 100 mm for one post
-        int fyrPlusPost = 0;
+        int fyrQuantity = 0;
         if (distance % FYRMAXDISTANCE == 0) {
-            fyrPlusPost = (distance / FYRMAXDISTANCE) + 1;
+            fyrQuantity = (distance / FYRMAXDISTANCE) + 1;
         } else {
-            fyrPlusPost = (distance - distance % FYRMAXDISTANCE) / FYRMAXDISTANCE + 2;
+            fyrQuantity = (distance - distance % FYRMAXDISTANCE) / FYRMAXDISTANCE + 2;
         }
 
-        int numberOfPosts = ConstructionSizeCalculator.sidePostAmount(wall.getLength());
-        int postIndex = (fyrPlusPost - numberOfPosts) / (numberOfPosts - 1) + 1;
-        int distanceBetweenFyr = distance / (fyrPlusPost - 1);
+
+        int distanceBetweenFyr = distance / (fyrQuantity - 1);
         double raising = ConstructionSizeCalculator.raising(wall.getRaising(), distanceBetweenFyr);
-        for (int i = 1; i < fyrPlusPost; i++) {
-            if (i % postIndex != 0) {
-                int fyrLength = (int) (wall.getMinHeight() + raising * i);
-                fyrLengthsOneWall.add(fyrLength);
-            }
+        for (int i = 0; i < fyrQuantity; i++) {
+
+            int fyrLength = (int) (wall.getMinHeight() + raising * i);
+            fyrLengthsOneWall.add(fyrLength);
         }
+
 
         return fyrLengthsOneWall;
     }
@@ -127,7 +130,11 @@ public class OverlaySizeCalculator {
 
     public static double allWallsArea(Construction construction) {
         ArrayList<Wall> allWalls = new ArrayList<>();
-        ArrayList<Wall> shedWalls = construction.getShed().getWalls();
+        ArrayList<Wall> shedWalls = new ArrayList<>();
+
+        for (Wall shedW: construction.getShed().getWalls()) {
+            shedWalls.add(shedW);
+        }
 
         int backSideindex = -1;
 

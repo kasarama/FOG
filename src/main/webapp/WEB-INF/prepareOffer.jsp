@@ -7,7 +7,7 @@
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
-<%@include file="../includes/header.inc" %>
+<%@include file="../includes/headerEmployee.inc" %>
 
 <h2>Detaljer af den valideret construction</h2>
 
@@ -45,6 +45,45 @@ todo Return the same page with actial data ??
             </form>
         </div>
 
+        <div class="col-md-6">
+
+            <form name="wallsvg" action="FrontController" method="POST" class="ml-lg-5 mr-lg-5">
+                <input type="hidden" name="origin" value="prepareOffer">
+                <input type="hidden" name="target" value="drawwalls">
+                <div class="col-md-6 text-center mt-md-4">
+                    <input class="btn btn-dark mt-3" type="submit" name="allFromAbove"
+                           value="Vis vægtegninger set oppefra"
+                           role="button">
+                    <c:set var="order" value="${applicationScope.orderForValidation}"/>
+
+
+                    <c:choose>
+                        <c:when test="${order.construction.walls.size()!=0}">
+
+                            <p3>Carport walls:</p3>
+                        </c:when>
+                    </c:choose>
+
+                    <c:forEach var="wall" items="${order.construction.walls}">
+                        <input class="btn btn-dark mt-3" type="submit" name="constructionWall" value="${wall.side}"
+                               role="button">
+                    </c:forEach>
+
+                    <c:choose>
+                        <c:when test="${order.construction.shed.depth!=0}">
+
+                            <p3>Shed walls:</p3>
+                        </c:when>
+                    </c:choose>
+
+                    <c:forEach var="wall" items="${order.construction.shed.walls}">
+                        <input class="btn btn-dark mt-3" type="submit" name="shedWall" value="${wall.side}"
+                               role="button">
+                    </c:forEach>
+
+                </div>
+            </form>
+        </div>
 
 
         <c:set var="order" value="${applicationScope.orderForValidation}"/>

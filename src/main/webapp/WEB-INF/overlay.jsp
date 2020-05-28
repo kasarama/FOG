@@ -1,4 +1,4 @@
-<%@ page import="CarportUtil.Initializer" %>
+ <%@ page import="CarportUtil.Initializer" %>
 <%@ page import="FunctionLayer.LoginSampleException" %><%--
   Created by IntelliJ IDEA.
   User: magda
@@ -8,7 +8,7 @@
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
-<%@include file="../includes/header.inc" %>
+<%@include file="../includes/headerCustomer.inc" %>
 
 
 <%
@@ -47,7 +47,6 @@
 
                     <label class="mt-3" for="overlay"> Vælg beklædning:</label>
                     <select name="overlayName" class="form-control" id="overlay">
-                        <option selected disabled>Vælg beklædning</option>
                         <c:forEach var="material" items="${applicationScope.overlayList}">
                             <option value="${material.name};${material.color}">${material.color} ${material.name}</option>
                         </c:forEach>

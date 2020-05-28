@@ -1,12 +1,13 @@
 package FunctionLayer;
 
 /**
- * @author Magdalena and Mia
+ * The purpose of this class is to calculate the sizes of the materials needed to build the construction.
+ * @author Mia and Magdalena
  */
 public class ConstructionSizeCalculator {
     //todo some of the post are common for sides and the back - remember that when drowing or making itemlist
     //todo method counting shared posts
-    //todo we need to update postHights with data about the length to be berried in the ground. We can also ask Tu if
+    //todo we need to update postHights with data about the length to be berried in the ground. We can also ask Tue if
     // the posts could be chosen to be set on a surface instead of in the ground
 
     final private  static int POSTSIZE=100;
@@ -19,30 +20,33 @@ public class ConstructionSizeCalculator {
 
 
     //counts how many posts should there be on one side of a carport or a shed
+    //Magdalena
     public  static int sidePostAmount(int size){
         int numberOfPost;
         size=size-POSTSIZE;
-        if(size%MAXPOSTDISTANCE==0){ //
+        if(size%MAXPOSTDISTANCE==0){
             numberOfPost=size/MAXPOSTDISTANCE+1;
         } else {
-            numberOfPost= (( size - size%MAXPOSTDISTANCE)/MAXPOSTDISTANCE)+2; //(750cm -(3*300) =0) 750%300=2 2*300=600 (150????)
+            numberOfPost= (( size - size%MAXPOSTDISTANCE)/MAXPOSTDISTANCE)+2;
         }
         return numberOfPost;
     }
 
 
     //counts distance between posts on the side
+    //Magdalena
     public static int postDistanceMax3000(int size) {
         return (size-POSTSIZE)/(sidePostAmount(size)-1);
     }
 
     //counts how much the roof drops/raises on the given distance in mm
+    //Magdalena
     public static double raising(int angle, int distance){
-
         return (double) angle* (double) distance/ (double)CMPERM;
     }
 
     // fills up the array with heights of posts on the one side of the shed or carport starting from the shortest one
+    //Magdalena
     public static Integer[] postsHeights(double height, int angle, int size){
         //todo when calculating postHeights of carport, int height should be the heighest one of shed posts
         int postNumber=sidePostAmount(size);
@@ -57,7 +61,8 @@ public class ConstructionSizeCalculator {
         return postHeights;
     }
 
-    //counts how many rows of post should there be because max distans between posts is 600 cm from side to side
+    //counts how many rows of post should there be because max distance between posts is 600 cm from side to side
+    //Magdalena
     public static int postRows (int width){
         int rows;
         if(width%MAXROWSISTANCE==0){
@@ -70,7 +75,7 @@ public class ConstructionSizeCalculator {
 
 
     //////.........SHED FRONT SIDE ........../////////
-
+    //Magdalena
     //counts number of post on the front side of the shed
     public static int shedFrontPostsAmount(int width) {
         //method cunts posts starting from the door not from the very first post. That missing post comes in door calculation
@@ -79,12 +84,22 @@ public class ConstructionSizeCalculator {
         return sidePostAmount(width);
     }
 
+    //Magdalena
     public static int carportMinHeight(int constuctionsMinHeight,int shedDepth, int raising) {
         //todo returns length of the lowest post of carport
         return (int) (constuctionsMinHeight+raising(raising,shedDepth));
     }
 
 
+    //......................................... Mia's Metoder ....................................................//
+
+    /**
+     * @author Mia
+     * @param construction is the Construction object which the customer have created. By calling the created object from
+     *                     other classes, we can collect values, for instance the carports length, which the customer
+     *                     have chosen.
+     * @return wantedRem, which is the rem perfect for the size of the construction. It is used in the next method
+     */
     public static int possibleRems(Construction construction){
         int[] possibleRems = new int[]{3000, 3600, 4200, 4800, 5400, 6000, 6600, 7200};
         int carportLength = construction.getCarportLength();
@@ -103,35 +118,35 @@ public class ConstructionSizeCalculator {
         return wantedRem;
     }
 
-    public static int[] remPieces (Construction construction){
-        //todo count witch lengths of "rem" tree chould be used so the connections ar in the right places if "rem"
-        // should be compoused of more than one piece and return them in Integer[]
-        /*
-            Der findes 45*195: 300, 360, 420, 480, 540, 600, 660, 720
-            Vi ved hvor langt der er mellem stolperne (postDistanceMax300)
-            og hvor mange stolper der bliver brugt (sidePostAmount).
-            1. Hvis længden er over 720 uden skur:
-                Length = 750 cm, sidePostAmount = 4, postDistanceMax300 = 246,67 cm
-                Samlet på 2. stolpe: (1*300 og 1*480)*2
-            2. Hvis konstruktionens længde er over 720 (Det samme gælder hvis skuret kun fylder halvdelen - symetri):
-                2A. Hvis carporten er under 720 og skuret er <= 300:
-                    (1*tættestPåCarportLængde og 1*300)*2
-                2B. Hvis carporten er under 720 og skuret er under 360:
-                    (1*tættestPåCarportLængde og 1*360)*2
-                2C. Hvis carporten er over 720 og skuret er <= 300:
-                    (1*Punkt1 og 1*300)*2
-                2D. Hvis carporten er over 720 og skuret er under 360:
-                    (1*Punkt1 og 1*360)*2
-            3. Hvis bredden er over 600:
-                Så skal alt overstående lægges 1 til
+    /**
+     * @author Mia
+     * @param construction is the Construction object that the customer have created.
+     * @return an array of Integers which is the sizes of the rems that fits the construction sizes.
+     */
 
-        først tjek om construction længde er mindre eller lige med 600
-        if not: 1. lav en rem til shed (den bliver mac 3500 mm)
-        2. fordel carports længde på 2 lige stykker eller find den stolpe det skal samles på
-        3 havd så hvis skur er kun på halve af carportts bredde - hvor skal de samles henne??
-        hvis brædde >6000 mm så rem antal gang 2???
-         */
-        //todo in ConstrucionMaterialCalculator implement the method that will return Material object for each of pieces
+     /*      There exist 45*195: 300, 360, 420, 480, 540, 600, 660, 720
+     *      The space between posts is postDistanceMax300
+     *      The number of post pr. side are sidePostAmount
+     *          1. if carport length'>'720 and no shed:
+     *             Length = 750 cm, sidePostAmount = 4, postDistanceMax300 = 246,67 cm
+     *             Collected on 2. post: (1*300 og 1*480)*2
+     *          2. if construction length>720:
+     *              2A. if carport length < 720 and shed <= 300:
+     *                  (1*closetsToCarportLength og 1*300)*2
+     *              2B. if carport length < 720 and shed <= 360:
+     *                  (1*closetsToCarportLength og 1*360)*2
+     *              2C. if carport length > 720 and shed <= 300:
+     *                  (1*point1 og 1*360)*2
+     *              2D. if carport length > 720 and shed <= 360:
+     *                  (1*point1 og 1*360)*2
+     *           3. if width > 600:
+     *              add 1 to all above
+     *
+     *          Check if the construction length <= 600, if not:
+     *          1. Make a rem to the shed (max length 3500 mm)
+     *          2. Devide the carport length in two equal pieces or find the post they need to be assemble on.
+     */
+    public static int[] remPieces (Construction construction){
         int[] remPieces = new int[0];
         int carportLength = construction.getCarportLength();
         int constructionLength = construction.getConstructionLength();
@@ -188,6 +203,10 @@ public class ConstructionSizeCalculator {
     }
 
     // Brædebolte:
+
+    /**
+     * @author Mia
+     */
     public static int remBoltAmount (Construction construction){
         //todo return number of screw used to montage of rem on the posts. Use the method remPieces
         //todo in ConstrucionMaterialCalculator implement method that will return a material of that screw with size that equals this number
@@ -215,6 +234,9 @@ public class ConstructionSizeCalculator {
     }
 
     // Firkantskriver:
+    /**
+     * @author Mia
+     */
     public static int remSquaresAmount (Construction construction){
         //todo return number of screw used to montage of rem on the posts. Use the method remPieces
         //todo in ConstrucionMaterialCalculator implement method that will return a material of that screw with size that equals this number
@@ -239,6 +261,9 @@ public class ConstructionSizeCalculator {
         return squares;
     }
 
+    /**
+     * @author Mia
+     */
     public static int roofSpaerLength (Construction construction) {
         //todo return lengths of spaer
         // Mulige spærlængder: 300, 360, 420, 480, 540, 600, 660, 720
@@ -264,6 +289,9 @@ public class ConstructionSizeCalculator {
         return spaerLength;
     }
 
+    /**
+     * @author Mia
+     */
     public static int roofSpaerAmount (Construction construction){
         //todo return number of spaer needed for whole construction length
         //todo in ConstrucionMaterialCalculator implement method that will return  2 Materials of beslag
@@ -277,6 +305,9 @@ public class ConstructionSizeCalculator {
     }
 
     // Universalbeslag Højre
+    /**
+     * @author Mia
+     */
     public static int universalBracketsRight(Construction construction){
         int universalBracketsRight = roofSpaerAmount(construction);
         return universalBracketsRight;
@@ -287,6 +318,9 @@ public class ConstructionSizeCalculator {
         return universalBracketsLeft;
     }
 
+    /**
+     * @author Mia
+     */
     public static int perforatedBandRolls (Construction construction) {
         //todo implement a method in ConstructionMaterialCalculator that returns hulbånd material , make sure that it is not possible that the crossing piece is longer than 10 m
         //todo return amount of hulbånd needed
@@ -306,6 +340,9 @@ public class ConstructionSizeCalculator {
     }
 
     // Beslagskruer til hulbånd og spær
+    /**
+     * @author Mia
+     */
     public static int bracketScrews (Construction construction) {
         //todo return amount of screw needed for montage of that band and spaer
 
@@ -326,6 +363,9 @@ public class ConstructionSizeCalculator {
         return brancketScrewPk;
     }
 
+    /**
+     * @author Mia
+     */
     public static int possibleSternSmall(int size, int extra){
         int[] possibleStern = new int[]{3000, 3600, 4200, 4800, 5400, 6000};
         int wantedStern = 0;
@@ -344,6 +384,9 @@ public class ConstructionSizeCalculator {
         return wantedStern;
     }
 
+    /**
+     * @author Mia
+     */
     public static int possibleSternDobbelt(int size, int ekstra){
         int[] possibleStern = new int[]{3000, 3600, 4200, 4800, 5400, 6000};
         int wantedStern = 0;
@@ -362,6 +405,9 @@ public class ConstructionSizeCalculator {
         return wantedStern;
     }
 
+    /**
+     * @author Mia
+     */
     public static int[] underSternPieces(Construction construction) {
         //todo caount pieces needet to build a under stern take to consideration that they might need to be connected on the certain length (på middten)
         //todo in ConstrucionMaterialCalculator implement method that will return Materials of that tree for each piece
@@ -400,7 +446,9 @@ public class ConstructionSizeCalculator {
         return understernPieces;
     }
 
-
+    /**
+     * @author Mia
+     */
     public static int[] overSternPieces(Construction construction) {
         //todo caount pieces needet to build a under stern take to consideration that they might need to be connected on the certain length
         //todo in ConstrucionMaterialCalculator implement method that will return Materials of that tree for each piece

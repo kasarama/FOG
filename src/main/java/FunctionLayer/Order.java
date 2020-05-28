@@ -2,6 +2,11 @@ package FunctionLayer;
 
 import java.util.Date;
 
+/**
+ * @author Magdalena
+ * the purpose of this class is to create an Order object
+ */
+
 public class Order {
     private Construction construction;
     private int orderID;
@@ -16,7 +21,6 @@ public class Order {
     private double transport;
     final private double TAX=0.25;
     final private double DEFAULTCOVERAGE=50.0;
-
 
     public Order() {
     }

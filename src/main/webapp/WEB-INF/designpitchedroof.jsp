@@ -6,7 +6,7 @@
 <%@ page import="FunctionLayer.Material" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="../includes/header.inc"%>
+<%@include file="../includes/headerCustomer.inc"%>
 
 <%
     // if i'm the first user on this application, then set the pitchedMaterialList. (else the list already exists)
@@ -28,33 +28,33 @@
 
 <div class="container2">
     <div class="col-md-12">
-        <form name="makerequest" action="FrontController" method="post">
-            <input type="hidden" name="target" value="makerequest">
+        <form name="designpitchedroof" action="FrontController" method="post">
+            <input type="hidden" name="target" value="designpitchedroof">
             <br>
             <br>
             <h2>Tag med rejsning design</h2>
-            <label class="mt-3" for="pitchedroof"> Vælg tagdækning for tag med hældning:</label>
-            <select class="form-control mt-3" name="pitchedroof" id="pitchedroof">
-                <option selected disabled>Vælg tagdækning</option>
+            <label class="mt-3" for="pitchedroofmaterial"> Vælg tagdækning for tag med hældning:</label>
+            <select class="form-control mt-3" name="pitchedroofmaterial" id="pitchedroofmaterial">
                 <c:forEach var="roofMaterial" items="${applicationScope.pitchedMaterialList}">
-                    <option value="${roofMaterial.id}">${roofMaterial.name} ${roofMaterial.color}</option>
+                    <option value="${roofMaterial.id};${roofMaterial.variationID}">${roofMaterial.name} ${roofMaterial.color}</option>
                 </c:forEach>
             </select>
-            <!--- </form> --->
+
 
             <br>
-            <input type="hidden" name="target" value="designflatroof">
             <label>Vælg hældningsgrad:</label>
             <br>
-            <select name="tiltOptions" class="form-control" >
+            <select class="form-control" name="pitchedroofdegree" id="pitchedroofdegree">
                 <c:forEach var="degree" begin="${applicationScope.MINPITCHDEGREEOPTION}" end="${applicationScope.MAXPITCHDEGREEOPTION}" step="5">
                     <option value="${degree}">${degree}</option>
                 </c:forEach>
             </select>
+
+            <input class="btn btn-primary mt-3" type="submit" value="Videre til beklædning">
         </form>
-        <!-- End of form -->
+
         <br>
-        <a class="mt-3 btn btn-dark" href="FrontController?target=redirect&destination=overlay" role="button">Videre til beklædning</a>
+
 
         <form name="startOver" action="FrontController" method="POST">
             <input type="hidden" name="target" value="newrequest">

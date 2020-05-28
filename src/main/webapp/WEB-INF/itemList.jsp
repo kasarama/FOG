@@ -1,13 +1,13 @@
 <%--
   Created by IntelliJ IDEA.
-  User: magda
+  User: miade
   Date: 03-05-2020
   Time: 03:04
   To change this template use File | Settings | File Templates.
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
-<%@include file="../includes/header.inc" %>
+<%@include file="../includes/headerEmployee.inc" %>
 
 <!-- Page Content -->
 <div class="container2">
@@ -76,7 +76,7 @@
                 <tr class="tr2">
                     <td>${material.name}</td>
                     <td>${material.size}</td>
-                    <td>${material.antal}</td>
+                    <td>${material.amount}</td>
                     <td>${material.unit}</td>
                     <td>${material.comment}</td>
                 </tr>
@@ -91,6 +91,7 @@
         <c:set var="list" value="${applicationScope.orderForValidation.construction.shed.materials}"/>
         <c:choose>
             <c:when test="${list.size() != 0}">
+                <p>${requestScope.overlayMAterialMSG}</p>
                 <table class="table table-striped ">
                     <thead>
                     <tr class="tr1">

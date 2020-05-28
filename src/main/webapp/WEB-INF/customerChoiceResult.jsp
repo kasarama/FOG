@@ -10,7 +10,7 @@ To change this template use File | Settings | File Templates.
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<%@include file="../includes/header.inc" %>
+<%@include file="../includes/headerCustomer.inc" %>
 
 <div class="row">
 
@@ -37,14 +37,14 @@ To change this template use File | Settings | File Templates.
             </tr>
             <tr>
                 <td>Tagtype:</td>
-                <td>${requestScope.attributeName}</td>
-                <td>${sessionScope.carportBase.roof.optionForFlatRoof()}</td>
+                <td>${sessionScope.carportBase.roof.optionForTypeRoof()}</td>
             </tr>
 
             <tr>
                 <td>Tagdækning:</td>
-                <td>${requestScope.attributeName}</td>
+                <td>${sessionScope.carportBase.roof.cover}</td>
             </tr>
+
 
             <td>Beklæd væg:</td>
             <td>
@@ -60,7 +60,7 @@ To change this template use File | Settings | File Templates.
 
             <tr>
                 <td>Skur placering:</td>
-                <td>${sessionScope.carportBase.shed.danishSide()}</td>
+                <td>${sessionScope.carportBase.shed.side}</td>
             </tr>
 
             <tr>
@@ -91,10 +91,10 @@ To change this template use File | Settings | File Templates.
             <input class="mt-3 mb-4 btn btn-outline-dark" type="submit" name="newrequest" value="Start forfra">
         </form>
 
-        <form name="drawing" action="FrontController" method="POST">
-            <input type="hidden" name="target" value="drawing">
+        <form name="drawingCustomer" action="FrontController" method="POST">
+            <input type="hidden" name="target" value="drawingCustomer">
             <input type="hidden" name="origin" value="customerChoiceResult">
-            <input class="btn btn-primary mt-3" type="submit" name="svgSketch" value="Se din caport">
+            <input class="btn btn-primary mt-3" type="submit" name="svgSketch" value="Se din carport">
         </form>
 
 

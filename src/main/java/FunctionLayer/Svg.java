@@ -2,6 +2,12 @@ package FunctionLayer;
 
 import com.sun.javafx.binding.StringFormatter;
 
+/**
+ * The purpose of this class is to create templates for different figures so that we can call the methods from
+ * the presentation layer.
+ * @author Mia
+ */
+
 public class Svg {
 
     private int width;
@@ -61,15 +67,20 @@ public class Svg {
     public void addBand(int x1, int y1, int x2, int y2){
         svg.append(String.format(bandTemplate, x1, y1, x2, y2));
     }
+
+    /**
+     * @param x1 is the arrows starting x value in the coordinate system
+     * @param y1 is the arrows starting y value in the coordinate system
+     * @param x2 is the arrows last x value in the coordinate system
+     * @param y2 is the arrows last y value in the coordinate system
+     * @param trans1 is the text position directed by the x-scale
+     * @param trans2 is the text position directed by the y-scale
+     * @param rotation is how much the text is rotated - it is used so it aligns with the arrow
+     * @param text is the text regarding the measurements for the construction
+     */
     public void addArrows(int x1, int y1, int x2, int y2, int trans1, int trans2, int rotation, String text){
         svg.append(String.format(arrow, x1, y1, x2, y2, trans1, trans2, rotation, text));
     }
-    /*
-    public void addText(){
-        "<text style=\"text-anchor: middle; font-size: 12;\" transform=\"translate(%d,%d) rotate(%d)\">%s</text>";
-    }
-
-     */
 
     public int getWidth() {
         return width;

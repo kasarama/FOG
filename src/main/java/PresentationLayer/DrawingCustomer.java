@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * The purpose of this class is to create figures on the jsp side.
+ * @author Mia
+ */
+
 public class DrawingCustomer extends Command{
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

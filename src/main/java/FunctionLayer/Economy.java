@@ -3,9 +3,9 @@ package FunctionLayer;
 import java.util.ArrayList;
 
 /**
- * @author Mia and Magdalena
  * The purpose of this class is to calculate prices and cost of different elements of a construction
- * and of the whole construction
+ *  * and of the whole construction
+ * @author Mia and Magdalena
  */
 public class Economy {
     // Indkøbspris
@@ -18,11 +18,6 @@ public class Economy {
         temp.addAll(order.getConstruction().getFundamentMaterials());
         temp.addAll(order.getConstruction().getRoof().getRoofMaterialList());
         temp.addAll(order.getConstruction().getShed().getMaterials());
-//todo hvorfor tager det ikke material på index 0?  Den tager size af material,
-// men på styklisten kan vi se at der er materials med size = 0
-// her er alt du skriver i 3 linier:
-
-
 
         double[] totalPrices = new double[temp.size()];
         for (int i = 1; i < temp.size(); i++) {
@@ -67,7 +62,6 @@ public class Economy {
 
         return coverage;
     }
-
 
 
     public static void setSalePriceFromCoverage (Order order) throws LoginSampleException {

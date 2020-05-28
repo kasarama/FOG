@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * The purpose of this class is to create figures on the jsp side.
+ * @author Mia
+ */
+
 public class Drawing extends Command{
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -67,14 +72,6 @@ public class Drawing extends Command{
         svg.addArrows(-25, 0, -25, height, -35, height/2, -90, text1);
         svg.addArrows(0, height+25, width, height+25, width/2, height+40, 0, text2);
 
-        // Hvis taget er pitched:
-        /*
-        if (con.getRoof().getIsPitched()){
-            System.out.println("Her?");
-            svg.addRect(0,height/2,5,width);
-        }
-
-*/
         request.setAttribute("svgdrawing", svg.toString());
         return "drawing";
     }

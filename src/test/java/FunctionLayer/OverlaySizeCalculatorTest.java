@@ -172,7 +172,7 @@ public class OverlaySizeCalculatorTest {
         double area =OverlaySizeCalculator.oneWallArea(carportR);
         System.out.println(area);
         double exp=7200/2*(2*2084+7200*3/100)/1000.0/1000.0;
-        assertEquals(exp,area, 0.01);
+        assertEquals(exp,area, 0.1);
     }
     @Test
     public void allWallsAreal() {

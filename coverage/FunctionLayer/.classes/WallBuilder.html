@@ -1,0 +1,273 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: WallBuilder</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">FunctionLayer</a> ]
+</div>
+
+<h1>Coverage Summary for Class: WallBuilder (FunctionLayer)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">WallBuilder</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    72,6%
+  </span>
+  <span class="absValue">
+    (85/ 117)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package FunctionLayer;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.ArrayList;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;/**
+<i>6</i>&nbsp; * @author Magdalena
+<i>7</i>&nbsp; * The purpose of this class is to fill up the lists with proper Walls objects
+<i>8</i>&nbsp; */
+<b class="nc"><i>9</i>&nbsp;public class WallBuilder {</b>
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;    private final static int DOORSIZE = 1000;
+<i>12</i>&nbsp;    private final static int POSTWIDTH = 100;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    /**
+<i>15</i>&nbsp;     * @param construction : Construction object that it&#39;s attributes can not be null
+<i>16</i>&nbsp;     * @return int height : calculated from dependencies between Tilt of Roof and Shed&#39;s depth -
+<i>17</i>&nbsp;     * is a value of height of front Wall of shed.
+<i>18</i>&nbsp;     * used in WallBuilder.addShedWalls method.
+<i>19</i>&nbsp;     */
+<i>20</i>&nbsp;    public static int frontWallHeight(Construction construction) {
+<b class="fc"><i>21</i>&nbsp;        int tilt = construction.getRoof().getTilt();</b>
+<b class="fc"><i>22</i>&nbsp;        int shedDepth = construction.getShedDepth();</b>
+<b class="fc"><i>23</i>&nbsp;        double raising = ConstructionSizeCalculator.raising(shedDepth, tilt);</b>
+<b class="fc"><i>24</i>&nbsp;        int height = construction.getConstructionHeight() + (int) raising;</b>
+<b class="fc"><i>25</i>&nbsp;        return height;</b>
+<i>26</i>&nbsp;    }
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * @param construction Construction object that it&#39;s attributes can not be null
+<i>31</i>&nbsp;     * @return ArrayList with four Wall objects that are being created from dependencies
+<i>32</i>&nbsp;     * between Shed&#39;s lengths and width, constructions height and Roof&#39;s tilt.
+<i>33</i>&nbsp;     * After being used changes wall list of Shed object of construcion from onewith 0 elements to one with 4 different elements
+<i>34</i>&nbsp;     * Used in FunctionLayer.LogicFacade.setMaterialsForOrder, PresentationLayer.CarportBase.execute, PresentationLayer.EditOrderPrices.execute
+<i>35</i>&nbsp;     */
+<i>36</i>&nbsp;    public static ArrayList&lt;Wall&gt; addShedWalls(Construction construction) {
+<b class="fc"><i>37</i>&nbsp;        ArrayList&lt;Wall&gt; walls = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>38</i>&nbsp;        if (construction.getShedDepth() != 0) {</b>
+<i>39</i>&nbsp;
+<b class="fc"><i>40</i>&nbsp;            Wall right = new Wall();</b>
+<b class="fc"><i>41</i>&nbsp;            right.setSide(&quot;right&quot;);</b>
+<b class="fc"><i>42</i>&nbsp;            right.setLength(construction.getShedDepth());</b>
+<b class="fc"><i>43</i>&nbsp;            right.setRaising(construction.getRoof().getTilt());</b>
+<b class="fc"><i>44</i>&nbsp;            right.setMinHeight(construction.getConstructionHeight());</b>
+<i>45</i>&nbsp;
+<b class="fc"><i>46</i>&nbsp;            Wall left = new Wall();</b>
+<b class="fc"><i>47</i>&nbsp;            left.setSide(&quot;left&quot;);</b>
+<b class="fc"><i>48</i>&nbsp;            left.setLength(construction.getShedDepth());</b>
+<b class="fc"><i>49</i>&nbsp;            left.setRaising(construction.getRoof().getTilt());</b>
+<b class="fc"><i>50</i>&nbsp;            left.setMinHeight(construction.getConstructionHeight());</b>
+<i>51</i>&nbsp;
+<b class="fc"><i>52</i>&nbsp;            Wall back = new Wall();</b>
+<b class="fc"><i>53</i>&nbsp;            back.setSide(&quot;back&quot;);</b>
+<b class="fc"><i>54</i>&nbsp;            back.setLength(construction.getShed().getWidth());</b>
+<b class="fc"><i>55</i>&nbsp;            back.setRaising(0);</b>
+<b class="fc"><i>56</i>&nbsp;            back.setMinHeight(construction.getConstructionHeight());</b>
+<i>57</i>&nbsp;
+<b class="fc"><i>58</i>&nbsp;            Wall front = new Wall();</b>
+<b class="fc"><i>59</i>&nbsp;            front.setSide(&quot;front&quot;);</b>
+<b class="fc"><i>60</i>&nbsp;            front.setLength(construction.getShed().getWidth() - DOORSIZE);</b>
+<b class="fc"><i>61</i>&nbsp;            front.setRaising(0);</b>
+<b class="fc"><i>62</i>&nbsp;            front.setMinHeight(frontWallHeight(construction));</b>
+<i>63</i>&nbsp;
+<b class="fc"><i>64</i>&nbsp;            walls.add(right);</b>
+<b class="fc"><i>65</i>&nbsp;            walls.add(left);</b>
+<b class="fc"><i>66</i>&nbsp;            walls.add(front);</b>
+<b class="fc"><i>67</i>&nbsp;            walls.add(back);</b>
+<i>68</i>&nbsp;        }
+<b class="fc"><i>69</i>&nbsp;        return walls;</b>
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    }
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;    /**
+<i>74</i>&nbsp;     * @param construction : Construction object that it&#39;s attributes can not be null
+<i>75</i>&nbsp;     * @param sides        : An ArrayLists with String as names of Walls to be created
+<i>76</i>&nbsp;     * @return ArrayList with Wall object that are being created from dependencies
+<i>77</i>&nbsp;     * After being used changes wall list of constuction object from one with 0 elements to one with
+<i>78</i>&nbsp;     * from 0 to 4 elements depending on sides parameter and Shed&#39;s depth and width
+<i>79</i>&nbsp;     * between Shed&#39;s lengths and width, constructions height, carportLength, carportWidth and Roof&#39;s tilt
+<i>80</i>&nbsp;     */
+<i>81</i>&nbsp;    public static ArrayList&lt;Wall&gt; createCarportWalls(Construction construction, ArrayList&lt;String&gt; sides) {
+<b class="fc"><i>82</i>&nbsp;        ArrayList&lt;Wall&gt; carportWalls = new ArrayList&lt;&gt;();</b>
+<i>83</i>&nbsp;
+<b class="fc"><i>84</i>&nbsp;        if (sides.size() == 0) {</b>
+<b class="nc"><i>85</i>&nbsp;            return carportWalls;</b>
+<i>86</i>&nbsp;        } else {
+<i>87</i>&nbsp;
+<b class="fc"><i>88</i>&nbsp;            String side = &quot;&quot;;</b>
+<b class="fc"><i>89</i>&nbsp;            int wallLength = 0;</b>
+<b class="fc"><i>90</i>&nbsp;            int raising = construction.getRoof().getTilt();</b>
+<b class="fc"><i>91</i>&nbsp;            int minHeight = 0;</b>
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;
+<b class="fc"><i>94</i>&nbsp;            if (construction.getShedDepth() == 0) {</b>
+<i>95</i>&nbsp;
+<b class="nc"><i>96</i>&nbsp;                for (String wallSide : sides) {</b>
+<b class="nc"><i>97</i>&nbsp;                    if (wallSide.equals(&quot;back&quot;)) {</b>
+<i>98</i>&nbsp;
+<b class="nc"><i>99</i>&nbsp;                        wallLength = construction.getCarportWidth();</b>
+<b class="nc"><i>100</i>&nbsp;                        minHeight = construction.getConstructionHeight();</b>
+<b class="nc"><i>101</i>&nbsp;                        side = &quot;back&quot;;</b>
+<b class="nc"><i>102</i>&nbsp;                        raising = 0;</b>
+<i>103</i>&nbsp;                    } else {
+<b class="nc"><i>104</i>&nbsp;                        wallLength = construction.getCarportLength();</b>
+<b class="nc"><i>105</i>&nbsp;                        minHeight = construction.getConstructionHeight();</b>
+<b class="nc"><i>106</i>&nbsp;                        side = wallSide;</b>
+<b class="nc"><i>107</i>&nbsp;                        raising = construction.getRoof().getTilt();</b>
+<i>108</i>&nbsp;                    }
+<b class="nc"><i>109</i>&nbsp;                    Wall wall = new Wall();</b>
+<b class="nc"><i>110</i>&nbsp;                    wall.setRaising(raising);</b>
+<b class="nc"><i>111</i>&nbsp;                    wall.setMinHeight(minHeight);</b>
+<b class="nc"><i>112</i>&nbsp;                    wall.setLength(wallLength);</b>
+<b class="nc"><i>113</i>&nbsp;                    wall.setSide(&quot;carport&quot; + side);</b>
+<b class="nc"><i>114</i>&nbsp;                    carportWalls.add(wall);</b>
+<b class="nc"><i>115</i>&nbsp;                }</b>
+<i>116</i>&nbsp;            } else {
+<i>117</i>&nbsp;
+<b class="fc"><i>118</i>&nbsp;                if (construction.getShed().getWidth() == construction.getCarportWidth()) {</b>
+<b class="nc"><i>119</i>&nbsp;                    for (String wallSide : sides) {</b>
+<b class="nc"><i>120</i>&nbsp;                        if (!wallSide.equals(&quot;back&quot;)) {</b>
+<b class="nc"><i>121</i>&nbsp;                            wallLength = construction.getCarportLength();</b>
+<b class="nc"><i>122</i>&nbsp;                            minHeight = frontWallHeight(construction);</b>
+<b class="nc"><i>123</i>&nbsp;                            raising = construction.getRoof().getTilt();</b>
+<b class="nc"><i>124</i>&nbsp;                            side = wallSide;</b>
+<b class="nc"><i>125</i>&nbsp;                            Wall wall = new Wall();</b>
+<b class="nc"><i>126</i>&nbsp;                            wall.setRaising(raising);</b>
+<b class="nc"><i>127</i>&nbsp;                            wall.setMinHeight(minHeight);</b>
+<b class="nc"><i>128</i>&nbsp;                            wall.setLength(wallLength);</b>
+<b class="nc"><i>129</i>&nbsp;                            wall.setSide(&quot;carport&quot; + side);</b>
+<b class="nc"><i>130</i>&nbsp;                            carportWalls.add(wall);</b>
+<i>131</i>&nbsp;                        }
+<b class="nc"><i>132</i>&nbsp;                    }</b>
+<b class="fc"><i>133</i>&nbsp;                } else if (construction.getShed().getWidth() &lt; construction.getCarportWidth() &amp;&amp; construction.getShed().getWidth() &gt; 0) {</b>
+<b class="fc"><i>134</i>&nbsp;                    for (String wallSide : sides) {</b>
+<b class="fc"><i>135</i>&nbsp;                        if (wallSide.equals(&quot;back&quot;)) {</b>
+<b class="fc"><i>136</i>&nbsp;                            wallLength = construction.getShed().getWidth();</b>
+<b class="fc"><i>137</i>&nbsp;                            minHeight = construction.getConstructionHeight();</b>
+<b class="fc"><i>138</i>&nbsp;                            side = &quot;back&quot;;</b>
+<b class="fc"><i>139</i>&nbsp;                            Wall wall = new Wall();</b>
+<b class="fc"><i>140</i>&nbsp;                            wall.setRaising(0);</b>
+<b class="fc"><i>141</i>&nbsp;                            wall.setMinHeight(minHeight);</b>
+<b class="fc"><i>142</i>&nbsp;                            wall.setLength(wallLength);</b>
+<b class="fc"><i>143</i>&nbsp;                            wall.setSide(&quot;carport&quot; + side);</b>
+<b class="fc"><i>144</i>&nbsp;                            carportWalls.add(wall);</b>
+<b class="fc"><i>145</i>&nbsp;                        } else {</b>
+<b class="fc"><i>146</i>&nbsp;                            if (wallSide.equals(construction.getShed().getSide())) {</b>
+<b class="fc"><i>147</i>&nbsp;                                wallLength = construction.getCarportLength();</b>
+<b class="fc"><i>148</i>&nbsp;                                minHeight = frontWallHeight(construction);</b>
+<b class="fc"><i>149</i>&nbsp;                                raising = construction.getRoof().getTilt();</b>
+<b class="fc"><i>150</i>&nbsp;                                side = wallSide;</b>
+<b class="fc"><i>151</i>&nbsp;                                Wall wall = new Wall();</b>
+<b class="fc"><i>152</i>&nbsp;                                wall.setRaising(raising);</b>
+<b class="fc"><i>153</i>&nbsp;                                wall.setMinHeight(minHeight);</b>
+<b class="fc"><i>154</i>&nbsp;                                wall.setLength(wallLength);</b>
+<b class="fc"><i>155</i>&nbsp;                                wall.setSide(&quot;carport&quot; + side);</b>
+<b class="fc"><i>156</i>&nbsp;                                carportWalls.add(wall);</b>
+<b class="fc"><i>157</i>&nbsp;                            } else {</b>
+<b class="fc"><i>158</i>&nbsp;                                wallLength = construction.getCarportLength();</b>
+<b class="fc"><i>159</i>&nbsp;                                minHeight = frontWallHeight(construction);</b>
+<b class="fc"><i>160</i>&nbsp;                                raising = construction.getRoof().getTilt();</b>
+<b class="fc"><i>161</i>&nbsp;                                side = wallSide;</b>
+<b class="fc"><i>162</i>&nbsp;                                Wall wall = new Wall();</b>
+<b class="fc"><i>163</i>&nbsp;                                wall.setRaising(raising);</b>
+<b class="fc"><i>164</i>&nbsp;                                wall.setMinHeight(minHeight);</b>
+<b class="fc"><i>165</i>&nbsp;                                wall.setLength(wallLength);</b>
+<b class="fc"><i>166</i>&nbsp;                                wall.setSide(&quot;carport&quot; + side);</b>
+<b class="fc"><i>167</i>&nbsp;                                carportWalls.add(wall);</b>
+<i>168</i>&nbsp;
+<b class="fc"><i>169</i>&nbsp;                                wallLength = construction.getShed().getDepth();</b>
+<b class="fc"><i>170</i>&nbsp;                                minHeight = construction.getConstructionHeight();</b>
+<b class="fc"><i>171</i>&nbsp;                                Wall likeShed = new Wall();</b>
+<b class="fc"><i>172</i>&nbsp;                                likeShed.setLength(wallLength);</b>
+<b class="fc"><i>173</i>&nbsp;                                likeShed.setMinHeight(minHeight);</b>
+<b class="fc"><i>174</i>&nbsp;                                likeShed.setRaising(raising);</b>
+<b class="fc"><i>175</i>&nbsp;                                likeShed.setSide(&quot;likeShed&quot; + side);</b>
+<b class="fc"><i>176</i>&nbsp;                                carportWalls.add(likeShed);</b>
+<i>177</i>&nbsp;                            }
+<i>178</i>&nbsp;                        }
+<i>179</i>&nbsp;
+<b class="fc"><i>180</i>&nbsp;                    }</b>
+<i>181</i>&nbsp;
+<i>182</i>&nbsp;                }
+<i>183</i>&nbsp;            }
+<i>184</i>&nbsp;        }
+<i>185</i>&nbsp;
+<b class="fc"><i>186</i>&nbsp;        return carportWalls;</b>
+<i>187</i>&nbsp;
+<i>188</i>&nbsp;    }
+<i>189</i>&nbsp;
+<i>190</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-29 07:04</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,180 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Economy</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">FunctionLayer</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Economy (FunctionLayer)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Economy</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    16,7%
+  </span>
+  <span class="absValue">
+    (1/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    7,7%
+  </span>
+  <span class="absValue">
+    (3/ 39)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package FunctionLayer;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.ArrayList;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;/**
+<i>6</i>&nbsp; * The purpose of this class is to calculate prices and cost of different elements of a construction
+<i>7</i>&nbsp; *  * and of the whole construction
+<i>8</i>&nbsp; * @author Mia and Magdalena
+<i>9</i>&nbsp; */
+<b class="nc"><i>10</i>&nbsp;public class Economy {</b>
+<i>11</i>&nbsp;    // Indkøbspris
+<i>12</i>&nbsp;    public static double ordersCostPrice(Order order) throws LoginSampleException {
+<i>13</i>&nbsp;        // Søg efter materiales pris via id
+<i>14</i>&nbsp;        // Hent prisen fra db og set pris i materialCalculator klasserne
+<i>15</i>&nbsp;        // Looper igennem arraylisten og får fat på hver materiales pris og antal
+<i>16</i>&nbsp;
+<b class="fc"><i>17</i>&nbsp;        ArrayList&lt;Material&gt; temp = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>18</i>&nbsp;        temp.addAll(order.getConstruction().getFundamentMaterials());</b>
+<b class="fc"><i>19</i>&nbsp;        temp.addAll(order.getConstruction().getRoof().getRoofMaterialList());</b>
+<b class="nc"><i>20</i>&nbsp;        temp.addAll(order.getConstruction().getShed().getMaterials());</b>
+<i>21</i>&nbsp;
+<b class="nc"><i>22</i>&nbsp;        double[] totalPrices = new double[temp.size()];</b>
+<b class="nc"><i>23</i>&nbsp;        for (int i = 1; i &lt; temp.size(); i++) {</b>
+<b class="nc"><i>24</i>&nbsp;            totalPrices[i] = temp.get(i).getPrice() * temp.get(i).getAmount();</b>
+<i>25</i>&nbsp;        }
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;
+<b class="nc"><i>28</i>&nbsp;        double cost = 0;</b>
+<b class="nc"><i>29</i>&nbsp;        for (double i : totalPrices) {</b>
+<b class="nc"><i>30</i>&nbsp;            cost += i;</b>
+<i>31</i>&nbsp;        }
+<b class="nc"><i>32</i>&nbsp;        return cost;</b>
+<i>33</i>&nbsp;    }
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    // Salgsprisen
+<i>36</i>&nbsp;    public static double ordersSalePrice(Order order) throws LoginSampleException {
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;        // Salgspris = (Indkøbspris + Fragt)* 25 % skat
+<i>39</i>&nbsp;
+<b class="nc"><i>40</i>&nbsp;        double transport = order.getTransport(); // Transport udgift</b>
+<b class="nc"><i>41</i>&nbsp;        double tax = order.getTAX(); // 0,25</b>
+<i>42</i>&nbsp;
+<b class="nc"><i>43</i>&nbsp;        double salesPriceNoTax = ordersCostPrice(order) + transport;</b>
+<b class="nc"><i>44</i>&nbsp;        double salesPrice = salesPriceNoTax + salesPriceNoTax * tax;</b>
+<i>45</i>&nbsp;
+<b class="nc"><i>46</i>&nbsp;        return salesPrice;</b>
+<i>47</i>&nbsp;    }
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    // Dækningsbidrag og dækningsgrad i %
+<i>50</i>&nbsp;    public static double setCoverage(Order order) throws LoginSampleException {
+<i>51</i>&nbsp;
+<b class="nc"><i>52</i>&nbsp;        double transport = order.getTransport(); // Transport udgift</b>
+<b class="nc"><i>53</i>&nbsp;        double tax = order.getTAX(); // 0,25</b>
+<b class="nc"><i>54</i>&nbsp;        double cost = ordersCostPrice(order);</b>
+<b class="nc"><i>55</i>&nbsp;        double salesPrice = ordersSalePrice(order);</b>
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;        // Dækningsbidrag = Salgspris - (Indkøbspris+Fragt) skat?
+<b class="nc"><i>58</i>&nbsp;        double coverageContribution = ((salesPrice * tax) + cost + transport) - salesPrice;</b>
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;        // Dækningsgrad = ( Dækningsbidrag / cost ) * 100
+<b class="nc"><i>61</i>&nbsp;        double coverage = (coverageContribution / cost) * 100;</b>
+<i>62</i>&nbsp;
+<b class="nc"><i>63</i>&nbsp;        return coverage;</b>
+<i>64</i>&nbsp;    }
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    public static void setSalePriceFromCoverage (Order order) throws LoginSampleException {
+<i>68</i>&nbsp;        //Dækningsgrad = ( Dækningsbidrag / Omsætning ) * 100
+<i>69</i>&nbsp;        //Dækningsbidrag=(Omsætning-Kost-Transport)
+<i>70</i>&nbsp;        double salePrice;
+<b class="nc"><i>71</i>&nbsp;        double coverage = order.getCoverage();</b>
+<b class="nc"><i>72</i>&nbsp;        double cost = order.getCost() + order.getTransport();</b>
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;
+<b class="nc"><i>75</i>&nbsp;        if (order.getCoverage()&lt;=0){</b>
+<b class="nc"><i>76</i>&nbsp;            throw new LoginSampleException(&quot;Dækningsgrad ikke stor nok&quot;);</b>
+<i>77</i>&nbsp;        }else
+<b class="nc"><i>78</i>&nbsp;            salePrice = cost / (100 - coverage) *100;</b>
+<i>79</i>&nbsp;
+<i>80</i>&nbsp;
+<b class="nc"><i>81</i>&nbsp;        salePrice= salePrice*(1+order.getTAX());</b>
+<b class="nc"><i>82</i>&nbsp;        order.setSalePrice((Math.round(salePrice) * 100.0) / 100.0);</b>
+<b class="nc"><i>83</i>&nbsp;    }</b>
+<i>84</i>&nbsp;
+<i>85</i>&nbsp;    public static void setCoverageFromPrice (Order order) throws LoginSampleException {
+<i>86</i>&nbsp;        double coverage;
+<b class="nc"><i>87</i>&nbsp;        double saleprice= order.getSalePrice()/(1+order.getTAX());</b>
+<b class="nc"><i>88</i>&nbsp;        double cost = order.getCost()+order.getTransport();</b>
+<b class="nc"><i>89</i>&nbsp;        if (order.getSalePrice()&lt;=0){</b>
+<b class="nc"><i>90</i>&nbsp;            throw new LoginSampleException(&quot;Salgspris ikke stor nok&quot;);</b>
+<i>91</i>&nbsp;        } else
+<b class="nc"><i>92</i>&nbsp;            coverage = (saleprice-cost)/saleprice*100;</b>
+<b class="nc"><i>93</i>&nbsp;        order.setCoverage((Math.round(coverage) * 100.0) / 100.0);</b>
+<b class="nc"><i>94</i>&nbsp;    }</b>
+<i>95</i>&nbsp;
+<i>96</i>&nbsp;
+<i>97</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-29 07:04</div>
+</div>
+</body>
+</html>

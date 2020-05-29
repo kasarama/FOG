@@ -1,0 +1,480 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: WallDrawer</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">FunctionLayer</a> ]
+</div>
+
+<h1>Coverage Summary for Class: WallDrawer (FunctionLayer)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">WallDrawer</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 171)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package FunctionLayer;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.ArrayList;
+<i>4</i>&nbsp;import java.util.HashMap;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;/**
+<i>7</i>&nbsp; * @author Magdalena
+<i>8</i>&nbsp; */
+<b class="nc"><i>9</i>&nbsp;public class WallDrawer {</b>
+<i>10</i>&nbsp;    final static int POSTwidth = 10;
+<i>11</i>&nbsp;    final static int SPAERwidth = 10;
+<i>12</i>&nbsp;    final static int SPAERthick = 4;
+<i>13</i>&nbsp;    final static int FYRwidth = 5;
+<i>14</i>&nbsp;    final static int FYRthick = 2;
+<i>15</i>&nbsp;    final static int MERGE = 25;
+<i>16</i>&nbsp;    final static int OVERLAYthick = 2;
+<i>17</i>&nbsp;    final static int DOORwidth = 90;
+<i>18</i>&nbsp;    final static int SPAERdist = 100;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    public static String allWallsFromAbove(Construction construction) {
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;        //Setup :
+<i>24</i>&nbsp;   /*     Construction construction = new Construction();
+<i>25</i>&nbsp;        construction.setCarportLength(6800);
+<i>26</i>&nbsp;        construction.setCarportWidth(6200);
+<i>27</i>&nbsp;        construction.setConstructionHeight(2000);
+<i>28</i>&nbsp;        Shed setupshed = new Shed(construction.getCarportWidth()/2+50, 2400, &quot;right&quot;);
+<i>29</i>&nbsp;        construction.setShed(setupshed);
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;        construction.setShed(setupshed);
+<i>33</i>&nbsp;        construction.setConstructionLength();
+<i>34</i>&nbsp;        construction.setConstructionWidth();
+<i>35</i>&nbsp;        Roof roof = new RoofFlat(0, construction.getConstructionLength(), construction.getConstructionWidth(), 20);
+<i>36</i>&nbsp;        construction.setRoof(roof);
+<i>37</i>&nbsp;        ArrayList&lt;Wall&gt; shedWalls = WallBuilder.addShedWalls(construction);
+<i>38</i>&nbsp;        setupshed.setWalls(shedWalls);
+<i>39</i>&nbsp;        ArrayList&lt;String&gt; sides = new ArrayList&lt;&gt;();
+<i>40</i>&nbsp;        sides.add(&quot;back&quot;);
+<i>41</i>&nbsp;        sides.add(&quot;left&quot;);
+<i>42</i>&nbsp;        sides.add(&quot;right&quot;);
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;        ArrayList&lt;Wall&gt; carportWalls = WallBuilder.createCarportWalls(construction, sides);
+<i>45</i>&nbsp;        construction.setWalls(carportWalls);
+<i>46</i>&nbsp;*/
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;//........................end of setUp.................................//
+<b class="nc"><i>49</i>&nbsp;        ArrayList&lt;String &gt; drawings = new ArrayList&lt;&gt;();</b>
+<i>50</i>&nbsp;
+<b class="nc"><i>51</i>&nbsp;        Shed shed = construction.getShed();</b>
+<b class="nc"><i>52</i>&nbsp;        ArrayList&lt;Wall&gt; allWalls = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>53</i>&nbsp;        allWalls.addAll(construction.getWalls());</b>
+<b class="nc"><i>54</i>&nbsp;        allWalls.addAll(construction.getShed().getWalls());</b>
+<i>55</i>&nbsp;
+<b class="nc"><i>56</i>&nbsp;        int canvaWidth = construction.getConstructionLength() / 10 + 2 * MERGE + DOORwidth;</b>
+<b class="nc"><i>57</i>&nbsp;        int canvaHeight = construction.getConstructionWidth() / 10 + 2 * MERGE;</b>
+<b class="nc"><i>58</i>&nbsp;        int viewWidth = 600;</b>
+<b class="nc"><i>59</i>&nbsp;        int viewLHeight = (int) canvaHeight / canvaWidth * 600;</b>
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;
+<b class="nc"><i>62</i>&nbsp;        String viewbox = String.format(&quot;0 0 %d %d&quot;, viewWidth, viewLHeight);</b>
+<i>63</i>&nbsp;
+<b class="nc"><i>64</i>&nbsp;        Svg svgFromAbove = new Svg(canvaWidth, canvaHeight, &quot;&quot;, 0, 0);</b>
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;
+<b class="nc"><i>67</i>&nbsp;        Wall right = null;</b>
+<b class="nc"><i>68</i>&nbsp;        Wall left = null;</b>
+<b class="nc"><i>69</i>&nbsp;        Wall front = null;</b>
+<b class="nc"><i>70</i>&nbsp;        Wall back = null;</b>
+<b class="nc"><i>71</i>&nbsp;        Wall carportright = null;</b>
+<b class="nc"><i>72</i>&nbsp;        Wall carportleft = null;</b>
+<b class="nc"><i>73</i>&nbsp;        Wall carportback = null;</b>
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;
+<b class="nc"><i>76</i>&nbsp;        for (Wall wall : allWalls) {</b>
+<b class="nc"><i>77</i>&nbsp;            switch (wall.getSide()) {</b>
+<i>78</i>&nbsp;                case &quot;right&quot;:
+<b class="nc"><i>79</i>&nbsp;                    right = wall;</b>
+<b class="nc"><i>80</i>&nbsp;                    break;</b>
+<i>81</i>&nbsp;                case &quot;left&quot;:
+<b class="nc"><i>82</i>&nbsp;                    left = wall;</b>
+<b class="nc"><i>83</i>&nbsp;                    break;</b>
+<i>84</i>&nbsp;                case &quot;back&quot;:
+<b class="nc"><i>85</i>&nbsp;                    back = wall;</b>
+<b class="nc"><i>86</i>&nbsp;                    break;</b>
+<i>87</i>&nbsp;                case &quot;front&quot;:
+<b class="nc"><i>88</i>&nbsp;                    front = wall;</b>
+<b class="nc"><i>89</i>&nbsp;                    break;</b>
+<i>90</i>&nbsp;
+<i>91</i>&nbsp;                case &quot;carportright&quot;:
+<b class="nc"><i>92</i>&nbsp;                    carportright = wall;</b>
+<b class="nc"><i>93</i>&nbsp;                    break;</b>
+<i>94</i>&nbsp;
+<i>95</i>&nbsp;                case &quot;carportleft&quot;:
+<b class="nc"><i>96</i>&nbsp;                    carportleft = wall;</b>
+<b class="nc"><i>97</i>&nbsp;                    break;</b>
+<i>98</i>&nbsp;
+<i>99</i>&nbsp;                case &quot;carportback&quot;:
+<b class="nc"><i>100</i>&nbsp;                    carportback = wall;</b>
+<i>101</i>&nbsp;                    break;
+<i>102</i>&nbsp;            }
+<b class="nc"><i>103</i>&nbsp;        }</b>
+<i>104</i>&nbsp;
+<i>105</i>&nbsp;
+<b class="nc"><i>106</i>&nbsp;        posts(svgFromAbove,construction);</b>
+<i>107</i>&nbsp;
+<b class="nc"><i>108</i>&nbsp;        if (shed.getDepth() != 0) {</b>
+<b class="nc"><i>109</i>&nbsp;            if (shed.getSide().equals(&quot;right&quot;)) {</b>
+<b class="nc"><i>110</i>&nbsp;                rightWallL(svgFromAbove, right, 0, 0);  //shed right</b>
+<b class="nc"><i>111</i>&nbsp;                leftWallL(svgFromAbove, left, 0, shed.getWidth() / 10 - POSTwidth); //shed left</b>
+<b class="nc"><i>112</i>&nbsp;                backWall(svgFromAbove, back, 0); //shed back</b>
+<b class="nc"><i>113</i>&nbsp;                frontWall(svgFromAbove, front, shed.getDepth() / 10 - POSTwidth, 0); //shed front</b>
+<i>114</i>&nbsp;
+<b class="nc"><i>115</i>&nbsp;                door(svgFromAbove, shed.getDepth() / 10 - DOORwidth, shed.getWidth() / 10 - POSTwidth); //door</b>
+<i>116</i>&nbsp;
+<b class="nc"><i>117</i>&nbsp;                if(carportleft!=null) {</b>
+<b class="nc"><i>118</i>&nbsp;                    leftWallL(svgFromAbove, left, 0, construction.getCarportWidth() / 10 - POSTwidth); //like shed left</b>
+<i>119</i>&nbsp;                }
+<i>120</i>&nbsp;
+<b class="nc"><i>121</i>&nbsp;                if (carportback != null &amp;&amp; shed.getWidth() &lt; construction.getCarportWidth()) {</b>
+<b class="nc"><i>122</i>&nbsp;                    backWall(svgFromAbove, back, shed.getWidth() / 10 - POSTwidth); //carport back</b>
+<i>123</i>&nbsp;                }
+<i>124</i>&nbsp;
+<i>125</i>&nbsp;
+<i>126</i>&nbsp;            } else {
+<b class="nc"><i>127</i>&nbsp;                rightWallL(svgFromAbove, right, 0, construction.getCarportWidth() / 10 -shed.getWidth()/10); //shed rigt</b>
+<b class="nc"><i>128</i>&nbsp;                leftWallL(svgFromAbove, left, 0, construction.getCarportWidth()/10-POSTwidth); //shed left</b>
+<b class="nc"><i>129</i>&nbsp;                backWall(svgFromAbove, back, construction.getCarportWidth() / 10 -shed.getWidth()/10); //shed back</b>
+<b class="nc"><i>130</i>&nbsp;                frontWall(svgFromAbove, front, shed.getDepth() / 10 - POSTwidth, construction.getCarportWidth() / 10 -shed.getWidth()/10+ DOORwidth+POSTwidth); // shed front</b>
+<b class="nc"><i>131</i>&nbsp;                door(svgFromAbove, shed.getDepth() / 10-DOORwidth, construction.getCarportWidth() / 10 -shed.getWidth()/10+ DOORwidth+POSTwidth); //door</b>
+<i>132</i>&nbsp;
+<b class="nc"><i>133</i>&nbsp;                if (carportright!=null) {</b>
+<b class="nc"><i>134</i>&nbsp;                    rightWallL(svgFromAbove, right, 0, 0); // like shed right</b>
+<i>135</i>&nbsp;                }
+<i>136</i>&nbsp;
+<b class="nc"><i>137</i>&nbsp;                if (carportback != null &amp;&amp; shed.getWidth() &lt; construction.getCarportWidth()) {</b>
+<b class="nc"><i>138</i>&nbsp;                    backWall(svgFromAbove, back, 0); //carport back</b>
+<i>139</i>&nbsp;                }
+<i>140</i>&nbsp;            }
+<i>141</i>&nbsp;
+<b class="nc"><i>142</i>&nbsp;            if (carportright != null) {</b>
+<b class="nc"><i>143</i>&nbsp;                rightWallL(svgFromAbove, carportright, shed.getDepth() / 10 - POSTwidth, 0);</b>
+<i>144</i>&nbsp;            }
+<b class="nc"><i>145</i>&nbsp;            if (carportleft != null) {</b>
+<b class="nc"><i>146</i>&nbsp;                leftWallL(svgFromAbove, carportleft, shed.getDepth() / 10 - POSTwidth, construction.getCarportWidth() / 10 - 10);</b>
+<i>147</i>&nbsp;            }
+<i>148</i>&nbsp;
+<i>149</i>&nbsp;        } else {
+<i>150</i>&nbsp;
+<b class="nc"><i>151</i>&nbsp;            if (carportright != null) {</b>
+<b class="nc"><i>152</i>&nbsp;                rightWallL(svgFromAbove, carportright, shed.getDepth() / 10 , 0);</b>
+<i>153</i>&nbsp;            }
+<b class="nc"><i>154</i>&nbsp;            if (carportleft != null) {</b>
+<b class="nc"><i>155</i>&nbsp;                leftWallL(svgFromAbove, carportleft, shed.getDepth() / 10 , construction.getCarportWidth() / 10 - 10);</b>
+<i>156</i>&nbsp;            }
+<b class="nc"><i>157</i>&nbsp;            if (carportback!=null) {</b>
+<b class="nc"><i>158</i>&nbsp;                backWall(svgFromAbove, carportback, 0);</b>
+<i>159</i>&nbsp;            }
+<i>160</i>&nbsp;        }
+<b class="nc"><i>161</i>&nbsp;        drawings.add(0,svgFromAbove.toString());</b>
+<i>162</i>&nbsp;
+<b class="nc"><i>163</i>&nbsp;        return svgFromAbove.toString();</b>
+<i>164</i>&nbsp;    }
+<i>165</i>&nbsp;
+<i>166</i>&nbsp;
+<i>167</i>&nbsp;
+<i>168</i>&nbsp;    public static HashMap&lt;String, Svg&gt; framings (Construction construction) {
+<i>169</i>&nbsp;
+<i>170</i>&nbsp;/*
+<i>171</i>&nbsp;        //Setup :
+<i>172</i>&nbsp;        Construction construction = new Construction();
+<i>173</i>&nbsp;        construction.setCarportLength(6800);
+<i>174</i>&nbsp;        construction.setCarportWidth(6200);
+<i>175</i>&nbsp;        construction.setConstructionHeight(2000);
+<i>176</i>&nbsp;        Shed setupshed = new Shed(construction.getCarportWidth(), 2400, &quot;right&quot;);
+<i>177</i>&nbsp;        construction.setShed(setupshed);
+<i>178</i>&nbsp;
+<i>179</i>&nbsp;
+<i>180</i>&nbsp;        construction.setShed(setupshed);
+<i>181</i>&nbsp;        construction.setConstructionLength();
+<i>182</i>&nbsp;        construction.setConstructionWidth();
+<i>183</i>&nbsp;        Roof roof = new RoofFlat(0, construction.getConstructionLength(), construction.getConstructionWidth(), 20);
+<i>184</i>&nbsp;        construction.setRoof(roof);
+<i>185</i>&nbsp;        ArrayList&lt;Wall&gt; shedWalls = WallBuilder.addShedWalls(construction);
+<i>186</i>&nbsp;        setupshed.setWalls(shedWalls);
+<i>187</i>&nbsp;        ArrayList&lt;String&gt; sides = new ArrayList&lt;&gt;();
+<i>188</i>&nbsp;        sides.add(&quot;back&quot;);
+<i>189</i>&nbsp;        sides.add(&quot;left&quot;);
+<i>190</i>&nbsp;        sides.add(&quot;right&quot;);
+<i>191</i>&nbsp;
+<i>192</i>&nbsp;        ArrayList&lt;Wall&gt; carportWalls = WallBuilder.createCarportWalls(construction, sides);
+<i>193</i>&nbsp;        construction.setWalls(carportWalls);
+<i>194</i>&nbsp;
+<i>195</i>&nbsp;
+<i>196</i>&nbsp;*/
+<i>197</i>&nbsp;//........................end of setUp.................................//
+<b class="nc"><i>198</i>&nbsp;        ArrayList&lt;Svg &gt; drawings = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>199</i>&nbsp;        HashMap &lt;String, Svg&gt; framingSvg = new HashMap&lt;&gt;();</b>
+<b class="nc"><i>200</i>&nbsp;        ArrayList&lt;Wall&gt; allWalls = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>201</i>&nbsp;        allWalls.addAll(construction.getWalls());</b>
+<b class="nc"><i>202</i>&nbsp;        allWalls.addAll(construction.getShed().getWalls());</b>
+<i>203</i>&nbsp;
+<i>204</i>&nbsp;
+<b class="nc"><i>205</i>&nbsp;        for (Wall wall :allWalls) {</b>
+<b class="nc"><i>206</i>&nbsp;            int maxH = wall.getMinHeight()/10+ (int)ConstructionSizeCalculator.raising(wall.getRaising(),wall.getLength())/10 +MERGE*2;</b>
+<b class="nc"><i>207</i>&nbsp;            int maxW = wall.getLength()/10+MERGE*2;</b>
+<b class="nc"><i>208</i>&nbsp;            Svg framing = new Svg(maxW,maxH,&quot;&quot;,0,0);</b>
+<b class="nc"><i>209</i>&nbsp;            wallFraming(framing,wall);</b>
+<i>210</i>&nbsp;
+<b class="nc"><i>211</i>&nbsp;            framingSvg.put(wall.getSide(),framing);</b>
+<b class="nc"><i>212</i>&nbsp;            drawings.add(framing);</b>
+<b class="nc"><i>213</i>&nbsp;        }</b>
+<b class="nc"><i>214</i>&nbsp;        return framingSvg;</b>
+<i>215</i>&nbsp;    }
+<i>216</i>&nbsp;
+<i>217</i>&nbsp;
+<i>218</i>&nbsp;    public static void wallFraming (Svg svg, Wall wall) {
+<b class="nc"><i>219</i>&nbsp;        int distance = ConstructionSizeCalculator.postDistanceMax3000(wall.getLength()) / 10;</b>
+<b class="nc"><i>220</i>&nbsp;        Integer[] posts = ConstructionSizeCalculator.postsHeights(wall.getMinHeight(),wall.getRaising(),wall.getLength());</b>
+<b class="nc"><i>221</i>&nbsp;        int maxHeight = (int) (wall.getMinHeight()+ConstructionSizeCalculator.raising(wall.getRaising(),wall.getLength()))/10;</b>
+<i>222</i>&nbsp;
+<b class="nc"><i>223</i>&nbsp;        for (int i = 0; i &lt; posts.length; i++) {</b>
+<b class="nc"><i>224</i>&nbsp;            svg.addRect((i * distance) + MERGE, maxHeight-posts[i]/10+MERGE, posts[i]/10, POSTwidth);</b>
+<i>225</i>&nbsp;        }
+<b class="nc"><i>226</i>&nbsp;        for (int i = 0; i &lt; posts.length-1; i++) {</b>
+<i>227</i>&nbsp;            //first spaer:
+<b class="nc"><i>228</i>&nbsp;            svg.addSpaer(i*distance +POSTwidth/2 + MERGE, maxHeight-SPAERwidth + MERGE,SPAERwidth,distance);</b>
+<i>229</i>&nbsp;        }
+<i>230</i>&nbsp;
+<b class="nc"><i>231</i>&nbsp;        for (int i = 0; i &lt; posts.length-1 ; i++) {</b>
+<b class="nc"><i>232</i>&nbsp;            int pLength=posts[i]/10;</b>
+<b class="nc"><i>233</i>&nbsp;            int spareQ=(pLength-(pLength% SPAERdist))/ SPAERdist+1;</b>
+<b class="nc"><i>234</i>&nbsp;            for (int j = 0; j &lt; spareQ-1 ; j++) {</b>
+<i>235</i>&nbsp;                //middle spears:
+<b class="nc"><i>236</i>&nbsp;                svg.addSpaer(i*distance +POSTwidth/2 + MERGE, 0-j*SPAERdist+maxHeight-SPAERwidth/2-SPAERdist + MERGE,SPAERwidth,distance);</b>
+<i>237</i>&nbsp;            }
+<i>238</i>&nbsp;
+<i>239</i>&nbsp;
+<b class="nc"><i>240</i>&nbsp;            ArrayList&lt;Integer&gt; fyrLengths = OverlaySizeCalculator.fyrLengthsOneWall(wall);</b>
+<b class="nc"><i>241</i>&nbsp;            int fyrDis= OverlaySizeCalculator.fyrDistance(wall)/10;</b>
+<b class="nc"><i>242</i>&nbsp;            for (int k = 0; k &lt; fyrLengths.size(); k++) {</b>
+<b class="nc"><i>243</i>&nbsp;                svg.addRect((k * fyrDis)+FYRwidth/2 + MERGE, maxHeight-fyrLengths.get(k)/10+MERGE, fyrLengths.get(k)/10, FYRwidth);</b>
+<i>244</i>&nbsp;            }
+<i>245</i>&nbsp;
+<i>246</i>&nbsp;        }
+<i>247</i>&nbsp;    }
+<i>248</i>&nbsp;
+<i>249</i>&nbsp;
+<i>250</i>&nbsp;
+<i>251</i>&nbsp;
+<i>252</i>&nbsp;    public static void rightWallL(Svg svg, Wall wall, int x, int y) {
+<b class="nc"><i>253</i>&nbsp;        int postQ = ConstructionSizeCalculator.sidePostAmount(wall.getLength());</b>
+<b class="nc"><i>254</i>&nbsp;        int distance = ConstructionSizeCalculator.postDistanceMax3000(wall.getLength()) / 10;</b>
+<i>255</i>&nbsp;
+<b class="nc"><i>256</i>&nbsp;        for (int i = 0; i &lt; postQ; i++) {</b>
+<b class="nc"><i>257</i>&nbsp;            svg.addRect(x + (i * distance) + MERGE, y + MERGE, POSTwidth, POSTwidth);</b>
+<i>258</i>&nbsp;        }
+<i>259</i>&nbsp;
+<b class="nc"><i>260</i>&nbsp;        for (int i = 0; i &lt; postQ - 1; i++) {</b>
+<b class="nc"><i>261</i>&nbsp;            svg.addRect(x + (int) (i * distance + 0.5 * POSTwidth) + MERGE, y + MERGE - SPAERthick, SPAERthick, distance);</b>
+<i>262</i>&nbsp;        }
+<i>263</i>&nbsp;
+<b class="nc"><i>264</i>&nbsp;        int fyrQ = OverlaySizeCalculator.fyrQuantityOnWall(wall);</b>
+<b class="nc"><i>265</i>&nbsp;        int fyrDistance = OverlaySizeCalculator.fyrDistance(wall) / 10;</b>
+<i>266</i>&nbsp;
+<b class="nc"><i>267</i>&nbsp;        for (int i = 0; i &lt; fyrQ; i++) {</b>
+<b class="nc"><i>268</i>&nbsp;            svg.addRect(x + (int) (i * fyrDistance + 0.5 * POSTwidth - 0.5 * FYRwidth) + MERGE, y + MERGE - (SPAERthick + FYRthick), FYRthick, FYRwidth);</b>
+<i>269</i>&nbsp;        }
+<b class="nc"><i>270</i>&nbsp;        svg.addRect(x + MERGE, y + MERGE - (SPAERthick + FYRthick + OVERLAYthick), OVERLAYthick, wall.getLength() / 10);</b>
+<i>271</i>&nbsp;    }
+<i>272</i>&nbsp;
+<i>273</i>&nbsp;    public static void leftWallL(Svg svg, Wall wall, int x, int y) {
+<b class="nc"><i>274</i>&nbsp;        int postQ = ConstructionSizeCalculator.sidePostAmount(wall.getLength());</b>
+<b class="nc"><i>275</i>&nbsp;        int distance = ConstructionSizeCalculator.postDistanceMax3000(wall.getLength()) / 10;</b>
+<i>276</i>&nbsp;
+<b class="nc"><i>277</i>&nbsp;        for (int i = 0; i &lt; postQ; i++) {</b>
+<b class="nc"><i>278</i>&nbsp;            svg.addRect(x + (i * distance) + MERGE, y + MERGE, POSTwidth, POSTwidth);</b>
+<i>279</i>&nbsp;        }
+<i>280</i>&nbsp;
+<b class="nc"><i>281</i>&nbsp;        for (int i = 0; i &lt; postQ - 1; i++) {</b>
+<b class="nc"><i>282</i>&nbsp;            svg.addRect(x + (int) (i * distance + 0.5 * POSTwidth) + MERGE, y + MERGE + POSTwidth, SPAERthick, distance);</b>
+<i>283</i>&nbsp;        }
+<i>284</i>&nbsp;
+<b class="nc"><i>285</i>&nbsp;        int fyrQ = OverlaySizeCalculator.fyrQuantityOnWall(wall);</b>
+<b class="nc"><i>286</i>&nbsp;        int fyrDistance = OverlaySizeCalculator.fyrDistance(wall) / 10;</b>
+<i>287</i>&nbsp;
+<b class="nc"><i>288</i>&nbsp;        for (int i = 0; i &lt; fyrQ; i++) {</b>
+<b class="nc"><i>289</i>&nbsp;            svg.addRect(x + (int) (i * fyrDistance + 0.5 * POSTwidth - 0.5 * FYRwidth) + MERGE, y + MERGE + POSTwidth + SPAERthick, FYRthick, FYRwidth);</b>
+<i>290</i>&nbsp;
+<i>291</i>&nbsp;        }
+<i>292</i>&nbsp;
+<b class="nc"><i>293</i>&nbsp;        svg.addRect(x + MERGE, y + MERGE + POSTwidth + SPAERthick + FYRthick, OVERLAYthick, wall.getLength() / 10);</b>
+<i>294</i>&nbsp;
+<i>295</i>&nbsp;    }
+<i>296</i>&nbsp;
+<i>297</i>&nbsp;
+<i>298</i>&nbsp;    public static void backWall(Svg svg, Wall wall, int y) {
+<b class="nc"><i>299</i>&nbsp;        int postQ = ConstructionSizeCalculator.sidePostAmount(wall.getLength());</b>
+<b class="nc"><i>300</i>&nbsp;        int distance = ConstructionSizeCalculator.postDistanceMax3000(wall.getLength()) / 10;</b>
+<b class="nc"><i>301</i>&nbsp;        for (int i = 0; i &lt; postQ; i++) {</b>
+<b class="nc"><i>302</i>&nbsp;            svg.addRect(0 + MERGE, y + i * distance + MERGE, POSTwidth, POSTwidth);</b>
+<i>303</i>&nbsp;        }
+<b class="nc"><i>304</i>&nbsp;        for (int i = 0; i &lt; postQ - 1; i++) {</b>
+<b class="nc"><i>305</i>&nbsp;            svg.addRect(0 + MERGE - SPAERthick, y + (int) (i * distance + 0.5 * POSTwidth) + MERGE, distance, SPAERthick);</b>
+<i>306</i>&nbsp;        }
+<i>307</i>&nbsp;
+<i>308</i>&nbsp;
+<b class="nc"><i>309</i>&nbsp;        int fyrQ = OverlaySizeCalculator.fyrQuantityOnWall(wall);</b>
+<b class="nc"><i>310</i>&nbsp;        int fyrDistance = OverlaySizeCalculator.fyrDistance(wall) / 10;</b>
+<b class="nc"><i>311</i>&nbsp;        for (int i = 0; i &lt; fyrQ; i++) {</b>
+<b class="nc"><i>312</i>&nbsp;            svg.addRect(0 + MERGE - SPAERthick - FYRthick, y + (int) (i * fyrDistance + 0.5 * POSTwidth - 0.5 * FYRwidth) + MERGE, FYRwidth, FYRthick);</b>
+<i>313</i>&nbsp;
+<i>314</i>&nbsp;        }
+<b class="nc"><i>315</i>&nbsp;        svg.addRect(0 + MERGE - SPAERthick - FYRthick - OVERLAYthick, y + 0 + MERGE, wall.getLength() / 10, OVERLAYthick);</b>
+<i>316</i>&nbsp;
+<i>317</i>&nbsp;    }
+<i>318</i>&nbsp;
+<i>319</i>&nbsp;
+<i>320</i>&nbsp;    public static void frontWall(Svg svg, Wall wall, int x, int y) {
+<b class="nc"><i>321</i>&nbsp;        int postQ = ConstructionSizeCalculator.sidePostAmount(wall.getLength());</b>
+<b class="nc"><i>322</i>&nbsp;        int distance = ConstructionSizeCalculator.postDistanceMax3000(wall.getLength()) / 10;</b>
+<b class="nc"><i>323</i>&nbsp;        for (int i = 0; i &lt; postQ; i++) {</b>
+<b class="nc"><i>324</i>&nbsp;            svg.addRect(x + MERGE, y + i * distance + MERGE, POSTwidth, POSTwidth);</b>
+<i>325</i>&nbsp;        }
+<b class="nc"><i>326</i>&nbsp;        for (int i = 0; i &lt; postQ - 1; i++) {</b>
+<b class="nc"><i>327</i>&nbsp;            svg.addRect(x + MERGE + POSTwidth, y + (int) (i * distance + 0.5 * POSTwidth) + MERGE, distance, SPAERthick);</b>
+<i>328</i>&nbsp;        }
+<i>329</i>&nbsp;
+<i>330</i>&nbsp;
+<b class="nc"><i>331</i>&nbsp;        int fyrQ = OverlaySizeCalculator.fyrQuantityOnWall(wall);</b>
+<b class="nc"><i>332</i>&nbsp;        int fyrDistance = OverlaySizeCalculator.fyrDistance(wall) / 10;</b>
+<b class="nc"><i>333</i>&nbsp;        for (int i = 0; i &lt; fyrQ; i++) {</b>
+<b class="nc"><i>334</i>&nbsp;            svg.addRect(x + MERGE + POSTwidth + SPAERthick, y + (int) (i * fyrDistance + 0.5 * POSTwidth - 0.5 * FYRwidth) + MERGE, FYRwidth, FYRthick);</b>
+<i>335</i>&nbsp;        }
+<i>336</i>&nbsp;
+<b class="nc"><i>337</i>&nbsp;        svg.addRect(x + MERGE + POSTwidth + SPAERthick + FYRthick, y + MERGE, wall.getLength() / 10, OVERLAYthick);</b>
+<i>338</i>&nbsp;
+<i>339</i>&nbsp;
+<i>340</i>&nbsp;    }
+<i>341</i>&nbsp;
+<i>342</i>&nbsp;    public static void door(Svg svg, int x, int y) {
+<b class="nc"><i>343</i>&nbsp;        svg.addRect(MERGE + x, y + MERGE - SPAERthick, SPAERthick, DOORwidth);</b>
+<b class="nc"><i>344</i>&nbsp;        svg.addRect(MERGE + x, y + MERGE - SPAERthick - FYRthick, FYRthick, FYRwidth);</b>
+<b class="nc"><i>345</i>&nbsp;        svg.addRect(MERGE + x + (DOORwidth / 2 - FYRwidth / 2), y + MERGE - SPAERthick - FYRthick, FYRthick, FYRwidth);</b>
+<b class="nc"><i>346</i>&nbsp;        svg.addRect(MERGE + x + (DOORwidth - FYRwidth), y + MERGE - SPAERthick - FYRthick, FYRthick, FYRwidth);</b>
+<b class="nc"><i>347</i>&nbsp;        svg.addRect(MERGE + x, y + MERGE - SPAERthick - FYRthick - OVERLAYthick, OVERLAYthick, DOORwidth);</b>
+<i>348</i>&nbsp;
+<i>349</i>&nbsp;    }
+<i>350</i>&nbsp;
+<i>351</i>&nbsp;    public static void posts (Svg svg, Construction construction) {
+<b class="nc"><i>352</i>&nbsp;        if (construction.getShed().getDepth()==0){</b>
+<b class="nc"><i>353</i>&nbsp;            int postQ = ConstructionSizeCalculator.sidePostAmount(construction.getCarportLength());</b>
+<b class="nc"><i>354</i>&nbsp;            int distance = ConstructionSizeCalculator.postDistanceMax3000(construction.getCarportLength()) / 10;</b>
+<i>355</i>&nbsp;
+<b class="nc"><i>356</i>&nbsp;            for (int i = 0; i &lt; postQ; i++) {</b>
+<b class="nc"><i>357</i>&nbsp;                svg.addRect((i * distance) + MERGE, MERGE, POSTwidth, POSTwidth);</b>
+<i>358</i>&nbsp;            }
+<i>359</i>&nbsp;
+<b class="nc"><i>360</i>&nbsp;            for (int i = 0; i &lt; postQ; i++) {</b>
+<b class="nc"><i>361</i>&nbsp;                svg.addRect((i * distance) + MERGE, MERGE+construction.getCarportWidth()/10-POSTwidth, POSTwidth, POSTwidth);</b>
+<i>362</i>&nbsp;            }
+<i>363</i>&nbsp;
+<b class="nc"><i>364</i>&nbsp;            if (construction.getCarportWidth()&gt;6000){</b>
+<b class="nc"><i>365</i>&nbsp;                for (int i = 0; i &lt; postQ; i++) {</b>
+<b class="nc"><i>366</i>&nbsp;                    svg.addRect((i * distance) + MERGE, MERGE+construction.getCarportWidth()/2/10-POSTwidth/2, POSTwidth, POSTwidth);</b>
+<i>367</i>&nbsp;                }
+<i>368</i>&nbsp;            }
+<b class="nc"><i>369</i>&nbsp;        } else if (construction.getShed().getDepth()&gt;0 &amp;&amp; construction.getShed().getWidth()==construction.getCarportWidth()){</b>
+<i>370</i>&nbsp;
+<b class="nc"><i>371</i>&nbsp;            int postQ = ConstructionSizeCalculator.sidePostAmount(construction.getCarportLength());</b>
+<b class="nc"><i>372</i>&nbsp;            int distance = ConstructionSizeCalculator.postDistanceMax3000(construction.getCarportLength()) / 10;</b>
+<b class="nc"><i>373</i>&nbsp;            int distanceInShed = ConstructionSizeCalculator.postDistanceMax3000(construction.getShedDepth()) /10;</b>
+<b class="nc"><i>374</i>&nbsp;            int postQinShed = ConstructionSizeCalculator.sidePostAmount(construction.getShedDepth());</b>
+<i>375</i>&nbsp;
+<b class="nc"><i>376</i>&nbsp;            for (int i = 0; i &lt; postQ; i++) {</b>
+<b class="nc"><i>377</i>&nbsp;                svg.addRect(construction.getShed().getDepth()/10-POSTwidth+(i * distance) + MERGE, MERGE, POSTwidth, POSTwidth);</b>
+<i>378</i>&nbsp;            }
+<i>379</i>&nbsp;
+<b class="nc"><i>380</i>&nbsp;            for (int i = 0; i &lt; postQ; i++) {</b>
+<b class="nc"><i>381</i>&nbsp;                svg.addRect(construction.getShed().getDepth()/10-POSTwidth+(i * distance) + MERGE, MERGE+construction.getCarportWidth()/10-POSTwidth, POSTwidth, POSTwidth);</b>
+<i>382</i>&nbsp;            }
+<i>383</i>&nbsp;
+<b class="nc"><i>384</i>&nbsp;            if (construction.getCarportWidth()&gt;6000){</b>
+<b class="nc"><i>385</i>&nbsp;                for (int i = 0; i &lt; postQinShed; i++) {</b>
+<b class="nc"><i>386</i>&nbsp;                    svg.addRect((i * distanceInShed) + MERGE, MERGE+construction.getCarportWidth()/10/2-POSTwidth/2, POSTwidth, POSTwidth);</b>
+<i>387</i>&nbsp;                }
+<b class="nc"><i>388</i>&nbsp;                for (int i = 0; i &lt; postQ; i++) {</b>
+<b class="nc"><i>389</i>&nbsp;                    svg.addRect(construction.getShed().getDepth()/10-POSTwidth+(i * distance) + MERGE, MERGE+construction.getCarportWidth()/10/2-POSTwidth/2, POSTwidth, POSTwidth);</b>
+<i>390</i>&nbsp;                }
+<i>391</i>&nbsp;            }
+<i>392</i>&nbsp;
+<i>393</i>&nbsp;        }
+<i>394</i>&nbsp;
+<i>395</i>&nbsp;    }
+<i>396</i>&nbsp;
+<i>397</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-29 07:04</div>
+</div>
+</body>
+</html>

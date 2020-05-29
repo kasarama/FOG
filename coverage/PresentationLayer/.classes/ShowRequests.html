@@ -1,0 +1,137 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ShowRequests</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">PresentationLayer</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ShowRequests (PresentationLayer)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ShowRequests</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 19)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package PresentationLayer;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import FunctionLayer.LogicFacade;
+<i>4</i>&nbsp;import FunctionLayer.LoginSampleException;
+<i>5</i>&nbsp;import FunctionLayer.Order;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import javax.servlet.http.HttpServletRequest;
+<i>8</i>&nbsp;import javax.servlet.http.HttpServletResponse;
+<i>9</i>&nbsp;import javax.servlet.http.HttpSession;
+<i>10</i>&nbsp;import java.util.ArrayList;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;/**
+<i>13</i>&nbsp; * The purpose of this class is to read user&#39;s input and to set an ArrayList with Orders on servletContext object
+<i>14</i>&nbsp; * @author Magdalena
+<i>15</i>&nbsp; */
+<b class="nc"><i>16</i>&nbsp;public class ShowRequests extends Command {</b>
+<i>17</i>&nbsp;    /**
+<i>18</i>&nbsp;     * @param request servlet request
+<i>19</i>&nbsp;     * @param response servlet response
+<i>20</i>&nbsp;     * @return string - name of JavaServer Page
+<i>21</i>&nbsp;     */
+<i>22</i>&nbsp;    @Override
+<i>23</i>&nbsp;    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+<b class="nc"><i>24</i>&nbsp;        String page = &quot;employeePage&quot;;</b>
+<i>25</i>&nbsp;
+<b class="nc"><i>26</i>&nbsp;        String status = &quot;status&quot;;</b>
+<b class="nc"><i>27</i>&nbsp;        if (request.getParameter(&quot;newrequests&quot;) != null) {</b>
+<b class="nc"><i>28</i>&nbsp;            status = &quot;newrequest&quot;;</b>
+<b class="nc"><i>29</i>&nbsp;            page = &quot;newRequests&quot;;</b>
+<b class="nc"><i>30</i>&nbsp;            ArrayList&lt;Order&gt; orders = LogicFacade.ReadOrders(status);</b>
+<b class="nc"><i>31</i>&nbsp;            request.getServletContext().setAttribute(&quot;newRequestsList&quot;, orders);</b>
+<i>32</i>&nbsp;
+<b class="nc"><i>33</i>&nbsp;        } else if (request.getParameter(&quot;sentoffers&quot;) != null) {</b>
+<b class="nc"><i>34</i>&nbsp;            status = &quot;validated&quot;;</b>
+<b class="nc"><i>35</i>&nbsp;            page = &quot;sentOffers&quot;;</b>
+<b class="nc"><i>36</i>&nbsp;            ArrayList&lt;Order&gt; orders = LogicFacade.ReadOrders(status);</b>
+<b class="nc"><i>37</i>&nbsp;            request.getServletContext().setAttribute(&quot;sentOffersList&quot;, orders);</b>
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;
+<b class="nc"><i>40</i>&nbsp;        } else if (request.getParameter(&quot;orders&quot;) != null) {</b>
+<b class="nc"><i>41</i>&nbsp;            status = &quot;paid&quot;;</b>
+<b class="nc"><i>42</i>&nbsp;            page = &quot;paidOrders&quot;;</b>
+<b class="nc"><i>43</i>&nbsp;            ArrayList&lt;Order&gt; orders = LogicFacade.ReadOrders(status);</b>
+<b class="nc"><i>44</i>&nbsp;            request.getServletContext().setAttribute(&quot;paidOrdersList&quot;, orders);</b>
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;        }
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;
+<b class="nc"><i>50</i>&nbsp;        return page;</b>
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    }
+<i>54</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-29 07:04</div>
+</div>
+</body>
+</html>

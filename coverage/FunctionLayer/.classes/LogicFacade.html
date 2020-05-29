@@ -1,0 +1,264 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: LogicFacade</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">FunctionLayer</a> ]
+</div>
+
+<h1>Coverage Summary for Class: LogicFacade (FunctionLayer)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LogicFacade</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    38,1%
+  </span>
+  <span class="absValue">
+    (8/ 21)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    23,6%
+  </span>
+  <span class="absValue">
+    (13/ 55)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package FunctionLayer;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import DBAccess.MaterialMapper;
+<i>4</i>&nbsp;import DBAccess.OrderMapper;
+<i>5</i>&nbsp;import DBAccess.UserMapper;
+<i>6</i>&nbsp;import java.util.ArrayList;
+<i>7</i>&nbsp;import java.util.Date;
+<i>8</i>&nbsp;import java.util.List;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;
+<b class="nc"><i>12</i>&nbsp;public class LogicFacade {</b>
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    public static User login(String email, String password) throws LoginSampleException {
+<b class="nc"><i>15</i>&nbsp;        return UserMapper.login(email, password);</b>
+<i>16</i>&nbsp;    }
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    public static User createUser(String name, String email, String password) throws LoginSampleException {
+<b class="nc"><i>19</i>&nbsp;        User user = new User(name, email, password, &quot;customer&quot;);</b>
+<b class="nc"><i>20</i>&nbsp;        UserMapper.createUser(user);</b>
+<b class="nc"><i>21</i>&nbsp;        return user;</b>
+<i>22</i>&nbsp;    }
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    public static Material getMaterialBySizeName(int size, String name) throws LoginSampleException {
+<b class="fc"><i>26</i>&nbsp;        return MaterialMapper.getMaterialBySizeName(size, name);</b>
+<i>27</i>&nbsp;    }
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    public static Material getMaterialByID(int id) throws LoginSampleException {
+<b class="fc"><i>30</i>&nbsp;        return MaterialMapper.getMaterialByID(id);</b>
+<i>31</i>&nbsp;    }
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    public static String getUnitByName(String name) throws LoginSampleException {
+<b class="fc"><i>34</i>&nbsp;        String unit = MaterialMapper.getUnitByName(name);</b>
+<b class="fc"><i>35</i>&nbsp;        return unit;</b>
+<i>36</i>&nbsp;    }
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    public static int getWidthByID(int id, String name) throws LoginSampleException {
+<b class="fc"><i>39</i>&nbsp;        int width = MaterialMapper.getWidthByID(id, name);</b>
+<b class="fc"><i>40</i>&nbsp;        return width;</b>
+<i>41</i>&nbsp;    }
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    public static int getThicknessByID(int id) throws LoginSampleException {
+<b class="fc"><i>44</i>&nbsp;        int thickness = MaterialMapper.getThicknessByID(id);</b>
+<b class="fc"><i>45</i>&nbsp;        return thickness;</b>
+<i>46</i>&nbsp;    }
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;    public static double getPrice(int id) throws LoginSampleException {
+<b class="fc"><i>49</i>&nbsp;        double price = MaterialMapper.getPrices(id);</b>
+<b class="fc"><i>50</i>&nbsp;        return price;</b>
+<i>51</i>&nbsp;    }
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    public static ArrayList&lt;Integer&gt; getLengthForMaterials(String nameMaterial) throws LoginSampleException {
+<b class="fc"><i>55</i>&nbsp;        ArrayList lengthForMaterials = MaterialMapper.getLengthForMaterials(nameMaterial);</b>
+<b class="fc"><i>56</i>&nbsp;        return lengthForMaterials;</b>
+<i>57</i>&nbsp;    }
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;    public static String getANameFromMaterialID(int idMaterial) throws LoginSampleException {
+<b class="nc"><i>60</i>&nbsp;        return MaterialMapper.getNameFromMaterialID(idMaterial);</b>
+<i>61</i>&nbsp;    }
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    public static String getColorByMaterialID(int materialID) throws LoginSampleException {
+<b class="nc"><i>64</i>&nbsp;        return MaterialMapper.getColorByMaterialID(materialID);</b>
+<i>65</i>&nbsp;    }
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    public static String getColourByVariationID(int variationid) throws LoginSampleException {
+<b class="nc"><i>68</i>&nbsp;        return MaterialMapper.getColorByID(variationid);</b>
+<i>69</i>&nbsp;    }
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    public static Material getMaterialByNameColourAndSize(String name, int size, String color) throws LoginSampleException {
+<b class="fc"><i>72</i>&nbsp;        return MaterialMapper.getRoofFullMaterialBySizeColorAndName(name, size, color);</b>
+<i>73</i>&nbsp;    }
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;    //call the static method that gets the ROOF materials data from DB - static = can be called without creating an obj.
+<i>76</i>&nbsp;    public static List&lt;Material&gt; getAllPitchedRoofMaterials() throws LoginSampleException {
+<b class="nc"><i>77</i>&nbsp;        return MaterialMapper.getAllPitchedRoofMaterials(); //return &#39;getAllRoofMaterials()&#39; method from MaterialMapper</b>
+<i>78</i>&nbsp;    }
+<i>79</i>&nbsp;
+<i>80</i>&nbsp;    public static List&lt;Material&gt; getAllFlatRoofMaterials() throws LoginSampleException {
+<b class="nc"><i>81</i>&nbsp;        return MaterialMapper.getAllFlatRoofMaterials(); //return &#39;getAllRoofMaterials()&#39; method from MaterialMapper</b>
+<i>82</i>&nbsp;        /*if (isPitched) {
+<i>83</i>&nbsp;            return MaterialMapper.getAllRoofMaterialsByCategory(&quot;RejsningTag&quot;);//return &#39;getAllRoofMaterials()&#39; method from MaterialMapper
+<i>84</i>&nbsp;        }
+<i>85</i>&nbsp;        return MaterialMapper.getAllRoofMaterialsByCategory(&quot;FladtTag&quot;);*/
+<i>86</i>&nbsp;    }
+<i>87</i>&nbsp;
+<i>88</i>&nbsp;    /**
+<i>89</i>&nbsp;     * The purpose of this method is to get data from database throught MaterialMapper
+<i>90</i>&nbsp;     * that represent materials used for overlay for walls and return a list of them
+<i>91</i>&nbsp;     * @author Magdalena
+<i>92</i>&nbsp;     * @return ArrayList
+<i>93</i>&nbsp;     * @throws LoginSampleException that is thrown by MaterialMapper.getAllOverlay
+<i>94</i>&nbsp;     */
+<i>95</i>&nbsp;    public static List&lt;Material&gt; getAllOverlays() throws LoginSampleException {
+<b class="nc"><i>96</i>&nbsp;        return MaterialMapper.getAllOverlays();</b>
+<i>97</i>&nbsp;    }
+<i>98</i>&nbsp;
+<i>99</i>&nbsp;    /**
+<i>100</i>&nbsp;     * The purpose of this method is to to save values of the Order object in databese throught OrderMapper
+<i>101</i>&nbsp;     * @author Magdalena
+<i>102</i>&nbsp;     * @param order that contains Construction designed by a customer
+<i>103</i>&nbsp;     * @throws LoginSampleException that is thrown by OrderMapper.saveNewRequest
+<i>104</i>&nbsp;     */
+<i>105</i>&nbsp;    public static void sendNewRequest(Order order) throws LoginSampleException {
+<b class="nc"><i>106</i>&nbsp;        Date nowDate = new Date();</b>
+<b class="nc"><i>107</i>&nbsp;        long timestamp = nowDate.getTime();</b>
+<i>108</i>&nbsp;
+<b class="nc"><i>109</i>&nbsp;        order.setTimestamp(timestamp);</b>
+<b class="nc"><i>110</i>&nbsp;        order.setStatus(&quot;newrequest&quot;);</b>
+<b class="nc"><i>111</i>&nbsp;        order.setSalePrice(0);</b>
+<b class="nc"><i>112</i>&nbsp;        order.setCost(0);</b>
+<b class="nc"><i>113</i>&nbsp;        OrderMapper.saveNewRequest(order);</b>
+<b class="nc"><i>114</i>&nbsp;    }</b>
+<i>115</i>&nbsp;
+<i>116</i>&nbsp;    /**
+<i>117</i>&nbsp;     * The purpose of this method is to create a list of orders that in database have given status
+<i>118</i>&nbsp;     * @author Magdalena
+<i>119</i>&nbsp;     * @param status String used to call a method that read data from database for given status
+<i>120</i>&nbsp;     * @return ArrayList filled up with Order objects
+<i>121</i>&nbsp;     * @throws LoginSampleException that is thrown by OrderMapper.ReadAllOrdersByStatus
+<i>122</i>&nbsp;     */
+<i>123</i>&nbsp;    public static ArrayList&lt;Order&gt; ReadOrders(String status) throws LoginSampleException {
+<b class="nc"><i>124</i>&nbsp;        return OrderMapper.ReadAllOrdersByStatus(status);</b>
+<i>125</i>&nbsp;    }
+<i>126</i>&nbsp;
+<i>127</i>&nbsp;
+<i>128</i>&nbsp;    /**
+<i>129</i>&nbsp;     * The purpose of setMaterialsForOrder is to generate ArrayLists for each element of Construction
+<i>130</i>&nbsp;     * objekt and to return an Order object with that Construction object
+<i>131</i>&nbsp;     * @param order object with not null attributter.
+<i>132</i>&nbsp;     * @return msg
+<i>133</i>&nbsp;     * @throws LoginSampleException that is thrown by OverlayMaterialCalculator.allOverlayMaterialList,
+<i>134</i>&nbsp;     * pRMCalculator.pitchedRoof(), rMCalculator.getflatRoofMaterials or ConstructionMaterialCalculator.constructionMaterialList
+<i>135</i>&nbsp;     */
+<i>136</i>&nbsp;    public static String setMaterialsForOrder(Order order) throws LoginSampleException {
+<i>137</i>&nbsp;
+<b class="nc"><i>138</i>&nbsp;        String msg = OverlayMaterialCalculator.allOverlayMaterialList(</b>
+<b class="nc"><i>139</i>&nbsp;                order.getConstruction(), order.getConstruction().getOverlay());</b>
+<b class="nc"><i>140</i>&nbsp;        ArrayList&lt;Wall&gt; newWalls=WallBuilder.addShedWalls(order.getConstruction());</b>
+<b class="nc"><i>141</i>&nbsp;        order.getConstruction().getShed().setWalls(newWalls);</b>
+<i>142</i>&nbsp;
+<i>143</i>&nbsp;        //................Materials for roof...........//
+<b class="nc"><i>144</i>&nbsp;        boolean orderedCaportIsPitched = order.getConstruction().getRoof().getIsPitched();</b>
+<b class="nc"><i>145</i>&nbsp;        ArrayList&lt;Material&gt; roofMaterialList = new ArrayList();</b>
+<b class="nc"><i>146</i>&nbsp;        if (orderedCaportIsPitched) {</b>
+<b class="nc"><i>147</i>&nbsp;            PitchedRoofMaterialCalculator pRMCalculator = new PitchedRoofMaterialCalculator(order.getConstruction());</b>
+<b class="nc"><i>148</i>&nbsp;            roofMaterialList = pRMCalculator.pitchedRoof();</b>
+<i>149</i>&nbsp;
+<b class="nc"><i>150</i>&nbsp;        } else {</b>
+<b class="nc"><i>151</i>&nbsp;            RoofMaterialCalculator rMCalculator = new RoofMaterialCalculator(order.getConstruction());</b>
+<b class="nc"><i>152</i>&nbsp;            roofMaterialList = rMCalculator.getflatRoofMaterials();</b>
+<i>153</i>&nbsp;
+<i>154</i>&nbsp;        }
+<b class="nc"><i>155</i>&nbsp;        order.getConstruction().getRoof().setRoofMaterialList(roofMaterialList);</b>
+<i>156</i>&nbsp;
+<i>157</i>&nbsp;
+<i>158</i>&nbsp;        //................Materials for construction...........//
+<i>159</i>&nbsp;
+<b class="nc"><i>160</i>&nbsp;        ArrayList&lt;Material&gt; constructionMaterialList = ConstructionMaterialCalculator.constructionMaterialList(order.getConstruction());</b>
+<b class="nc"><i>161</i>&nbsp;        order.getConstruction().setFundamentMaterials(constructionMaterialList);</b>
+<b class="nc"><i>162</i>&nbsp;        return msg;</b>
+<i>163</i>&nbsp;    }
+<i>164</i>&nbsp;
+<i>165</i>&nbsp;    /**
+<i>166</i>&nbsp;     * The purpose of this method is to update data in database for given order
+<i>167</i>&nbsp;     * @author Magdalena
+<i>168</i>&nbsp;     * @param order that contains a construction that has been validated/edited by en amployee
+<i>169</i>&nbsp;     * @throws LoginSampleException that ist thrown by  OrderMapper.saveNewOffer
+<i>170</i>&nbsp;     */
+<i>171</i>&nbsp;    public static void sendOffer(Order order) throws LoginSampleException {
+<b class="nc"><i>172</i>&nbsp;        Date nowDate = new Date();</b>
+<b class="nc"><i>173</i>&nbsp;        long timestamp = nowDate.getTime();</b>
+<i>174</i>&nbsp;
+<b class="nc"><i>175</i>&nbsp;        order.setTimestamp(timestamp);</b>
+<b class="nc"><i>176</i>&nbsp;        order.setStatus(&quot;validated&quot;);</b>
+<i>177</i>&nbsp;
+<b class="nc"><i>178</i>&nbsp;        OrderMapper.saveNewOffer(order);</b>
+<b class="nc"><i>179</i>&nbsp;    }</b>
+<i>180</i>&nbsp;
+<i>181</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-29 07:04</div>
+</div>
+</body>
+</html>

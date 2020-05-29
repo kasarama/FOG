@@ -1,0 +1,873 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: PitchedRoofMaterialCalculator</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">FunctionLayer</a> ]
+</div>
+
+<h1>Coverage Summary for Class: PitchedRoofMaterialCalculator (FunctionLayer)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PitchedRoofMaterialCalculator</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    9,1%
+  </span>
+  <span class="absValue">
+    (2/ 22)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    7%
+  </span>
+  <span class="absValue">
+    (31/ 445)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package FunctionLayer;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import DBAccess.MaterialMapper;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import java.util.ArrayList;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;/**
+<i>8</i>&nbsp; * @author monajakobmeshal og Cathrine
+<i>9</i>&nbsp; * The purpose of this class is to calculate the amount of materials needed to construct a pitched roof
+<i>10</i>&nbsp; * This class also contains the pitched roof material list.
+<i>11</i>&nbsp; */
+<i>12</i>&nbsp;public class PitchedRoofMaterialCalculator {
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    private int numberOfTaglaegter; // T1 taglægter til spær
+<i>15</i>&nbsp;    private int numberOfStern;
+<i>16</i>&nbsp;    private int numberOfToplaegteHolder;
+<i>17</i>&nbsp;    private int numberOfToplaegte; // T1 toplægter til rygsten
+<i>18</i>&nbsp;    private int numberOfTagfodsLaegte;
+<i>19</i>&nbsp;    private int numberOfVindskeder;
+<i>20</i>&nbsp;    private int numberOfVandbraet;
+<b class="fc"><i>21</i>&nbsp;    private int SCREWSPERTAGLÆGTEHOLDER = 5;</b>
+<b class="fc"><i>22</i>&nbsp;    private int LÆGTESTENDISTANCE = 307;</b>
+<b class="fc"><i>23</i>&nbsp;    private int RYGSTENCOVERS = 330;</b>
+<i>24</i>&nbsp;    private int tagstenNakkekrog;
+<i>25</i>&nbsp;    private int screwForTaglægter;
+<i>26</i>&nbsp;    private int screwsForVindskeder;
+<i>27</i>&nbsp;    private int screwsForVandbræt;
+<i>28</i>&nbsp;    private int beslagForToplægte;
+<i>29</i>&nbsp;    private int vindskedeLængde;
+<i>30</i>&nbsp;    private int vandBrætsLength;
+<i>31</i>&nbsp;    private int tagstenEntirePitchedRoof;
+<i>32</i>&nbsp;    //NOTE: tagpladerne fylder 307mm i længden og vi antager 200mm i bredden, derfor disse værdier for tagsten.
+<i>33</i>&nbsp;    private int tagstenBredde;
+<i>34</i>&nbsp;    private int rygstenBeslag;
+<i>35</i>&nbsp;    private int spærFullPlankLength;
+<i>36</i>&nbsp;    private int spærAmount;
+<i>37</i>&nbsp;    private int spærFullQuatityOfPlanks;
+<i>38</i>&nbsp;    private int amountOfRygsten;
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    ConstructionSizeCalculator constructionSizeCalculator;
+<i>41</i>&nbsp;    Construction construction;
+<i>42</i>&nbsp;    RoofSizing roofSizing;
+<i>43</i>&nbsp;    Roof roof;
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;
+<b class="fc"><i>46</i>&nbsp;    public PitchedRoofMaterialCalculator(Construction construction) {</b>
+<b class="fc"><i>47</i>&nbsp;        this.construction = construction;</b>
+<b class="fc"><i>48</i>&nbsp;        roofSizing = new RoofSizing(construction);</b>
+<b class="fc"><i>49</i>&nbsp;        roof = construction.getRoof();</b>
+<b class="fc"><i>50</i>&nbsp;    }</b>
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    //todo: fix skruer til vandbræt - beregning (amount = 0?)
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    //........Pitched Roof Material list.......
+<i>55</i>&nbsp;    public ArrayList&lt;Material&gt; pitchedRoof() throws LoginSampleException {
+<i>56</i>&nbsp;
+<b class="nc"><i>57</i>&nbsp;        System.out.println(&quot;I am in PitchedRoofMAtCalc. pitchedRoof() - hello!&quot;);</b>
+<b class="nc"><i>58</i>&nbsp;        ArrayList&lt;Material&gt; pitchedRoofMaterialList  = new ArrayList&lt;&gt;();</b>
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;        //Toplægter
+<b class="nc"><i>61</i>&nbsp;        Material toplaegter = new Material();</b>
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;        //Name, comment, size, amount
+<i>64</i>&nbsp;
+<b class="nc"><i>65</i>&nbsp;        toplaegter.setName(&quot;TOPLÆGTE&quot;);</b>
+<b class="nc"><i>66</i>&nbsp;        int quantityOfToplaegter = amountOfT1_RygstenLength();</b>
+<b class="nc"><i>67</i>&nbsp;        toplaegter.setAmount(quantityOfToplaegter);</b>
+<b class="nc"><i>68</i>&nbsp;        toplaegter.setUnit(LogicFacade.getUnitByName(toplaegter.getName()));</b>
+<b class="nc"><i>69</i>&nbsp;        toplaegter.setComment(&quot;Lægte til montering af rygsten - lægges i toplægte holder&quot;);</b>
+<b class="nc"><i>70</i>&nbsp;        toplaegter.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>71</i>&nbsp;        toplaegter.setId(38);</b>
+<b class="nc"><i>72</i>&nbsp;        toplaegter.setPrice(LogicFacade.getPrice(toplaegter.getId()));</b>
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;        //TEST
+<b class="nc"><i>76</i>&nbsp;        System.out.println(&quot;name: &quot;+toplaegter.getName());</b>
+<b class="nc"><i>77</i>&nbsp;        System.out.println(&quot;amount: &quot;+toplaegter.getAmount());</b>
+<b class="nc"><i>78</i>&nbsp;        System.out.println(&quot;comment: &quot;+toplaegter.getComment());</b>
+<b class="nc"><i>79</i>&nbsp;        System.out.println(&quot;category: &quot;+toplaegter.getCategory());</b>
+<b class="nc"><i>80</i>&nbsp;        System.out.println(&quot;unit &quot;+toplaegter.getUnit());</b>
+<b class="nc"><i>81</i>&nbsp;        System.out.println(&quot;price &quot;+toplaegter.getPrice());</b>
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;
+<b class="nc"><i>84</i>&nbsp;        pitchedRoofMaterialList.add(toplaegter);</b>
+<i>85</i>&nbsp;
+<i>86</i>&nbsp;        //Taglægter
+<b class="nc"><i>87</i>&nbsp;        Material taglaegter = new Material();</b>
+<i>88</i>&nbsp;
+<b class="nc"><i>89</i>&nbsp;        taglaegter.setName(&quot;TAGLÆGTE&quot;);</b>
+<b class="nc"><i>90</i>&nbsp;        int quantityOfTaglaegter = amountOfT1_Spaer_Taglaegter();</b>
+<b class="nc"><i>91</i>&nbsp;        taglaegter.setAmount(quantityOfTaglaegter);</b>
+<b class="nc"><i>92</i>&nbsp;        taglaegter.setUnit(LogicFacade.getUnitByName(toplaegter.getName()));</b>
+<b class="nc"><i>93</i>&nbsp;        taglaegter.setComment(&quot;Lægte til montering på spær&quot;);</b>
+<b class="nc"><i>94</i>&nbsp;        taglaegter.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>95</i>&nbsp;        taglaegter.setId(30);</b>
+<b class="nc"><i>96</i>&nbsp;        taglaegter.setPrice(LogicFacade.getPrice(taglaegter.getId()));</b>
+<i>97</i>&nbsp;
+<i>98</i>&nbsp;        //TEST
+<b class="nc"><i>99</i>&nbsp;        System.out.println(&quot;name: &quot;+taglaegter.getName());</b>
+<b class="nc"><i>100</i>&nbsp;        System.out.println(&quot;amount: &quot;+taglaegter.getAmount());</b>
+<b class="nc"><i>101</i>&nbsp;        System.out.println(&quot;comment: &quot;+taglaegter.getComment());</b>
+<b class="nc"><i>102</i>&nbsp;        System.out.println(&quot;category: &quot;+taglaegter.getCategory());</b>
+<b class="nc"><i>103</i>&nbsp;        System.out.println(&quot;unit &quot;+taglaegter.getUnit());</b>
+<b class="nc"><i>104</i>&nbsp;        System.out.println(&quot;price &quot;+taglaegter.getPrice());</b>
+<i>105</i>&nbsp;
+<b class="nc"><i>106</i>&nbsp;        pitchedRoofMaterialList.add(taglaegter);</b>
+<i>107</i>&nbsp;
+<i>108</i>&nbsp;
+<i>109</i>&nbsp;        //Sternbrædder
+<b class="nc"><i>110</i>&nbsp;        Material stern = new Material();</b>
+<i>111</i>&nbsp;
+<b class="nc"><i>112</i>&nbsp;        stern.setName(&quot;STERNBRÆT&quot;);</b>
+<b class="nc"><i>113</i>&nbsp;        int quantityOfStern = amountOfStern();</b>
+<b class="nc"><i>114</i>&nbsp;        stern.setAmount(quantityOfStern);</b>
+<b class="nc"><i>115</i>&nbsp;        stern.setUnit(LogicFacade.getUnitByName(stern.getName()));</b>
+<b class="nc"><i>116</i>&nbsp;        stern.setComment(&quot;Bræt påsømmes enderne af tagspærene - dækker og beskytter spærene&quot;);</b>
+<b class="nc"><i>117</i>&nbsp;        stern.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>118</i>&nbsp;        stern.setId(28);</b>
+<b class="nc"><i>119</i>&nbsp;        stern.setPrice(LogicFacade.getPrice(stern.getId()));</b>
+<i>120</i>&nbsp;
+<i>121</i>&nbsp;        //TEST
+<b class="nc"><i>122</i>&nbsp;        System.out.println(&quot;name: &quot;+stern.getName());</b>
+<b class="nc"><i>123</i>&nbsp;        System.out.println(&quot;amount: &quot;+stern.getAmount());</b>
+<b class="nc"><i>124</i>&nbsp;        System.out.println(&quot;comment: &quot;+stern.getComment());</b>
+<b class="nc"><i>125</i>&nbsp;        System.out.println(&quot;category: &quot;+stern.getCategory());</b>
+<b class="nc"><i>126</i>&nbsp;        System.out.println(&quot;unit &quot;+stern.getUnit());</b>
+<b class="nc"><i>127</i>&nbsp;        System.out.println(&quot;price &quot;+stern.getPrice());</b>
+<i>128</i>&nbsp;
+<b class="nc"><i>129</i>&nbsp;        pitchedRoofMaterialList.add(stern);</b>
+<i>130</i>&nbsp;
+<i>131</i>&nbsp;        //Vandbræt
+<b class="nc"><i>132</i>&nbsp;        Material vandbraet = new Material();</b>
+<i>133</i>&nbsp;
+<b class="nc"><i>134</i>&nbsp;        vandbraet.setName(&quot;VANDBRÆT&quot;);</b>
+<b class="nc"><i>135</i>&nbsp;        int quantityOfVandbraet = amountOfVandbraet();</b>
+<b class="nc"><i>136</i>&nbsp;        vandbraet.setAmount(quantityOfStern);</b>
+<b class="nc"><i>137</i>&nbsp;        vandbraet.setUnit(LogicFacade.getUnitByName(vandbraet.getName()));</b>
+<b class="nc"><i>138</i>&nbsp;        vandbraet.setComment(&quot;Bræt til montering på vindskeder -  beskytter mod fugtfæld&quot;);</b>
+<b class="nc"><i>139</i>&nbsp;        vandbraet.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>140</i>&nbsp;        vandbraet.setId(29);</b>
+<b class="nc"><i>141</i>&nbsp;        vandbraet.setPrice(LogicFacade.getPrice(vandbraet.getId()));</b>
+<i>142</i>&nbsp;
+<i>143</i>&nbsp;        //TEST
+<b class="nc"><i>144</i>&nbsp;        System.out.println(&quot;name: &quot;+vandbraet.getName());</b>
+<b class="nc"><i>145</i>&nbsp;        System.out.println(&quot;amount: &quot;+vandbraet.getAmount());</b>
+<b class="nc"><i>146</i>&nbsp;        System.out.println(&quot;comment: &quot;+vandbraet.getComment());</b>
+<b class="nc"><i>147</i>&nbsp;        System.out.println(&quot;category: &quot;+vandbraet.getCategory());</b>
+<b class="nc"><i>148</i>&nbsp;        System.out.println(&quot;unit &quot;+vandbraet.getUnit());</b>
+<b class="nc"><i>149</i>&nbsp;        System.out.println(&quot;price &quot;+vandbraet.getPrice());</b>
+<i>150</i>&nbsp;
+<b class="nc"><i>151</i>&nbsp;        pitchedRoofMaterialList.add(vandbraet);</b>
+<i>152</i>&nbsp;
+<i>153</i>&nbsp;        //Vindskeder
+<b class="nc"><i>154</i>&nbsp;        Material vindskeder = new Material();</b>
+<i>155</i>&nbsp;
+<b class="nc"><i>156</i>&nbsp;        vindskeder.setName(&quot;VINDSKEDER&quot;);</b>
+<b class="nc"><i>157</i>&nbsp;        int quantityOfVindskeder = amountOfVindskeder();</b>
+<b class="nc"><i>158</i>&nbsp;        vindskeder.setAmount(quantityOfVindskeder);</b>
+<b class="nc"><i>159</i>&nbsp;        vindskeder.setUnit(LogicFacade.getUnitByName(vindskeder.getName()));</b>
+<b class="nc"><i>160</i>&nbsp;        vindskeder.setComment(&quot;Bræt til montering på tag rejsning som afslutning på tagpaptage&quot;);</b>
+<b class="nc"><i>161</i>&nbsp;        vindskeder.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>162</i>&nbsp;        vindskeder.setId(27);</b>
+<b class="nc"><i>163</i>&nbsp;        vindskeder.setPrice(LogicFacade.getPrice(vindskeder.getId()));</b>
+<i>164</i>&nbsp;
+<i>165</i>&nbsp;
+<i>166</i>&nbsp;
+<i>167</i>&nbsp;        //TEST
+<b class="nc"><i>168</i>&nbsp;        System.out.println(&quot;name: &quot;+vindskeder.getName());</b>
+<b class="nc"><i>169</i>&nbsp;        System.out.println(&quot;amount: &quot;+vindskeder.getAmount());</b>
+<b class="nc"><i>170</i>&nbsp;        System.out.println(&quot;comment: &quot;+vindskeder.getComment());</b>
+<b class="nc"><i>171</i>&nbsp;        System.out.println(&quot;category: &quot;+vindskeder.getCategory());</b>
+<b class="nc"><i>172</i>&nbsp;        System.out.println(&quot;unit &quot;+vindskeder.getUnit());</b>
+<b class="nc"><i>173</i>&nbsp;        System.out.println(&quot;price &quot;+vindskeder.getPrice());</b>
+<i>174</i>&nbsp;
+<b class="nc"><i>175</i>&nbsp;        pitchedRoofMaterialList.add(vindskeder);</b>
+<i>176</i>&nbsp;
+<i>177</i>&nbsp;
+<i>178</i>&nbsp;        //TagfodsLægte
+<b class="nc"><i>179</i>&nbsp;        Material tagfodsLaegte = new Material();</b>
+<i>180</i>&nbsp;
+<b class="nc"><i>181</i>&nbsp;        tagfodsLaegte.setName(&quot;TAGFODSLÆGTE BRÆDT&quot;);</b>
+<b class="nc"><i>182</i>&nbsp;        int quantityOfTagfodsLaegte = amountOfTagfodsLaegte();</b>
+<b class="nc"><i>183</i>&nbsp;        tagfodsLaegte.setAmount(quantityOfTagfodsLaegte);</b>
+<b class="nc"><i>184</i>&nbsp;        tagfodsLaegte.setUnit(LogicFacade.getUnitByName(tagfodsLaegte.getName()));</b>
+<b class="nc"><i>185</i>&nbsp;        tagfodsLaegte.setComment(&quot;Lægte til tagfod&quot;);</b>
+<b class="nc"><i>186</i>&nbsp;        tagfodsLaegte.setCategory(&quot;Rejsning Konstruktion&quot;);</b>
+<b class="nc"><i>187</i>&nbsp;        tagfodsLaegte.setId(31);</b>
+<b class="nc"><i>188</i>&nbsp;        tagfodsLaegte.setPrice(LogicFacade.getPrice(tagfodsLaegte.getId()));</b>
+<i>189</i>&nbsp;
+<i>190</i>&nbsp;        //TEST
+<b class="nc"><i>191</i>&nbsp;        System.out.println(&quot;name: &quot;+tagfodsLaegte.getName());</b>
+<b class="nc"><i>192</i>&nbsp;        System.out.println(&quot;amount: &quot;+tagfodsLaegte.getAmount());</b>
+<b class="nc"><i>193</i>&nbsp;        System.out.println(&quot;comment: &quot;+tagfodsLaegte.getComment());</b>
+<b class="nc"><i>194</i>&nbsp;        System.out.println(&quot;category: &quot;+tagfodsLaegte.getCategory());</b>
+<b class="nc"><i>195</i>&nbsp;        System.out.println(&quot;unit &quot;+tagfodsLaegte.getUnit());</b>
+<b class="nc"><i>196</i>&nbsp;        System.out.println(&quot;price &quot;+tagfodsLaegte.getPrice());</b>
+<i>197</i>&nbsp;
+<i>198</i>&nbsp;
+<b class="nc"><i>199</i>&nbsp;        pitchedRoofMaterialList.add(tagfodsLaegte);</b>
+<i>200</i>&nbsp;
+<i>201</i>&nbsp;        //Rygsten
+<b class="nc"><i>202</i>&nbsp;        Material rygsten = new Material();</b>
+<i>203</i>&nbsp;
+<b class="nc"><i>204</i>&nbsp;        rygsten.setName(&quot;RYGSTEN&quot;);</b>
+<b class="nc"><i>205</i>&nbsp;        int quantityOfRygsten = quantityRygsten();</b>
+<b class="nc"><i>206</i>&nbsp;        rygsten.setAmount(quantityOfRygsten);</b>
+<b class="nc"><i>207</i>&nbsp;        rygsten.setUnit(LogicFacade.getUnitByName(rygsten.getName()));</b>
+<b class="nc"><i>208</i>&nbsp;        rygsten.setComment(&quot;Monteres på toplægte&quot;);</b>
+<b class="nc"><i>209</i>&nbsp;        rygsten.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>210</i>&nbsp;        rygsten.setId(39);</b>
+<b class="nc"><i>211</i>&nbsp;        rygsten.setPrice(LogicFacade.getPrice(rygsten.getId()));</b>
+<i>212</i>&nbsp;
+<i>213</i>&nbsp;        //TEST
+<b class="nc"><i>214</i>&nbsp;        System.out.println(&quot;name: &quot;+rygsten.getName());</b>
+<b class="nc"><i>215</i>&nbsp;        System.out.println(&quot;amount: &quot;+rygsten.getAmount());</b>
+<b class="nc"><i>216</i>&nbsp;        System.out.println(&quot;comment: &quot;+rygsten.getComment());</b>
+<b class="nc"><i>217</i>&nbsp;        System.out.println(&quot;category: &quot;+rygsten.getCategory());</b>
+<b class="nc"><i>218</i>&nbsp;        System.out.println(&quot;unit &quot;+rygsten.getUnit());</b>
+<b class="nc"><i>219</i>&nbsp;        System.out.println(&quot;price &quot;+rygsten.getPrice());</b>
+<i>220</i>&nbsp;
+<b class="nc"><i>221</i>&nbsp;        pitchedRoofMaterialList.add(rygsten);</b>
+<i>222</i>&nbsp;
+<i>223</i>&nbsp;        // ** Beslag **
+<i>224</i>&nbsp;
+<b class="nc"><i>225</i>&nbsp;        System.out.println(&quot;** BESLAG **&quot;);</b>
+<i>226</i>&nbsp;        //toplægteHolder
+<b class="nc"><i>227</i>&nbsp;        Material toplaegteHolder = new Material();</b>
+<i>228</i>&nbsp;
+<b class="nc"><i>229</i>&nbsp;        toplaegteHolder.setName(&quot;TOPLÆGTEHOLDER&quot;);</b>
+<b class="nc"><i>230</i>&nbsp;        int quantityOfToplaegteHolder = amountOfToplaegteHolder();</b>
+<b class="nc"><i>231</i>&nbsp;        toplaegteHolder.setAmount(quantityOfToplaegteHolder);</b>
+<b class="nc"><i>232</i>&nbsp;        toplaegteHolder.setUnit(LogicFacade.getUnitByName(toplaegteHolder.getName()));</b>
+<b class="nc"><i>233</i>&nbsp;        toplaegteHolder.setComment(&quot;monteres på toppen af spæret til toplægte for rygsten&quot;);</b>
+<b class="nc"><i>234</i>&nbsp;        toplaegteHolder.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>235</i>&nbsp;        toplaegteHolder.setId(34);</b>
+<b class="nc"><i>236</i>&nbsp;        toplaegteHolder.setPrice(LogicFacade.getPrice(toplaegteHolder.getId()));</b>
+<i>237</i>&nbsp;
+<i>238</i>&nbsp;        //TEST
+<b class="nc"><i>239</i>&nbsp;        System.out.println(&quot;name: &quot;+toplaegteHolder.getName());</b>
+<b class="nc"><i>240</i>&nbsp;        System.out.println(&quot;amount: &quot;+toplaegteHolder.getAmount());</b>
+<b class="nc"><i>241</i>&nbsp;        System.out.println(&quot;comment: &quot;+toplaegteHolder.getComment());</b>
+<b class="nc"><i>242</i>&nbsp;        System.out.println(&quot;category: &quot;+toplaegteHolder.getCategory());</b>
+<b class="nc"><i>243</i>&nbsp;        System.out.println(&quot;unit &quot;+toplaegteHolder.getUnit());</b>
+<b class="nc"><i>244</i>&nbsp;        System.out.println(&quot;price &quot;+toplaegteHolder.getPrice());</b>
+<i>245</i>&nbsp;
+<i>246</i>&nbsp;
+<b class="nc"><i>247</i>&nbsp;        pitchedRoofMaterialList.add(toplaegteHolder);</b>
+<i>248</i>&nbsp;
+<i>249</i>&nbsp;        //Taglægter skruer
+<b class="nc"><i>250</i>&nbsp;        Material taglaegterSkruer = new Material();</b>
+<i>251</i>&nbsp;
+<b class="nc"><i>252</i>&nbsp;        taglaegterSkruer.setName(&quot;TAGLÆGTER SKRUER&quot;);</b>
+<b class="nc"><i>253</i>&nbsp;        int quantityOfTaglaegteScrews = screwForTaglægterCalculated();</b>
+<b class="nc"><i>254</i>&nbsp;        taglaegterSkruer.setAmount(quantityOfTaglaegteScrews);</b>
+<b class="nc"><i>255</i>&nbsp;        taglaegterSkruer.setUnit(LogicFacade.getUnitByName(taglaegterSkruer.getName()));</b>
+<b class="nc"><i>256</i>&nbsp;        taglaegterSkruer.setComment(&quot;Skruer til taglægter&quot;);</b>
+<b class="nc"><i>257</i>&nbsp;        taglaegterSkruer.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>258</i>&nbsp;        taglaegterSkruer.setId(37);</b>
+<b class="nc"><i>259</i>&nbsp;        taglaegterSkruer.setPrice(LogicFacade.getPrice(taglaegterSkruer.getId()));</b>
+<i>260</i>&nbsp;
+<i>261</i>&nbsp;        //TEST
+<b class="nc"><i>262</i>&nbsp;        System.out.println(&quot;name: &quot;+taglaegterSkruer.getName());</b>
+<b class="nc"><i>263</i>&nbsp;        System.out.println(&quot;amount: &quot;+taglaegterSkruer.getAmount());</b>
+<b class="nc"><i>264</i>&nbsp;        System.out.println(&quot;comment: &quot;+taglaegterSkruer.getComment());</b>
+<b class="nc"><i>265</i>&nbsp;        System.out.println(&quot;category: &quot;+taglaegterSkruer.getCategory());</b>
+<b class="nc"><i>266</i>&nbsp;        System.out.println(&quot;unit &quot;+taglaegterSkruer.getUnit());</b>
+<b class="nc"><i>267</i>&nbsp;        System.out.println(&quot;price &quot;+taglaegterSkruer.getPrice());</b>
+<i>268</i>&nbsp;
+<b class="nc"><i>269</i>&nbsp;        pitchedRoofMaterialList.add(taglaegterSkruer);</b>
+<i>270</i>&nbsp;
+<i>271</i>&nbsp;
+<i>272</i>&nbsp;        //Vandbræt skruer
+<b class="nc"><i>273</i>&nbsp;        Material vandbraetSkruer = new Material();</b>
+<i>274</i>&nbsp;
+<b class="nc"><i>275</i>&nbsp;        vandbraetSkruer.setName(&quot;SKRUER&quot;);</b>
+<b class="nc"><i>276</i>&nbsp;        int quantityOfVandbraerScrews = screwsForVandbrætCalculated();</b>
+<b class="nc"><i>277</i>&nbsp;        vandbraetSkruer.setAmount(quantityOfVandbraerScrews);</b>
+<b class="nc"><i>278</i>&nbsp;        vandbraetSkruer.setUnit(LogicFacade.getUnitByName(vandbraetSkruer.getName()));</b>
+<b class="nc"><i>279</i>&nbsp;        vandbraetSkruer.setComment(&quot;Skruer til vandbræt&quot;);</b>
+<b class="nc"><i>280</i>&nbsp;        vandbraetSkruer.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>281</i>&nbsp;        vandbraetSkruer.setId(35);</b>
+<b class="nc"><i>282</i>&nbsp;        vandbraetSkruer.setPrice(LogicFacade.getPrice(vandbraetSkruer.getId()));</b>
+<i>283</i>&nbsp;
+<i>284</i>&nbsp;        //TEST
+<b class="nc"><i>285</i>&nbsp;        System.out.println(&quot;name: &quot;+vandbraetSkruer.getName());</b>
+<b class="nc"><i>286</i>&nbsp;        System.out.println(&quot;amount: &quot;+vandbraetSkruer.getAmount());</b>
+<b class="nc"><i>287</i>&nbsp;        System.out.println(&quot;comment: &quot;+vandbraetSkruer.getComment());</b>
+<b class="nc"><i>288</i>&nbsp;        System.out.println(&quot;category: &quot;+vandbraetSkruer.getCategory());</b>
+<b class="nc"><i>289</i>&nbsp;        System.out.println(&quot;unit &quot;+vandbraetSkruer.getUnit());</b>
+<b class="nc"><i>290</i>&nbsp;        System.out.println(&quot;price &quot;+vandbraetSkruer.getPrice());</b>
+<i>291</i>&nbsp;
+<b class="nc"><i>292</i>&nbsp;        pitchedRoofMaterialList.add(vandbraetSkruer);</b>
+<i>293</i>&nbsp;
+<i>294</i>&nbsp;        //toplægte skruer
+<b class="nc"><i>295</i>&nbsp;        Material toplægteSkruer = new Material();</b>
+<i>296</i>&nbsp;
+<b class="nc"><i>297</i>&nbsp;        toplægteSkruer.setName(&quot;SKRUER&quot;);</b>
+<b class="nc"><i>298</i>&nbsp;        int quantityOfToplaegteScrews = amountOfBeslagScrewsForToplægteCalculated();</b>
+<b class="nc"><i>299</i>&nbsp;        toplægteSkruer.setAmount(quantityOfToplaegteScrews);</b>
+<b class="nc"><i>300</i>&nbsp;        toplægteSkruer.setUnit(LogicFacade.getUnitByName(toplægteSkruer.getName()));</b>
+<b class="nc"><i>301</i>&nbsp;        toplægteSkruer.setComment(&quot;Skruer til toplægter&quot;);</b>
+<b class="nc"><i>302</i>&nbsp;        toplægteSkruer.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>303</i>&nbsp;        toplægteSkruer.setId(35);</b>
+<b class="nc"><i>304</i>&nbsp;        toplægteSkruer.setPrice(LogicFacade.getPrice(toplægteSkruer.getId()));</b>
+<i>305</i>&nbsp;
+<i>306</i>&nbsp;        //TEST
+<b class="nc"><i>307</i>&nbsp;        System.out.println(&quot;name: &quot;+toplægteSkruer.getName());</b>
+<b class="nc"><i>308</i>&nbsp;        System.out.println(&quot;amount: &quot;+toplægteSkruer.getAmount());</b>
+<b class="nc"><i>309</i>&nbsp;        System.out.println(&quot;comment: &quot;+toplægteSkruer.getComment());</b>
+<b class="nc"><i>310</i>&nbsp;        System.out.println(&quot;category: &quot;+toplægteSkruer.getCategory());</b>
+<b class="nc"><i>311</i>&nbsp;        System.out.println(&quot;unit &quot;+toplægteSkruer.getUnit());</b>
+<b class="nc"><i>312</i>&nbsp;        System.out.println(&quot;price &quot;+toplægteSkruer.getPrice());</b>
+<i>313</i>&nbsp;
+<b class="nc"><i>314</i>&nbsp;        pitchedRoofMaterialList .add(toplægteSkruer);</b>
+<i>315</i>&nbsp;
+<i>316</i>&nbsp;
+<i>317</i>&nbsp;        //Vindskeder skruer
+<b class="nc"><i>318</i>&nbsp;        Material vindskederSkruer = new Material();</b>
+<i>319</i>&nbsp;
+<b class="nc"><i>320</i>&nbsp;        vindskederSkruer.setName(&quot;SKRUER&quot;);</b>
+<b class="nc"><i>321</i>&nbsp;        int quantityOfVindskederScrews = screwsForVindskederCalculated();</b>
+<b class="nc"><i>322</i>&nbsp;        vindskederSkruer.setAmount(quantityOfVindskederScrews);</b>
+<b class="nc"><i>323</i>&nbsp;        vindskederSkruer.setUnit(LogicFacade.getUnitByName(vindskederSkruer.getName()));</b>
+<b class="nc"><i>324</i>&nbsp;        vindskederSkruer.setComment(&quot;Skruer til vindskeder&quot;);</b>
+<b class="nc"><i>325</i>&nbsp;        vindskederSkruer.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>326</i>&nbsp;        vindskederSkruer.setId(35);</b>
+<b class="nc"><i>327</i>&nbsp;        vindskederSkruer.setPrice(LogicFacade.getPrice(vindskederSkruer.getId()));</b>
+<i>328</i>&nbsp;
+<i>329</i>&nbsp;        //TEST
+<b class="nc"><i>330</i>&nbsp;        System.out.println(&quot;name: &quot;+vindskederSkruer.getName());</b>
+<b class="nc"><i>331</i>&nbsp;        System.out.println(&quot;amount: &quot;+vindskederSkruer.getAmount());</b>
+<b class="nc"><i>332</i>&nbsp;        System.out.println(&quot;comment: &quot;+vindskederSkruer.getComment());</b>
+<b class="nc"><i>333</i>&nbsp;        System.out.println(&quot;category: &quot;+vindskederSkruer.getCategory());</b>
+<b class="nc"><i>334</i>&nbsp;        System.out.println(&quot;unit &quot;+vindskederSkruer.getUnit());</b>
+<b class="nc"><i>335</i>&nbsp;        System.out.println(&quot;price &quot;+vindskederSkruer.getPrice());</b>
+<i>336</i>&nbsp;
+<b class="nc"><i>337</i>&nbsp;        pitchedRoofMaterialList.add(vindskederSkruer);</b>
+<i>338</i>&nbsp;
+<i>339</i>&nbsp;        //toplægteHolder skruer
+<b class="nc"><i>340</i>&nbsp;        Material toplaegterHolderSkruer = new Material();</b>
+<i>341</i>&nbsp;
+<b class="nc"><i>342</i>&nbsp;        toplaegterHolderSkruer.setName(&quot;TOPLÆGTE BESLAGSKRUER&quot;);</b>
+<b class="nc"><i>343</i>&nbsp;        int quantityOfToplaegteHolderScrews = amountOfBeslagScrewsForToplægteCalculated();</b>
+<b class="nc"><i>344</i>&nbsp;        toplaegterHolderSkruer.setAmount(quantityOfToplaegteHolderScrews);</b>
+<b class="nc"><i>345</i>&nbsp;        toplaegterHolderSkruer.setUnit(LogicFacade.getUnitByName(toplaegterHolderSkruer.getName()));</b>
+<b class="nc"><i>346</i>&nbsp;        toplaegterHolderSkruer.setComment(&quot;Skruer til toplægteholder&quot;);</b>
+<b class="nc"><i>347</i>&nbsp;        toplaegterHolderSkruer.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>348</i>&nbsp;        toplaegterHolderSkruer.setId(36);</b>
+<b class="nc"><i>349</i>&nbsp;        toplaegterHolderSkruer.setPrice(LogicFacade.getPrice(toplaegterHolderSkruer.getId()));</b>
+<i>350</i>&nbsp;
+<i>351</i>&nbsp;        //TEST
+<b class="nc"><i>352</i>&nbsp;        System.out.println(&quot;name: &quot;+toplaegterHolderSkruer.getName());</b>
+<b class="nc"><i>353</i>&nbsp;        System.out.println(&quot;amount: &quot;+toplaegterHolderSkruer.getAmount());</b>
+<b class="nc"><i>354</i>&nbsp;        System.out.println(&quot;comment: &quot;+toplaegterHolderSkruer.getComment());</b>
+<b class="nc"><i>355</i>&nbsp;        System.out.println(&quot;category: &quot;+toplaegterHolderSkruer.getCategory());</b>
+<b class="nc"><i>356</i>&nbsp;        System.out.println(&quot;unit &quot;+toplaegterHolderSkruer.getUnit());</b>
+<b class="nc"><i>357</i>&nbsp;        System.out.println(&quot;price &quot;+toplaegterHolderSkruer.getPrice());</b>
+<i>358</i>&nbsp;
+<b class="nc"><i>359</i>&nbsp;        pitchedRoofMaterialList.add(toplaegterHolderSkruer);</b>
+<i>360</i>&nbsp;
+<i>361</i>&nbsp;
+<i>362</i>&nbsp;        //Rygsten Beslag
+<b class="nc"><i>363</i>&nbsp;        Material rygstenBeslag = new Material();</b>
+<i>364</i>&nbsp;
+<b class="nc"><i>365</i>&nbsp;        rygstenBeslag.setName(&quot;RYGSTENBESLAG&quot;);</b>
+<b class="nc"><i>366</i>&nbsp;        int quantityOfRygstenBeslag =  amoutOfRygstenBeslagCalculated();</b>
+<b class="nc"><i>367</i>&nbsp;        rygstenBeslag.setAmount(quantityOfRygstenBeslag);</b>
+<b class="nc"><i>368</i>&nbsp;        rygstenBeslag.setUnit(LogicFacade.getUnitByName(rygstenBeslag.getName()));</b>
+<b class="nc"><i>369</i>&nbsp;        rygstenBeslag.setComment(&quot;Beslag til rygsten&quot;);</b>
+<b class="nc"><i>370</i>&nbsp;        rygstenBeslag.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>371</i>&nbsp;        rygstenBeslag.setId(40);</b>
+<b class="nc"><i>372</i>&nbsp;        rygstenBeslag.setPrice(LogicFacade.getPrice(rygstenBeslag.getId()));</b>
+<i>373</i>&nbsp;
+<i>374</i>&nbsp;        //TEST
+<b class="nc"><i>375</i>&nbsp;        System.out.println(&quot;name: &quot;+rygstenBeslag.getName());</b>
+<b class="nc"><i>376</i>&nbsp;        System.out.println(&quot;amount: &quot;+rygstenBeslag.getAmount());</b>
+<b class="nc"><i>377</i>&nbsp;        System.out.println(&quot;comment: &quot;+rygstenBeslag.getComment());</b>
+<b class="nc"><i>378</i>&nbsp;        System.out.println(&quot;category: &quot;+rygstenBeslag.getCategory());</b>
+<b class="nc"><i>379</i>&nbsp;        System.out.println(&quot;unit &quot; +rygstenBeslag.getUnit());</b>
+<b class="nc"><i>380</i>&nbsp;        System.out.println(&quot;price &quot; +rygstenBeslag.getPrice());</b>
+<i>381</i>&nbsp;
+<b class="nc"><i>382</i>&nbsp;        pitchedRoofMaterialList.add(rygstenBeslag);</b>
+<i>383</i>&nbsp;
+<i>384</i>&nbsp;        //Nakkekrog til eternittagB7
+<b class="nc"><i>385</i>&nbsp;        Material tagstenNakkekrog = new Material();</b>
+<i>386</i>&nbsp;
+<b class="nc"><i>387</i>&nbsp;        tagstenNakkekrog.setName(&quot;TAGSTEN NAKKEKROGE&quot;);</b>
+<b class="nc"><i>388</i>&nbsp;        int quantityOfNakkekrog = tagstenNakkekrogeCalculated();</b>
+<b class="nc"><i>389</i>&nbsp;        tagstenNakkekrog.setAmount(quantityOfNakkekrog);</b>
+<b class="nc"><i>390</i>&nbsp;        tagstenNakkekrog.setUnit(LogicFacade.getUnitByName(tagstenNakkekrog.getName()));</b>
+<b class="nc"><i>391</i>&nbsp;        tagstenNakkekrog.setComment(&quot;Til montering af eternittagB7&quot;);</b>
+<b class="nc"><i>392</i>&nbsp;        tagstenNakkekrog.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>393</i>&nbsp;        tagstenNakkekrog.setId(33);</b>
+<b class="nc"><i>394</i>&nbsp;        tagstenNakkekrog.setPrice(LogicFacade.getPrice(tagstenNakkekrog.getId()));</b>
+<i>395</i>&nbsp;
+<i>396</i>&nbsp;        //TEST
+<b class="nc"><i>397</i>&nbsp;        System.out.println(&quot;name: &quot;+tagstenNakkekrog.getName());</b>
+<b class="nc"><i>398</i>&nbsp;        System.out.println(&quot;amount: &quot;+tagstenNakkekrog.getAmount());</b>
+<b class="nc"><i>399</i>&nbsp;        System.out.println(&quot;comment: &quot;+tagstenNakkekrog.getComment());</b>
+<b class="nc"><i>400</i>&nbsp;        System.out.println(&quot;category: &quot;+tagstenNakkekrog.getCategory());</b>
+<b class="nc"><i>401</i>&nbsp;        System.out.println(&quot;unit &quot;+tagstenNakkekrog.getUnit());</b>
+<b class="nc"><i>402</i>&nbsp;        System.out.println(&quot;price &quot;+tagstenNakkekrog.getPrice());</b>
+<i>403</i>&nbsp;
+<b class="nc"><i>404</i>&nbsp;        pitchedRoofMaterialList.add(tagstenNakkekrog);</b>
+<i>405</i>&nbsp;
+<i>406</i>&nbsp;        //Bindere til eternittagB7
+<b class="nc"><i>407</i>&nbsp;        Material tagstenBindere = new Material();</b>
+<i>408</i>&nbsp;
+<b class="nc"><i>409</i>&nbsp;        tagstenBindere.setName(&quot;TAGSTEN BINDERE&quot;);</b>
+<b class="nc"><i>410</i>&nbsp;        int quantityOfBindere = tagstenBindereCalculated();</b>
+<b class="nc"><i>411</i>&nbsp;        tagstenBindere.setAmount(quantityOfBindere);</b>
+<b class="nc"><i>412</i>&nbsp;        tagstenBindere.setUnit(LogicFacade.getUnitByName(tagstenBindere.getName()));</b>
+<b class="nc"><i>413</i>&nbsp;        tagstenBindere.setComment(&quot;Til montering af eternittagB7&quot;);</b>
+<b class="nc"><i>414</i>&nbsp;        tagstenBindere.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>415</i>&nbsp;        tagstenBindere.setId(32);</b>
+<b class="nc"><i>416</i>&nbsp;        tagstenBindere.setPrice(LogicFacade.getPrice(tagstenBindere.getId()));</b>
+<i>417</i>&nbsp;
+<i>418</i>&nbsp;        //TEST
+<b class="nc"><i>419</i>&nbsp;        System.out.println(&quot;name: &quot;+tagstenBindere.getName());</b>
+<b class="nc"><i>420</i>&nbsp;        System.out.println(&quot;amount: &quot;+tagstenBindere.getAmount());</b>
+<b class="nc"><i>421</i>&nbsp;        System.out.println(&quot;comment: &quot;+tagstenBindere.getComment());</b>
+<b class="nc"><i>422</i>&nbsp;        System.out.println(&quot;category: &quot;+tagstenBindere.getCategory());</b>
+<b class="nc"><i>423</i>&nbsp;        System.out.println(&quot;unit &quot;+tagstenBindere.getUnit());</b>
+<b class="nc"><i>424</i>&nbsp;        System.out.println(&quot;price &quot;+tagstenBindere.getPrice());</b>
+<i>425</i>&nbsp;
+<b class="nc"><i>426</i>&nbsp;        pitchedRoofMaterialList.add(tagstenBindere);</b>
+<i>427</i>&nbsp;
+<i>428</i>&nbsp;        //spær til taglægter + rygsten
+<b class="nc"><i>429</i>&nbsp;        Material tagSpaer = new Material();</b>
+<i>430</i>&nbsp;
+<b class="nc"><i>431</i>&nbsp;        tagSpaer.setName(&quot;SPÆR&quot;);</b>
+<b class="nc"><i>432</i>&nbsp;        int quantityOfSpaer = constructionSizeCalculator.roofSpaerAmount(construction);</b>
+<b class="nc"><i>433</i>&nbsp;        tagSpaer.setAmount(quantityOfSpaer);</b>
+<b class="nc"><i>434</i>&nbsp;        tagSpaer.setUnit(LogicFacade.getUnitByName(tagSpaer.getName()));</b>
+<b class="nc"><i>435</i>&nbsp;        tagSpaer.setComment(&quot;Spær til taglægter og rysgten&quot;);</b>
+<b class="nc"><i>436</i>&nbsp;        tagSpaer.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>437</i>&nbsp;        tagSpaer.setId(58);</b>
+<b class="nc"><i>438</i>&nbsp;        tagSpaer.setPrice(LogicFacade.getPrice(tagSpaer.getId()));</b>
+<i>439</i>&nbsp;
+<i>440</i>&nbsp;        //TEST
+<b class="nc"><i>441</i>&nbsp;        System.out.println(&quot;name: &quot;+tagSpaer.getName());</b>
+<b class="nc"><i>442</i>&nbsp;        System.out.println(&quot;amount: &quot;+tagSpaer.getAmount());</b>
+<b class="nc"><i>443</i>&nbsp;        System.out.println(&quot;comment: &quot;+tagSpaer.getComment());</b>
+<b class="nc"><i>444</i>&nbsp;        System.out.println(&quot;category: &quot;+tagSpaer.getCategory());</b>
+<b class="nc"><i>445</i>&nbsp;        System.out.println(&quot;unit &quot;+tagSpaer.getUnit());</b>
+<b class="nc"><i>446</i>&nbsp;        System.out.println(&quot;price &quot;+tagSpaer.getPrice());</b>
+<i>447</i>&nbsp;
+<b class="nc"><i>448</i>&nbsp;        pitchedRoofMaterialList.add(tagSpaer);</b>
+<i>449</i>&nbsp;
+<i>450</i>&nbsp;        //** Tagplader **
+<b class="nc"><i>451</i>&nbsp;        System.out.println(&quot;** TAGPLADER ** &quot;);</b>
+<i>452</i>&nbsp;
+<i>453</i>&nbsp;        //Beton
+<b class="nc"><i>454</i>&nbsp;        Material betontagsten = new Material();</b>
+<i>455</i>&nbsp;
+<b class="nc"><i>456</i>&nbsp;        betontagsten.setName(&quot;BETONTAGSTEN&quot;);</b>
+<b class="nc"><i>457</i>&nbsp;        int quantityOfTagstenBeton = amountOfTagsten();</b>
+<b class="nc"><i>458</i>&nbsp;        betontagsten.setAmount(quantityOfTagstenBeton);</b>
+<b class="nc"><i>459</i>&nbsp;        betontagsten.setId(24);</b>
+<b class="nc"><i>460</i>&nbsp;        betontagsten.setUnit(LogicFacade.getUnitByName(betontagsten.getName()));</b>
+<b class="nc"><i>461</i>&nbsp;        betontagsten.setComment(&quot;Tagplader til tag med rejsning&quot;);</b>
+<b class="nc"><i>462</i>&nbsp;        betontagsten.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>463</i>&nbsp;        betontagsten.setPrice(LogicFacade.getPrice(betontagsten.getId()));</b>
+<i>464</i>&nbsp;
+<i>465</i>&nbsp;        //TEST
+<b class="nc"><i>466</i>&nbsp;        System.out.println(&quot;name: &quot;+betontagsten.getName());</b>
+<b class="nc"><i>467</i>&nbsp;        System.out.println(&quot;amount: &quot;+betontagsten.getAmount());</b>
+<b class="nc"><i>468</i>&nbsp;        System.out.println(&quot;comment: &quot;+betontagsten.getComment());</b>
+<b class="nc"><i>469</i>&nbsp;        System.out.println(&quot;category: &quot;+betontagsten.getCategory());</b>
+<b class="nc"><i>470</i>&nbsp;        System.out.println(&quot;unit &quot;+betontagsten.getUnit());</b>
+<b class="nc"><i>471</i>&nbsp;        System.out.println(&quot;price &quot;+betontagsten.getPrice());</b>
+<i>472</i>&nbsp;
+<i>473</i>&nbsp;
+<b class="nc"><i>474</i>&nbsp;        pitchedRoofMaterialList.add(betontagsten);</b>
+<i>475</i>&nbsp;
+<i>476</i>&nbsp;        //Eternittag B6
+<b class="nc"><i>477</i>&nbsp;        Material eternittagB6 = new Material();</b>
+<i>478</i>&nbsp;
+<b class="nc"><i>479</i>&nbsp;        eternittagB6.setName(&quot;ETERNITTAG B6&quot;);</b>
+<b class="nc"><i>480</i>&nbsp;        int quantityOfTagstenB6 = amountOfTagsten();</b>
+<b class="nc"><i>481</i>&nbsp;        eternittagB6.setAmount(quantityOfTagstenB6);</b>
+<b class="nc"><i>482</i>&nbsp;        eternittagB6.setId(25);</b>
+<b class="nc"><i>483</i>&nbsp;        eternittagB6.setUnit(LogicFacade.getUnitByName(eternittagB6.getName()));</b>
+<b class="nc"><i>484</i>&nbsp;        eternittagB6.setComment(&quot;Tagplader til tag med rejsning&quot;);</b>
+<b class="nc"><i>485</i>&nbsp;        eternittagB6.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>486</i>&nbsp;        eternittagB6.setPrice(LogicFacade.getPrice(eternittagB6.getId()));</b>
+<i>487</i>&nbsp;
+<i>488</i>&nbsp;        //TEST
+<b class="nc"><i>489</i>&nbsp;        System.out.println(&quot;name: &quot;+eternittagB6.getName());</b>
+<b class="nc"><i>490</i>&nbsp;        System.out.println(&quot;amount: &quot;+eternittagB6.getAmount());</b>
+<b class="nc"><i>491</i>&nbsp;        System.out.println(&quot;comment: &quot;+eternittagB6.getComment());</b>
+<b class="nc"><i>492</i>&nbsp;        System.out.println(&quot;category: &quot;+eternittagB6.getCategory());</b>
+<b class="nc"><i>493</i>&nbsp;        System.out.println(&quot;unit &quot;+eternittagB6.getUnit());</b>
+<b class="nc"><i>494</i>&nbsp;        System.out.println(&quot;price &quot;+eternittagB6.getPrice());</b>
+<i>495</i>&nbsp;
+<b class="nc"><i>496</i>&nbsp;        pitchedRoofMaterialList.add(eternittagB6);</b>
+<i>497</i>&nbsp;
+<i>498</i>&nbsp;        //Eternittag B7
+<b class="nc"><i>499</i>&nbsp;        Material eternittagB7 = new Material();</b>
+<i>500</i>&nbsp;
+<b class="nc"><i>501</i>&nbsp;        eternittagB7.setName(&quot;ETERNITTAG B7&quot;);</b>
+<b class="nc"><i>502</i>&nbsp;        int quantityOfTagstenB7 = amountOfTagsten();</b>
+<b class="nc"><i>503</i>&nbsp;        eternittagB7.setAmount(quantityOfTagstenB7);</b>
+<b class="nc"><i>504</i>&nbsp;        eternittagB7.setId(26);</b>
+<b class="nc"><i>505</i>&nbsp;        eternittagB7.setUnit(LogicFacade.getUnitByName(eternittagB7.getName()));</b>
+<b class="nc"><i>506</i>&nbsp;        eternittagB7.setComment(&quot;Tagplader til tag med rejsning&quot;);</b>
+<b class="nc"><i>507</i>&nbsp;        eternittagB7.setCategory(&quot;RejsningTag Konstruktion&quot;);</b>
+<b class="nc"><i>508</i>&nbsp;        eternittagB7.setPrice(LogicFacade.getPrice(eternittagB7.getId()));</b>
+<i>509</i>&nbsp;
+<i>510</i>&nbsp;        //TEST
+<b class="nc"><i>511</i>&nbsp;        System.out.println(&quot;name: &quot; +eternittagB7.getName());</b>
+<b class="nc"><i>512</i>&nbsp;        System.out.println(&quot;amount: &quot; +eternittagB7.getAmount());</b>
+<b class="nc"><i>513</i>&nbsp;        System.out.println(&quot;comment: &quot;+eternittagB7.getComment());</b>
+<b class="nc"><i>514</i>&nbsp;        System.out.println(&quot;category: &quot;+eternittagB7.getCategory());</b>
+<b class="nc"><i>515</i>&nbsp;        System.out.println(&quot;unit &quot;+eternittagB7.getUnit());</b>
+<b class="nc"><i>516</i>&nbsp;        System.out.println(&quot;price &quot;+eternittagB7.getPrice());</b>
+<i>517</i>&nbsp;
+<b class="nc"><i>518</i>&nbsp;        pitchedRoofMaterialList.add(eternittagB7);</b>
+<i>519</i>&nbsp;
+<i>520</i>&nbsp;
+<b class="nc"><i>521</i>&nbsp;        System.out.println(&quot;færdig med liste - YASS!!! &quot;);</b>
+<i>522</i>&nbsp;
+<i>523</i>&nbsp;
+<b class="nc"><i>524</i>&nbsp;        return pitchedRoofMaterialList;</b>
+<i>525</i>&nbsp;    }
+<i>526</i>&nbsp;
+<i>527</i>&nbsp;
+<i>528</i>&nbsp;    //........ CALCULATIONS .........
+<i>529</i>&nbsp;
+<i>530</i>&nbsp;
+<i>531</i>&nbsp;    public int amoutOfRygstenBeslagCalculated() {
+<b class="nc"><i>532</i>&nbsp;        rygstenBeslag = quantityRygsten();</b>
+<b class="nc"><i>533</i>&nbsp;        return rygstenBeslag;</b>
+<i>534</i>&nbsp;    }
+<i>535</i>&nbsp;
+<i>536</i>&nbsp;
+<i>537</i>&nbsp;    public int amountOfTagsten(){
+<i>538</i>&nbsp;        //NOTE: tagpladerne fylder 307mm i længden og vi antager 200mm i bredden, derfor disse værdier.
+<b class="nc"><i>539</i>&nbsp;        tagstenBredde = 200;</b>
+<b class="nc"><i>540</i>&nbsp;        int tagstenHalfePitchedRoof = 0;</b>
+<i>541</i>&nbsp;        //Vi trækker ikke en tagstenbredde fra i tagets længde i for-loopet fordi vi vil have det hele antal + en hvis
+<i>542</i>&nbsp;        // der er en rest
+<b class="nc"><i>543</i>&nbsp;        for (int i = 0; i &lt; roofSizing.roofWidthSurface()- LÆGTESTENDISTANCE; i= i + LÆGTESTENDISTANCE) {</b>
+<b class="nc"><i>544</i>&nbsp;            for (int j = 0; j &lt; roofSizing.roofLengthSurface(); j = j + tagstenBredde) {</b>
+<b class="nc"><i>545</i>&nbsp;                tagstenHalfePitchedRoof++;</b>
+<i>546</i>&nbsp;            }
+<i>547</i>&nbsp;        }
+<b class="nc"><i>548</i>&nbsp;        tagstenEntirePitchedRoof = tagstenHalfePitchedRoof * 2;</b>
+<b class="nc"><i>549</i>&nbsp;        return tagstenEntirePitchedRoof;</b>
+<i>550</i>&nbsp;    }
+<i>551</i>&nbsp;
+<i>552</i>&nbsp;    public int tagstenBindereCalculated(){
+<b class="nc"><i>553</i>&nbsp;        int tagstenBinder = amountOfTagsten();</b>
+<b class="nc"><i>554</i>&nbsp;        for (int i = 0; i &lt; tagstenBinder; i = i+2) {</b>
+<b class="nc"><i>555</i>&nbsp;            tagstenBinder ++;</b>
+<i>556</i>&nbsp;        }
+<b class="nc"><i>557</i>&nbsp;        return tagstenBinder;</b>
+<i>558</i>&nbsp;    }
+<i>559</i>&nbsp;
+<i>560</i>&nbsp;    public int tagstenNakkekrogeCalculated(){
+<i>561</i>&nbsp;        //Vi formoder der er en tagstensnakkekrog pr. tagsten
+<b class="nc"><i>562</i>&nbsp;        tagstenNakkekrog = amountOfTagsten();</b>
+<b class="nc"><i>563</i>&nbsp;        return tagstenNakkekrog;</b>
+<i>564</i>&nbsp;    }
+<i>565</i>&nbsp;
+<i>566</i>&nbsp;    public int screwForTaglægterCalculated(){
+<i>567</i>&nbsp;        //Vi antager der er er en skrue pr toplægteholder + samt et pr spær for at sætte toplægten fast
+<b class="nc"><i>568</i>&nbsp;        screwForTaglægter = amountOfToplaegteHolder() * SCREWSPERTAGLÆGTEHOLDER;</b>
+<b class="nc"><i>569</i>&nbsp;        return screwForTaglægter;</b>
+<i>570</i>&nbsp;    }
+<i>571</i>&nbsp;
+<i>572</i>&nbsp;    public int screwsForVindskederCalculated(){
+<i>573</i>&nbsp;        //Vi antager der bruges en skrue for hvert 50cm
+<b class="nc"><i>574</i>&nbsp;        vindskedeLængde = (int)(Math.hypot((construction.getConstructionWidth()/2.0), (double) (roofSizing.roofHeight(</b>
+<b class="nc"><i>575</i>&nbsp;                construction.getRoof().getIsPitched(), construction.getConstructionLength(),</b>
+<b class="nc"><i>576</i>&nbsp;                construction.getConstructionWidth()))));</b>
+<b class="nc"><i>577</i>&nbsp;        for (int i = 50; i &lt; vindskedeLængde-50 ; i = i + 50) {</b>
+<b class="nc"><i>578</i>&nbsp;            screwsForVindskeder++;</b>
+<i>579</i>&nbsp;        }
+<b class="nc"><i>580</i>&nbsp;        return screwsForVindskeder;</b>
+<i>581</i>&nbsp;    }
+<i>582</i>&nbsp;
+<i>583</i>&nbsp;    public int screwsForVandbrætCalculated(){
+<i>584</i>&nbsp;        //Vi antager der skal bruges til hver 300 mm en skrue, med mindst 10 mm fra sidste kant
+<b class="nc"><i>585</i>&nbsp;        vandBrætsLength = construction.getRoof().getLength();</b>
+<b class="nc"><i>586</i>&nbsp;        for (int i = 300; i &lt; vandBrætsLength -10 ; i = i + 300) {</b>
+<b class="nc"><i>587</i>&nbsp;            screwsForVandbræt++;</b>
+<i>588</i>&nbsp;        }
+<b class="nc"><i>589</i>&nbsp;        return screwsForVandbræt;</b>
+<i>590</i>&nbsp;    }
+<i>591</i>&nbsp;
+<i>592</i>&nbsp;    /*public int AmountOfScrewPackages(){
+<i>593</i>&nbsp;        int screwsTotal = screwForTaglægterCalculated() + screwsForVindskederCalculated()
+<i>594</i>&nbsp;                + screwsForVandbrætCalculated();
+<i>595</i>&nbsp;        screwPackage = Math.round(screwsTotal/200);
+<i>596</i>&nbsp;        return screwPackage;
+<i>597</i>&nbsp;    }*/
+<i>598</i>&nbsp;
+<i>599</i>&nbsp;    //todo: fix amountOfBeslagScrewsForToplægteCalculated() line 620
+<i>600</i>&nbsp;    public int amountOfBeslagScrewsForToplægteCalculated(){
+<b class="nc"><i>601</i>&nbsp;        beslagForToplægte = 9*2* amountOfT1_RygstenLength();</b>
+<b class="nc"><i>602</i>&nbsp;        return beslagForToplægte;</b>
+<i>603</i>&nbsp;    }
+<i>604</i>&nbsp;
+<i>605</i>&nbsp;
+<i>606</i>&nbsp;    public int spærPlankLengthPerSpær(){
+<b class="nc"><i>607</i>&nbsp;        int spærfodLength = construction.getCarportWidth();</b>
+<b class="nc"><i>608</i>&nbsp;        int spærArm = (int) (spærfodLength/(Math.cos(Math.toRadians(construction.getRoof().getDegree()))))*2;</b>
+<b class="nc"><i>609</i>&nbsp;        spærFullPlankLength = (spærArm*2)+spærfodLength;</b>
+<b class="nc"><i>610</i>&nbsp;        return spærFullPlankLength;</b>
+<i>611</i>&nbsp;    }
+<i>612</i>&nbsp;    //TODO beregning af ekstra spær (til sidst)
+<i>613</i>&nbsp;    public int spærQuantity(){
+<b class="nc"><i>614</i>&nbsp;        int carportLength = construction.getCarportLength();</b>
+<b class="nc"><i>615</i>&nbsp;        int distanceBestweenSpær = 89;</b>
+<b class="nc"><i>616</i>&nbsp;        for (int i = 0; i &lt; carportLength; i = 1 + distanceBestweenSpær) {</b>
+<b class="nc"><i>617</i>&nbsp;            spærAmount++;</b>
+<i>618</i>&nbsp;        }
+<b class="nc"><i>619</i>&nbsp;        if (construction.getShed() != null) {</b>
+<b class="nc"><i>620</i>&nbsp;            spærAmount = spærAmount+ 2;</b>
+<i>621</i>&nbsp;        }
+<b class="nc"><i>622</i>&nbsp;        return spærAmount;</b>
+<i>623</i>&nbsp;    }
+<i>624</i>&nbsp;
+<i>625</i>&nbsp;    public int spærFullQuantityOfPlanksTotal(){
+<b class="nc"><i>626</i>&nbsp;        spærFullQuatityOfPlanks = spærPlankLengthPerSpær()* spærQuantity();</b>
+<b class="nc"><i>627</i>&nbsp;        return spærFullQuatityOfPlanks;</b>
+<i>628</i>&nbsp;    }
+<i>629</i>&nbsp;
+<i>630</i>&nbsp;    public int gavlOverlayQuantity(int overlayPlankWidthKonstant, int overlayPlankLenghtAvailable){
+<b class="fc"><i>631</i>&nbsp;        int gavlOverlayPlanksQuantity = 0;</b>
+<b class="fc"><i>632</i>&nbsp;        int lengthOfTriangleGavl = construction.getCarportWidth();</b>
+<b class="fc"><i>633</i>&nbsp;        int lenghtOfTriangleGavlShorter = construction.getCarportWidth();</b>
+<i>634</i>&nbsp;        int restTotal;
+<b class="fc"><i>635</i>&nbsp;        int restUseable = 1;</b>
+<b class="fc"><i>636</i>&nbsp;        int roofHeight = construction.getRoof().getHeight();</b>
+<b class="fc"><i>637</i>&nbsp;        double newHeight = construction.getRoof().getHeight();</b>
+<b class="fc"><i>638</i>&nbsp;        int roofAngleInTop = (construction.getRoof().getDegree())*2;</b>
+<b class="fc"><i>639</i>&nbsp;        int lengthOfHalfRoofWidthSurface = roofSizing.roofWidthSurface();</b>
+<i>640</i>&nbsp;        int overlayPlankWidth;
+<i>641</i>&nbsp;        double kFactor;
+<i>642</i>&nbsp;        double tempHeigth;
+<i>643</i>&nbsp;
+<b class="fc"><i>644</i>&nbsp;        for (int i = 0; i &lt; roofHeight-1; i = i + overlayPlankWidth) {</b>
+<b class="fc"><i>645</i>&nbsp;            overlayPlankWidth = overlayPlankWidthKonstant;</b>
+<b class="fc"><i>646</i>&nbsp;            gavlOverlayPlanksQuantity++;</b>
+<b class="fc"><i>647</i>&nbsp;            restTotal = overlayPlankLenghtAvailable % lenghtOfTriangleGavlShorter;</b>
+<b class="fc"><i>648</i>&nbsp;            if ( restTotal != 0){</b>
+<b class="fc"><i>649</i>&nbsp;                restUseable = overlayPlankLenghtAvailable/restTotal;</b>
+<b class="fc"><i>650</i>&nbsp;                gavlOverlayPlanksQuantity ++;</b>
+<b class="fc"><i>651</i>&nbsp;                overlayPlankWidth = overlayPlankWidth * restUseable;</b>
+<i>652</i>&nbsp;            }
+<b class="fc"><i>653</i>&nbsp;            tempHeigth = newHeight;</b>
+<b class="fc"><i>654</i>&nbsp;            if (overlayPlankWidth&lt;newHeight)</b>
+<b class="nc"><i>655</i>&nbsp;                newHeight = newHeight - overlayPlankWidth;</b>
+<i>656</i>&nbsp;            else
+<b class="fc"><i>657</i>&nbsp;                newHeight = overlayPlankWidth - newHeight;</b>
+<b class="fc"><i>658</i>&nbsp;            kFactor = newHeight/tempHeigth;</b>
+<i>659</i>&nbsp;
+<b class="fc"><i>660</i>&nbsp;            lenghtOfTriangleGavlShorter = (int) (kFactor * lenghtOfTriangleGavlShorter);</b>
+<i>661</i>&nbsp;        }
+<b class="fc"><i>662</i>&nbsp;        if (lenghtOfTriangleGavlShorter !=0 )</b>
+<b class="fc"><i>663</i>&nbsp;            return (int) gavlOverlayPlanksQuantity + 1;</b>
+<i>664</i>&nbsp;
+<b class="nc"><i>665</i>&nbsp;        return (int) gavlOverlayPlanksQuantity;</b>
+<i>666</i>&nbsp;    }
+<i>667</i>&nbsp;
+<i>668</i>&nbsp;
+<i>669</i>&nbsp;    public int quantityRygsten() {
+<b class="nc"><i>670</i>&nbsp;        amountOfRygsten = construction.getConstructionLength() / RYGSTENCOVERS;</b>
+<b class="nc"><i>671</i>&nbsp;        if (amountOfRygsten% RYGSTENCOVERS != 0 )</b>
+<b class="nc"><i>672</i>&nbsp;            amountOfRygsten++;</b>
+<b class="nc"><i>673</i>&nbsp;        return amountOfRygsten;</b>
+<i>674</i>&nbsp;    }
+<i>675</i>&nbsp;
+<i>676</i>&nbsp;    //Vi antager at der herfra og ned er et slags materiale og derfor disse beregninger:
+<i>677</i>&nbsp;
+<i>678</i>&nbsp;    //** Beregning af antal taglægter i forhold til tagets bredde **
+<i>679</i>&nbsp;    private int amountOfT1_Spaer_Taglaegter()
+<i>680</i>&nbsp;    {
+<b class="nc"><i>681</i>&nbsp;        int roofWidth = roof.getWidth();</b>
+<b class="nc"><i>682</i>&nbsp;        int T1_SpaerDistance = 307; // 307 mm mellem hvert lægte - dog ikke den første</b>
+<b class="nc"><i>683</i>&nbsp;        int topDistance = - 30; // 30 mm på hver side dvs * 2</b>
+<i>684</i>&nbsp;
+<b class="nc"><i>685</i>&nbsp;        numberOfTaglaegter = roofWidth - (topDistance * 2)/T1_SpaerDistance + 2; // 2 = 350mm bræt</b>
+<b class="nc"><i>686</i>&nbsp;        return numberOfTaglaegter;</b>
+<i>687</i>&nbsp;    }
+<i>688</i>&nbsp;
+<i>689</i>&nbsp;    // ** Beregning af antal sternbrædder i forhold til tagets længde - stern skal have samme længde som taget + 300 mm**
+<i>690</i>&nbsp;    public int amountOfStern()
+<i>691</i>&nbsp;    {
+<b class="nc"><i>692</i>&nbsp;        int roofLength = roof.getLength() + 300;</b>
+<i>693</i>&nbsp;
+<b class="nc"><i>694</i>&nbsp;        if (roofLength &lt;= 600 ) //600 mm = 1 stern længde - if roofLength equal/smaller than 600</b>
+<i>695</i>&nbsp;        {
+<b class="nc"><i>696</i>&nbsp;            numberOfStern = 4; // 2 on each side</b>
+<i>697</i>&nbsp;        }
+<b class="nc"><i>698</i>&nbsp;        else if (roofLength &gt; 600) //if bigger than 600</b>
+<i>699</i>&nbsp;        {
+<b class="nc"><i>700</i>&nbsp;            numberOfStern = 6; // 4 on each side</b>
+<i>701</i>&nbsp;        }
+<i>702</i>&nbsp;        else
+<i>703</i>&nbsp;        {
+<b class="nc"><i>704</i>&nbsp;            numberOfStern = 8;</b>
+<i>705</i>&nbsp;        }
+<i>706</i>&nbsp;
+<b class="nc"><i>707</i>&nbsp;        return numberOfStern;</b>
+<i>708</i>&nbsp;    }
+<i>709</i>&nbsp;
+<i>710</i>&nbsp;    //** Beregning af antal Toplægteholdere i forhold til spær (beslag)
+<i>711</i>&nbsp;    private int amountOfToplaegteHolder()
+<i>712</i>&nbsp;    {
+<b class="nc"><i>713</i>&nbsp;        int numberOfToplaegteHolder = constructionSizeCalculator.roofSpaerAmount(construction);</b>
+<i>714</i>&nbsp;
+<b class="nc"><i>715</i>&nbsp;        return numberOfToplaegteHolder;</b>
+<i>716</i>&nbsp;    }
+<i>717</i>&nbsp;
+<i>718</i>&nbsp;    //** Beregning af T1 toplægte (til rygsten) i forhold til tag længde **
+<i>719</i>&nbsp;    public int amountOfT1_RygstenLength()
+<i>720</i>&nbsp;    {
+<b class="nc"><i>721</i>&nbsp;        int roofLength = roof.getLength();</b>
+<i>722</i>&nbsp;
+<i>723</i>&nbsp;        //int toplaegteLength = 420; // 420 mm = 1 toplægte længde
+<i>724</i>&nbsp;
+<b class="nc"><i>725</i>&nbsp;        if(roofLength &lt;= 840) // stk af 420 dvs *2= 840</b>
+<i>726</i>&nbsp;        {
+<b class="nc"><i>727</i>&nbsp;            numberOfToplaegte = 2;</b>
+<i>728</i>&nbsp;        }
+<b class="nc"><i>729</i>&nbsp;        else if (roofLength &gt; 840)</b>
+<i>730</i>&nbsp;        {
+<b class="nc"><i>731</i>&nbsp;            numberOfToplaegte = 4;</b>
+<i>732</i>&nbsp;        }
+<i>733</i>&nbsp;        else
+<i>734</i>&nbsp;        {
+<b class="nc"><i>735</i>&nbsp;            numberOfToplaegte = 6;</b>
+<i>736</i>&nbsp;        }
+<b class="nc"><i>737</i>&nbsp;        return numberOfToplaegte;</b>
+<i>738</i>&nbsp;    }
+<i>739</i>&nbsp;
+<i>740</i>&nbsp;    //** Beregning af antal tagfodslægte i forhold til taget længde **
+<i>741</i>&nbsp;    public int amountOfTagfodsLaegte ()
+<i>742</i>&nbsp;    {
+<b class="nc"><i>743</i>&nbsp;        int roofLength = roof.getLength();</b>
+<i>744</i>&nbsp;
+<b class="nc"><i>745</i>&nbsp;        if (roofLength &lt;= 1620 ) //340 * 3stk ---&gt; 340 mm = længde af 1 tagfodslægte</b>
+<i>746</i>&nbsp;        {
+<b class="nc"><i>747</i>&nbsp;            numberOfTagfodsLaegte = 3;</b>
+<i>748</i>&nbsp;        }
+<b class="nc"><i>749</i>&nbsp;        else if (roofLength &gt; 1620)</b>
+<i>750</i>&nbsp;        {
+<b class="nc"><i>751</i>&nbsp;            numberOfTagfodsLaegte = 6;</b>
+<i>752</i>&nbsp;        }
+<i>753</i>&nbsp;        else {
+<b class="nc"><i>754</i>&nbsp;            numberOfTagfodsLaegte = 9;</b>
+<i>755</i>&nbsp;        }
+<b class="nc"><i>756</i>&nbsp;        return numberOfTagfodsLaegte;</b>
+<i>757</i>&nbsp;    }
+<i>758</i>&nbsp;
+<i>759</i>&nbsp;    //** Beregning af antal vindskeder i forhold til tagets længde**
+<i>760</i>&nbsp;    public int amountOfVindskeder ()
+<i>761</i>&nbsp;    {
+<b class="nc"><i>762</i>&nbsp;        int  roofLength = roof.getLength();</b>
+<b class="nc"><i>763</i>&nbsp;        if (roofLength &lt;= 480 ) //if roofLength equal/smaller than 480 - længde af 1 vindskede bræt</b>
+<i>764</i>&nbsp;        {
+<b class="nc"><i>765</i>&nbsp;            numberOfVindskeder = 2;</b>
+<i>766</i>&nbsp;        }
+<b class="nc"><i>767</i>&nbsp;        else if (roofLength &gt; 480 )</b>
+<i>768</i>&nbsp;        {
+<b class="nc"><i>769</i>&nbsp;            numberOfVindskeder = 4;</b>
+<i>770</i>&nbsp;        }
+<b class="nc"><i>771</i>&nbsp;        return numberOfVindskeder;</b>
+<i>772</i>&nbsp;    }
+<i>773</i>&nbsp;
+<i>774</i>&nbsp;    //** Beregning af antal vandbræt i forhold til antal vindskider ** - skal monteres på vindskider
+<i>775</i>&nbsp;    //Note: antal vandbræt = antal vindskeder.
+<i>776</i>&nbsp;    public  int amountOfVandbraet()
+<i>777</i>&nbsp;    {
+<b class="nc"><i>778</i>&nbsp;        int roofLength = roof.getLength();</b>
+<i>779</i>&nbsp;
+<b class="nc"><i>780</i>&nbsp;        if (roofLength &lt;= 480 ) //if roofLength equal/smaller than 480 - længde af 1 vandbræt</b>
+<i>781</i>&nbsp;        {
+<b class="nc"><i>782</i>&nbsp;            numberOfVandbraet = 2;</b>
+<i>783</i>&nbsp;        }
+<b class="nc"><i>784</i>&nbsp;        else if (roofLength &gt; 480 )</b>
+<i>785</i>&nbsp;        {
+<b class="nc"><i>786</i>&nbsp;            numberOfVandbraet= 4;</b>
+<i>787</i>&nbsp;        }
+<b class="nc"><i>788</i>&nbsp;        return numberOfVandbraet;</b>
+<i>789</i>&nbsp;    }
+<i>790</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-29 07:04</div>
+</div>
+</body>
+</html>

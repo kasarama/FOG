@@ -1,0 +1,158 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Shed</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">FunctionLayer</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Shed (FunctionLayer)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Shed</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    58,3%
+  </span>
+  <span class="absValue">
+    (7/ 12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    51,7%
+  </span>
+  <span class="absValue">
+    (15/ 29)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package FunctionLayer;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.ArrayList;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;public class Shed {
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;    private int width;
+<i>8</i>&nbsp;    private int depth;
+<i>9</i>&nbsp;    private String side;
+<i>10</i>&nbsp;    private ArrayList&lt;Wall&gt; walls;
+<i>11</i>&nbsp;    private ArrayList&lt;Material&gt; materials;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;
+<b class="fc"><i>14</i>&nbsp;    public Shed(int width, int depth, String side) {</b>
+<b class="fc"><i>15</i>&nbsp;        this.width = width;</b>
+<b class="fc"><i>16</i>&nbsp;        this.depth = depth;</b>
+<b class="fc"><i>17</i>&nbsp;        this.side = side;</b>
+<b class="fc"><i>18</i>&nbsp;        this.walls= new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>19</i>&nbsp;        this.materials= new ArrayList&lt;&gt;();</b>
+<i>20</i>&nbsp;
+<b class="fc"><i>21</i>&nbsp;    }</b>
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    public ArrayList&lt;Material&gt; getMaterials() {
+<b class="nc"><i>25</i>&nbsp;        return materials;</b>
+<i>26</i>&nbsp;    }
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    public void setMaterials(ArrayList&lt;Material&gt; materials) {
+<b class="fc"><i>29</i>&nbsp;        this.materials = materials;</b>
+<b class="fc"><i>30</i>&nbsp;    }</b>
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    public ArrayList&lt;Wall&gt; getWalls() {
+<b class="fc"><i>35</i>&nbsp;        return walls;</b>
+<i>36</i>&nbsp;    }
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    public void setWalls(ArrayList&lt;Wall&gt; walls) {
+<b class="fc"><i>39</i>&nbsp;        this.walls = walls;</b>
+<b class="fc"><i>40</i>&nbsp;    }</b>
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    public String getSide() {
+<b class="fc"><i>43</i>&nbsp;        return side;</b>
+<i>44</i>&nbsp;    }
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    public void setSide(String side) {
+<b class="nc"><i>47</i>&nbsp;        this.side = side;</b>
+<b class="nc"><i>48</i>&nbsp;    }</b>
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    public int getWidth() {
+<b class="fc"><i>51</i>&nbsp;        return width;</b>
+<i>52</i>&nbsp;    }
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    public void setWidth(int width) {
+<b class="nc"><i>55</i>&nbsp;        this.width = width;</b>
+<b class="nc"><i>56</i>&nbsp;    }</b>
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    public int getDepth() {
+<b class="fc"><i>59</i>&nbsp;        return depth;</b>
+<i>60</i>&nbsp;    }
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    public void setDepth(int depth) {
+<b class="nc"><i>63</i>&nbsp;        this.depth = depth;</b>
+<b class="nc"><i>64</i>&nbsp;    }</b>
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    public String danishSide(){
+<b class="nc"><i>67</i>&nbsp;        String side=&quot;&quot;;</b>
+<b class="nc"><i>68</i>&nbsp;        if (this.side.equals(&quot;right&quot;)){</b>
+<b class="nc"><i>69</i>&nbsp;            side =&quot;højre&quot;;</b>
+<b class="nc"><i>70</i>&nbsp;        } else if (this.side.equals(&quot;left&quot;)){</b>
+<b class="nc"><i>71</i>&nbsp;            side=&quot;venstre&quot;;</b>
+<b class="nc"><i>72</i>&nbsp;        } else side=null;</b>
+<b class="nc"><i>73</i>&nbsp;        return side;</b>
+<i>74</i>&nbsp;    }
+<i>75</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-29 07:04</div>
+</div>
+</body>
+</html>

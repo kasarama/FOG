@@ -1,0 +1,169 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RoofSizing</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">FunctionLayer</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RoofSizing (FunctionLayer)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RoofSizing</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    53,8%
+  </span>
+  <span class="absValue">
+    (7/ 13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75,8%
+  </span>
+  <span class="absValue">
+    (25/ 33)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package FunctionLayer;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;public class RoofSizing {
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;    Construction construction;
+<i>6</i>&nbsp;    private int roofLength;
+<i>7</i>&nbsp;    private double roofHeigth;
+<b class="fc"><i>8</i>&nbsp;    private static int MINPITCHDEGREEOPTION = 15;</b>
+<b class="fc"><i>9</i>&nbsp;    private static int MAXPITCHDEGREEOPTION = 45 - 1; //Vi har valgt ud fra hvad productowner fra Fog har sagt</b>
+<i>10</i>&nbsp;    //&quot;45 grader vil blive et tårn&quot; - men man kan finde det på fogs hjemmeside, så vi har derfor sagt 45-1
+<i>11</i>&nbsp;
+<b class="fc"><i>12</i>&nbsp;    public RoofSizing(Construction construction) {</b>
+<b class="fc"><i>13</i>&nbsp;        this.construction = construction;</b>
+<b class="fc"><i>14</i>&nbsp;    }</b>
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    //Beregning af tagets stigning
+<i>17</i>&nbsp;    public int roofHeight(boolean pitchedRoof, int lenght, int width) {
+<b class="fc"><i>18</i>&nbsp;        if (pitchedRoof)</b>
+<b class="fc"><i>19</i>&nbsp;            roofHeigth = (int) (Math.tan(Math.toRadians(construction.getRoof().getDegree())) * width/2);</b>
+<i>20</i>&nbsp;        else
+<b class="fc"><i>21</i>&nbsp;            roofHeigth = (int) (Math.tan(Math.toRadians(construction.getRoof().getDegree()))* lenght);</b>
+<b class="fc"><i>22</i>&nbsp;        return (int) roofHeigth;</b>
+<i>23</i>&nbsp;    }
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    //Hjælpemetode for bredde af tag afhægnig af type
+<i>26</i>&nbsp;    public int roofWidthSurface() {
+<i>27</i>&nbsp;        int roofwidth;
+<b class="fc"><i>28</i>&nbsp;        if (construction.getRoof().getIsPitched())</b>
+<b class="fc"><i>29</i>&nbsp;            roofwidth = pitchedRoofCalcutatedWidth();</b>
+<i>30</i>&nbsp;        else
+<b class="fc"><i>31</i>&nbsp;            roofwidth= construction.getConstructionWidth();</b>
+<b class="fc"><i>32</i>&nbsp;        return roofwidth;</b>
+<i>33</i>&nbsp;    }
+<i>34</i>&nbsp;    //Hjælpemetode for længde af tag afhængnig af type
+<i>35</i>&nbsp;    public int roofLengthSurface(){
+<i>36</i>&nbsp;        int roofLength;
+<b class="fc"><i>37</i>&nbsp;        if (construction.getRoof().getIsPitched())</b>
+<b class="fc"><i>38</i>&nbsp;            roofLength = construction.getConstructionLength();</b>
+<i>39</i>&nbsp;        else
+<b class="fc"><i>40</i>&nbsp;            roofLength = flatRoofCalcutatedLength();</b>
+<i>41</i>&nbsp;
+<b class="fc"><i>42</i>&nbsp;        return roofLength;</b>
+<i>43</i>&nbsp;    }
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    //Areal hjælpeberegning af længde af fladt tags overflade
+<i>46</i>&nbsp;    public int flatRoofCalcutatedLength() {
+<i>47</i>&nbsp;        //Vi har fået beskrevet af productowner at fladt tag skal have en fast hældning
+<b class="fc"><i>48</i>&nbsp;        roofHeigth = roofHeight(false, construction.getConstructionLength() ,</b>
+<b class="fc"><i>49</i>&nbsp;                construction.getConstructionWidth());</b>
+<b class="fc"><i>50</i>&nbsp;        roofLength = (int) Math.hypot((double) construction.getConstructionLength(), (double) roofHeigth);</b>
+<b class="fc"><i>51</i>&nbsp;        return roofLength;</b>
+<i>52</i>&nbsp;    }
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    //Areal hjælpeberegning af halv bredde af tag med spids&#39;s overflade målt fra tagfod til tagryg
+<i>55</i>&nbsp;    public int pitchedRoofCalcutatedWidth(){
+<i>56</i>&nbsp;        //Vi har antaget at tagryggen går fra midt front til midt bagpå (parallelt med construction.length)
+<b class="fc"><i>57</i>&nbsp;        int halfRaftWidthForPitchedRoof = construction.getConstructionWidth()/2;</b>
+<b class="fc"><i>58</i>&nbsp;        int roofHalfWidth = (int) (halfRaftWidthForPitchedRoof/(Math.cos(</b>
+<b class="fc"><i>59</i>&nbsp;                Math.toRadians(construction.getRoof().getDegree()))));</b>
+<b class="fc"><i>60</i>&nbsp;        return roofHalfWidth;</b>
+<i>61</i>&nbsp;    }
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    public int getRoofLength() {
+<b class="nc"><i>64</i>&nbsp;        return roofLength;</b>
+<i>65</i>&nbsp;    }
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    public void setRoofLength(int roofLength) {
+<b class="nc"><i>68</i>&nbsp;        this.roofLength = roofLength;</b>
+<b class="nc"><i>69</i>&nbsp;    }</b>
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    public double getRoofHeigth() {
+<b class="nc"><i>72</i>&nbsp;        return roofHeigth;</b>
+<i>73</i>&nbsp;    }
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;    public void setRoofHeigth(double roofHeigth) {
+<b class="nc"><i>76</i>&nbsp;        this.roofHeigth = roofHeigth;</b>
+<b class="nc"><i>77</i>&nbsp;    }</b>
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;    public static int getMINPITCHDEGREEOPTION() {
+<b class="nc"><i>80</i>&nbsp;        return MINPITCHDEGREEOPTION;</b>
+<i>81</i>&nbsp;    }
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;    public static int getMAXPITCHDEGREEOPTION() {
+<b class="nc"><i>84</i>&nbsp;        return MAXPITCHDEGREEOPTION;</b>
+<i>85</i>&nbsp;    }
+<i>86</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-29 07:04</div>
+</div>
+</body>
+</html>

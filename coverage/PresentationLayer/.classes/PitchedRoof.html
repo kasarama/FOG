@@ -1,0 +1,127 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: PitchedRoof</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">PresentationLayer</a> ]
+</div>
+
+<h1>Coverage Summary for Class: PitchedRoof (PresentationLayer)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PitchedRoof</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 18)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package PresentationLayer;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import FunctionLayer.*;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import javax.servlet.http.HttpServletRequest;
+<i>6</i>&nbsp;import javax.servlet.http.HttpServletResponse;
+<i>7</i>&nbsp;import javax.servlet.http.HttpSession;
+<i>8</i>&nbsp;import java.util.ArrayList;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;/**
+<i>11</i>&nbsp; * @author Cathrine og monajakobmeshal
+<i>12</i>&nbsp; */
+<i>13</i>&nbsp;
+<b class="nc"><i>14</i>&nbsp;public class PitchedRoof extends Command {</b>
+<i>15</i>&nbsp;    @Override
+<i>16</i>&nbsp;    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+<i>17</i>&nbsp;
+<b class="nc"><i>18</i>&nbsp;        HttpSession session = request.getSession();</b>
+<b class="nc"><i>19</i>&nbsp;        Construction carportBase = (Construction) session.getAttribute(&quot;carportBase&quot;);</b>
+<i>20</i>&nbsp;
+<b class="nc"><i>21</i>&nbsp;        String temp = request.getParameter(&quot;pitchedroofmaterial&quot;);</b>
+<b class="nc"><i>22</i>&nbsp;        String[] tempMateriale = temp.split(&quot;;&quot;);</b>
+<i>23</i>&nbsp;
+<b class="nc"><i>24</i>&nbsp;        int tagstenID = Integer.parseInt(tempMateriale[0]);</b>
+<b class="nc"><i>25</i>&nbsp;        int variationID = Integer.parseInt(tempMateriale[1]);</b>
+<i>26</i>&nbsp;
+<b class="nc"><i>27</i>&nbsp;        String color = LogicFacade.getColourByVariationID(variationID);</b>
+<b class="nc"><i>28</i>&nbsp;        String materialName = LogicFacade.getANameFromMaterialID(tagstenID);</b>
+<i>29</i>&nbsp;
+<b class="nc"><i>30</i>&nbsp;        carportBase.getRoof().setColor(color);</b>
+<b class="nc"><i>31</i>&nbsp;        carportBase.getRoof().setCover(materialName);</b>
+<i>32</i>&nbsp;
+<b class="nc"><i>33</i>&nbsp;        int degree = Integer.parseInt(request.getParameter(&quot;pitchedroofdegree&quot;));</b>
+<b class="nc"><i>34</i>&nbsp;        System.out.println(&quot;Graden er: &quot; + degree);</b>
+<i>35</i>&nbsp;
+<b class="nc"><i>36</i>&nbsp;        carportBase.getRoof().setDegree(degree);</b>
+<b class="nc"><i>37</i>&nbsp;        System.out.println(&quot;Er der rejsning? &quot; + carportBase.getRoof().getIsPitched());</b>
+<b class="nc"><i>38</i>&nbsp;        System.out.println(&quot;Actual degree= &quot; + carportBase.getRoof().getDegree());</b>
+<i>39</i>&nbsp;
+<b class="nc"><i>40</i>&nbsp;        session.setAttribute(&quot;carportBase&quot;, carportBase);</b>
+<i>41</i>&nbsp;
+<b class="nc"><i>42</i>&nbsp;        return &quot;overlay&quot;;</b>
+<i>43</i>&nbsp;    }
+<i>44</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-29 07:04</div>
+</div>
+</body>
+</html>

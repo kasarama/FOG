@@ -1,0 +1,161 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Drawing</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">PresentationLayer</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Drawing (PresentationLayer)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Drawing</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 33)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package PresentationLayer;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import FunctionLayer.Construction;
+<i>4</i>&nbsp;import FunctionLayer.ConstructionSizeCalculator;
+<i>5</i>&nbsp;import FunctionLayer.Order;
+<i>6</i>&nbsp;import FunctionLayer.Svg;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import javax.servlet.http.HttpServletRequest;
+<i>9</i>&nbsp;import javax.servlet.http.HttpServletResponse;
+<i>10</i>&nbsp;import javax.servlet.http.HttpSession;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;/**
+<i>13</i>&nbsp; * The purpose of this class is to create figures on the jsp side.
+<i>14</i>&nbsp; * @author Mia
+<i>15</i>&nbsp; */
+<i>16</i>&nbsp;
+<b class="nc"><i>17</i>&nbsp;public class Drawing extends Command{</b>
+<i>18</i>&nbsp;    @Override
+<i>19</i>&nbsp;    String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+<i>20</i>&nbsp;
+<b class="nc"><i>21</i>&nbsp;        Order order = (Order) request.getServletContext().getAttribute(&quot;orderForValidation&quot;);</b>
+<i>22</i>&nbsp;
+<b class="nc"><i>23</i>&nbsp;        int width = (order.getConstruction().getConstructionLength()/10);</b>
+<b class="nc"><i>24</i>&nbsp;        int height = (order.getConstruction().getConstructionWidth()/10);</b>
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;        // Teksten mål:
+<b class="nc"><i>27</i>&nbsp;        String text1 = height + &quot; cm&quot;;</b>
+<b class="nc"><i>28</i>&nbsp;        String text2 = width + &quot; cm&quot;;</b>
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;        // Grundet tegningens størrelses, deles width og height med 2 så tegningen ikke bliver for stor
+<b class="nc"><i>31</i>&nbsp;        if (width&gt;500 || height&gt;500){</b>
+<b class="nc"><i>32</i>&nbsp;            width = width/2;</b>
+<b class="nc"><i>33</i>&nbsp;            height = height/2;</b>
+<i>34</i>&nbsp;        }
+<i>35</i>&nbsp;
+<b class="nc"><i>36</i>&nbsp;        String viewBox2 = &quot;-50, -10, &quot; + (width+100) + &quot;, &quot; + (height+50);</b>
+<b class="nc"><i>37</i>&nbsp;        Svg svg = new Svg(width+100, height+50, viewBox2, 0, 0);</b>
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;        // Baggrund:
+<b class="nc"><i>40</i>&nbsp;        svg.addRect(0,0,height,width);</b>
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;        // Remme:
+<b class="nc"><i>43</i>&nbsp;        svg.addRect(0,30,3,width);</b>
+<b class="nc"><i>44</i>&nbsp;        svg.addRect(0,height-30,3,width);</b>
+<b class="nc"><i>45</i>&nbsp;        if (height &gt; 600){</b>
+<b class="nc"><i>46</i>&nbsp;            svg.addRect(0,height/2,3,width);</b>
+<i>47</i>&nbsp;        }
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;        // Spær:
+<i>50</i>&nbsp;        // metode roofSpaerAmount  --  hvordan skal jeg køre metoden roofSpaerAmount gange?
+<i>51</i>&nbsp;        // Længde/roofSpaerAmount = mellemrum
+<b class="nc"><i>52</i>&nbsp;        int space = width/(ConstructionSizeCalculator.roofSpaerAmount(order.getConstruction()));</b>
+<b class="nc"><i>53</i>&nbsp;        svg.addRect(0,0,height,3);</b>
+<i>54</i>&nbsp;        // Der skal sættes et spær for hvert mellemrum: space, space*2, space*3, indtil man når antallet af stopler
+<b class="nc"><i>55</i>&nbsp;        for (int i = 0; i &lt; ConstructionSizeCalculator.roofSpaerAmount(order.getConstruction()); i++){</b>
+<b class="nc"><i>56</i>&nbsp;            svg.addRect(space*i, 0, height, 3);</b>
+<i>57</i>&nbsp;        }
+<i>58</i>&nbsp;
+<b class="nc"><i>59</i>&nbsp;        svg.addRect(width,0,height,3);</b>
+<i>60</i>&nbsp;        // Stolper:
+<b class="nc"><i>61</i>&nbsp;        int spacePosts = ConstructionSizeCalculator.postDistanceMax3000(width);</b>
+<b class="nc"><i>62</i>&nbsp;        for (int i = 0; i &lt; ConstructionSizeCalculator.sidePostAmount(width); i++){</b>
+<b class="nc"><i>63</i>&nbsp;            svg.addRect(spacePosts*i, height-31, 7, 7);</b>
+<b class="nc"><i>64</i>&nbsp;            svg.addRect(spacePosts*i, 28, 7, 7);</b>
+<i>65</i>&nbsp;        }
+<b class="nc"><i>66</i>&nbsp;        svg.addRect(width-5, 28, 7, 7);</b>
+<b class="nc"><i>67</i>&nbsp;        svg.addRect(width-5, height-31, 7, 7);</b>
+<i>68</i>&nbsp;        // Hulbånd:
+<b class="nc"><i>69</i>&nbsp;        svg.addBand(0, 30, spacePosts, height-30);</b>
+<b class="nc"><i>70</i>&nbsp;        svg.addBand(0, height-28, spacePosts, 30);</b>
+<i>71</i>&nbsp;        // Mål:
+<b class="nc"><i>72</i>&nbsp;        svg.addArrows(-25, 0, -25, height, -35, height/2, -90, text1);</b>
+<b class="nc"><i>73</i>&nbsp;        svg.addArrows(0, height+25, width, height+25, width/2, height+40, 0, text2);</b>
+<i>74</i>&nbsp;
+<b class="nc"><i>75</i>&nbsp;        request.setAttribute(&quot;svgdrawing&quot;, svg.toString());</b>
+<b class="nc"><i>76</i>&nbsp;        return &quot;drawing&quot;;</b>
+<i>77</i>&nbsp;    }
+<i>78</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-29 07:04</div>
+</div>
+</body>
+</html>
